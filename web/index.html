@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Brand App Demo</title>
+  <!-- Generated from tokens/tokens.json by `npm run tokens`. Do not edit these two files by hand. -->
+  <link rel="stylesheet" href="src/tokens.css">
+  <link rel="stylesheet" href="src/tokens-dark.css">
+  <style>
+    /* Add your brand web fonts here, e.g.
+       @font-face { font-family: 'BrandBody'; src: url('fonts/BrandBody-Regular.woff2') format('woff2'); font-weight: 400; } */
+    :root { --stack: -apple-system, 'SF Pro Text', system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body { background: #0E0F12; display: grid; place-items: center; min-height: 100vh; padding: 24px 16px;
+           font-family: var(--font-family-body), var(--stack); -webkit-font-smoothing: antialiased; }
+    .controls { position: fixed; top: 16px; right: 16px; display: flex; gap: 6px; }
+    .controls button { font: 500 13px/1 -apple-system, system-ui, sans-serif; padding: 8px 12px; border-radius: 8px;
+                       border: 1px solid #333; background: #1B1D22; color: #DDD; cursor: pointer; }
+    .controls button[aria-pressed="true"] { background: #F2F2F2; color: #111; }
+
+    .phone { width: 393px; max-width: 100%; height: 852px; border-radius: 55px; overflow: hidden; position: relative;
+             border: 10px solid #000; box-shadow: 0 30px 80px rgba(0,0,0,.5);
+             background: var(--color-surface); color: var(--color-text-primary); display: flex; flex-direction: column; }
+    .island { width: 120px; height: 34px; background: #000; border-radius: 20px; margin: 11px auto 0; flex: none; }
+    .screen { flex: 1; overflow-y: auto; padding-bottom: var(--space-xl); }
+    .home-indicator { width: 134px; height: 5px; border-radius: 3px; background: var(--color-text-primary); margin: 8px auto; flex: none; }
+
+    .t-large-title { font-family: var(--font-family-display), var(--stack); font-size: var(--type-large-title-size);
+      font-weight: var(--type-large-title-weight); line-height: calc(var(--type-large-title-line-height) * 1px); letter-spacing: calc(var(--type-large-title-tracking) * 1px); }
+    .t-title-3 { font-family: var(--font-family-display), var(--stack); font-size: var(--type-title-3-size);
+      font-weight: var(--type-title-3-weight); line-height: calc(var(--type-title-3-line-height) * 1px); }
+    .t-headline { font-size: var(--type-headline-size); font-weight: var(--type-headline-weight); line-height: calc(var(--type-headline-line-height) * 1px); }
+    .t-body { font-size: var(--type-body-size); font-weight: var(--type-body-weight); line-height: calc(var(--type-body-line-height) * 1px); }
+    .t-callout { font-size: var(--type-callout-size); font-weight: var(--type-callout-weight); line-height: calc(var(--type-callout-line-height) * 1px); }
+    .t-subheadline { font-size: var(--type-subheadline-size); line-height: calc(var(--type-subheadline-line-height) * 1px); }
+    .t-footnote { font-size: var(--type-footnote-size); line-height: calc(var(--type-footnote-line-height) * 1px); }
+    .t-caption { font-size: var(--type-caption-size); line-height: calc(var(--type-caption-line-height) * 1px); }
+    .secondary { color: var(--color-text-secondary); }
+
+    .nav { padding: var(--space-lg) var(--space-md) var(--space-sm); }
+    .section-label { margin: var(--space-lg) var(--space-md) var(--space-sm); text-transform: uppercase; }
+    .group { margin: 0 var(--space-md); background: var(--color-surface-raised); border-radius: var(--radius-md); overflow: hidden; }
+    .row { display: flex; justify-content: space-between; align-items: center; padding: 11px var(--space-md); min-height: 44px; }
+    .row + .row { border-top: 0.5px solid var(--color-separator); }
+    .card { margin: var(--space-lg) var(--space-md) 0; padding: var(--space-md); background: var(--color-surface-raised); border-radius: var(--radius-lg); }
+    .card p { margin: var(--space-xs) 0 0; }
+    .status { display: flex; gap: var(--space-md); margin-top: var(--space-md); }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+    .btn { display: block; width: calc(100% - 2 * var(--space-md)); margin: var(--space-lg) var(--space-md) 0; min-height: 50px;
+           border: 0; border-radius: var(--radius-lg); background: var(--color-accent-strong); color: var(--color-on-accent);
+           font: inherit; font-size: var(--type-headline-size); font-weight: var(--type-headline-weight); cursor: pointer; }
+    .links { display: flex; justify-content: space-between; margin: var(--space-md) var(--space-md) 0; }
+    .link { color: var(--color-accent-strong); } .danger { color: var(--color-destructive); }
+    @media (max-width: 440px) { body { padding: 0; } .phone { border: 0; border-radius: 0; height: 100vh; width: 100%; box-shadow: none; } .controls { top: auto; bottom: 16px; } }
+  </style>
+</head>
+<body>
+  <div class="controls" role="group" aria-label="Appearance">
+    <button id="light" aria-pressed="true">Light</button>
+    <button id="dark" aria-pressed="false">Dark</button>
+  </div>
+
+  <main class="phone" id="phone">
+    <div class="island"></div>
+    <div class="screen">
+      <header class="nav t-large-title">Home</header>
+
+      <div class="section-label t-footnote secondary">This week</div>
+      <div class="group">
+        <div class="row"><span class="t-body">Morning order</span><span class="t-subheadline secondary">9:00</span></div>
+        <div class="row"><span class="t-body">Restock notes</span><span class="t-subheadline secondary">Today</span></div>
+        <div class="row"><span class="t-body">Supplier call</span><span class="t-subheadline secondary">3 PM</span></div>
+      </div>
+
+      <section class="card">
+        <div class="t-title-3">Featured</div>
+        <p class="t-callout secondary">Every color, font size and gap on this screen comes from your Figma variables.</p>
+        <div class="status t-caption secondary">
+          <span><span class="dot" style="background:var(--color-success)"></span>In stock</span>
+          <span><span class="dot" style="background:var(--color-warning)"></span>Low</span>
+        </div>
+      </section>
+
+      <button class="btn">Get started</button>
+      <div class="links t-body"><span class="link">View all</span><span class="danger">Delete</span></div>
+    </div>
+    <div class="home-indicator"></div>
+  </main>
+
+  <script>
+    const phone = document.getElementById('phone');
+    const set = (mode) => {
+      if (mode === 'dark') phone.setAttribute('data-mode', 'dark'); else phone.removeAttribute('data-mode');
+      document.getElementById('light').setAttribute('aria-pressed', mode === 'light');
+      document.getElementById('dark').setAttribute('aria-pressed', mode === 'dark');
+    };
+    document.getElementById('light').onclick = () => set('light');
+    document.getElementById('dark').onclick = () => set('dark');
+    if (location.hash === '#dark') set('dark');
+  </script>
+</body>
+</html>

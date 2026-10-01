@@ -1,0 +1,71 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+[data-mode="dark"] {
+  --font-family-display: 'SF Pro';
+  --font-family-body: 'SF Pro';
+  --type-large-title-size: 34px;
+  --type-large-title-weight: 700;
+  --type-large-title-line-height: 41;
+  --type-large-title-tracking: 0;
+  --type-title-1-size: 28px;
+  --type-title-1-weight: 700;
+  --type-title-1-line-height: 34;
+  --type-title-1-tracking: 0;
+  --type-title-2-size: 22px;
+  --type-title-2-weight: 700;
+  --type-title-2-line-height: 28;
+  --type-title-2-tracking: 0;
+  --type-title-3-size: 20px;
+  --type-title-3-weight: 600;
+  --type-title-3-line-height: 25;
+  --type-title-3-tracking: 0;
+  --type-headline-size: 17px;
+  --type-headline-weight: 600;
+  --type-headline-line-height: 22;
+  --type-headline-tracking: 0;
+  --type-body-size: 17px;
+  --type-body-weight: 400;
+  --type-body-line-height: 22;
+  --type-body-tracking: 0;
+  --type-callout-size: 16px;
+  --type-callout-weight: 400;
+  --type-callout-line-height: 21;
+  --type-callout-tracking: 0;
+  --type-subheadline-size: 15px;
+  --type-subheadline-weight: 400;
+  --type-subheadline-line-height: 20;
+  --type-subheadline-tracking: 0;
+  --type-footnote-size: 13px;
+  --type-footnote-weight: 400;
+  --type-footnote-line-height: 18;
+  --type-footnote-tracking: 0;
+  --type-caption-size: 12px;
+  --type-caption-weight: 400;
+  --type-caption-line-height: 16;
+  --type-caption-tracking: 0;
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --color-accent: #6a93ff;
+  --color-accent-strong: #8aabff;
+  --color-on-accent: #0a1230;
+  --color-background: #000000;
+  --color-surface: #1c1c1e;
+  --color-surface-raised: #2c2c2e;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-separator: #38383a;
+  --color-destructive: #ff6961;
+  --color-success: #30d158;
+  --color-warning: #ffb340;
+}
