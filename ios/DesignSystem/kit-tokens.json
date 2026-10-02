@@ -1,0 +1,196 @@
+[
+  {
+    "token": "color.accent",
+    "class": "own",
+    "swift": "Color(\"Accent\")",
+    "colorset": "Assets.xcassets/Accent.colorset",
+    "light": "#1f4fd8",
+    "dark": "#6a93ff"
+  },
+  {
+    "token": "color.accent-strong",
+    "class": "own",
+    "swift": "Color(\"AccentStrong\")",
+    "colorset": "Assets.xcassets/AccentStrong.colorset",
+    "light": "#1740b0",
+    "dark": "#8aabff"
+  },
+  {
+    "token": "color.on-accent",
+    "class": "own",
+    "swift": "Color(\"OnAccent\")",
+    "colorset": "Assets.xcassets/OnAccent.colorset",
+    "light": "#ffffff",
+    "dark": "#0a1230"
+  },
+  {
+    "token": "color.background",
+    "class": "sdk",
+    "swift": "Color(uiColor: .systemBackground)"
+  },
+  {
+    "token": "color.surface",
+    "class": "sdk",
+    "swift": "Color(uiColor: .systemGroupedBackground)"
+  },
+  {
+    "token": "color.surface-raised",
+    "class": "sdk",
+    "swift": "Color(uiColor: .secondarySystemGroupedBackground)"
+  },
+  {
+    "token": "color.text-primary",
+    "class": "sdk",
+    "swift": "Color.primary"
+  },
+  {
+    "token": "color.text-secondary",
+    "class": "sdk",
+    "swift": "Color.secondary"
+  },
+  {
+    "token": "color.separator",
+    "class": "sdk",
+    "swift": "Color(uiColor: .separator)"
+  },
+  {
+    "token": "color.destructive",
+    "class": "own",
+    "swift": "Color(\"Destructive\")",
+    "colorset": "Assets.xcassets/Destructive.colorset",
+    "light": "#d70015",
+    "dark": "#ff6961"
+  },
+  {
+    "token": "color.success",
+    "class": "own",
+    "swift": "Color(\"Success\")",
+    "colorset": "Assets.xcassets/Success.colorset",
+    "light": "#248a3d",
+    "dark": "#30d158"
+  },
+  {
+    "token": "color.warning",
+    "class": "own",
+    "swift": "Color(\"Warning\")",
+    "colorset": "Assets.xcassets/Warning.colorset",
+    "light": "#b25000",
+    "dark": "#ffb340"
+  },
+  {
+    "token": "type.large-title",
+    "class": "textStyle",
+    "swift": "Font.largeTitle.weight(.bold)"
+  },
+  {
+    "token": "type.title-1",
+    "class": "textStyle",
+    "swift": "Font.title.weight(.bold)"
+  },
+  {
+    "token": "type.title-2",
+    "class": "textStyle",
+    "swift": "Font.title2.weight(.bold)"
+  },
+  {
+    "token": "type.title-3",
+    "class": "textStyle",
+    "swift": "Font.title3.weight(.semibold)"
+  },
+  {
+    "token": "type.headline",
+    "class": "textStyle",
+    "swift": "Font.headline.weight(.semibold)"
+  },
+  {
+    "token": "type.body",
+    "class": "textStyle",
+    "swift": "Font.body.weight(.regular)"
+  },
+  {
+    "token": "type.callout",
+    "class": "textStyle",
+    "swift": "Font.callout.weight(.regular)"
+  },
+  {
+    "token": "type.subheadline",
+    "class": "textStyle",
+    "swift": "Font.subheadline.weight(.regular)"
+  },
+  {
+    "token": "type.footnote",
+    "class": "textStyle",
+    "swift": "Font.footnote.weight(.regular)"
+  },
+  {
+    "token": "type.caption",
+    "class": "textStyle",
+    "swift": "Font.caption.weight(.regular)"
+  },
+  {
+    "token": "space.xxs",
+    "class": "own",
+    "swift": "Spacing.xxs",
+    "value": 2
+  },
+  {
+    "token": "space.xs",
+    "class": "own",
+    "swift": "Spacing.xs",
+    "value": 4
+  },
+  {
+    "token": "space.sm",
+    "class": "own",
+    "swift": "Spacing.sm",
+    "value": 8
+  },
+  {
+    "token": "space.md",
+    "class": "own",
+    "swift": "Spacing.md",
+    "value": 16
+  },
+  {
+    "token": "space.lg",
+    "class": "own",
+    "swift": "Spacing.lg",
+    "value": 24
+  },
+  {
+    "token": "space.xl",
+    "class": "own",
+    "swift": "Spacing.xl",
+    "value": 32
+  },
+  {
+    "token": "space.xxl",
+    "class": "own",
+    "swift": "Spacing.xxl",
+    "value": 48
+  },
+  {
+    "token": "radius.sm",
+    "class": "own",
+    "swift": "Radius.sm",
+    "value": 8
+  },
+  {
+    "token": "radius.md",
+    "class": "own",
+    "swift": "Radius.md",
+    "value": 12
+  },
+  {
+    "token": "radius.lg",
+    "class": "own",
+    "swift": "Radius.lg",
+    "value": 20
+  },
+  {
+    "token": "radius.xl",
+    "class": "own",
+    "swift": "Radius.xl",
+    "value": 28
+  }
+]
