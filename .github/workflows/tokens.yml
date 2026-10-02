@@ -1,7 +1,7 @@
 name: Build design tokens
 on:
   push:
-    paths: ['tokens/**', 'sd.config.mjs']
+    paths: ['tokens/**', 'sd.config.mjs', 'ios-system-map.json']
   workflow_dispatch:
 permissions:
   contents: write
@@ -18,4 +18,4 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: rebuild design tokens'
-          file_pattern: 'ios/*.swift web/src/*.css'
+          file_pattern: 'ios web/src'
