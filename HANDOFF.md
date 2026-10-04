@@ -17,9 +17,31 @@ Generated from `tokens/tokens.json` by `npm install && npm run tokens` (Node 22+
 - `ios-system-map.json` decides which tokens are system-owned. Edit it to move a token between system and brand.
 
 ## Fonts
-- Files in `ios/Fonts/`. Add them to the app target and list them under "Fonts provided by application" (UIAppFonts) in Info.plist.
-- `Typography.swift` already wraps custom fonts in `Font.custom(_:size:relativeTo:)`. If the font's PostScript name differs from its family name, update the family token in Figma so the generated name matches.
-- If a family is "SF Pro", the generated code uses the system font; don't bundle SF Pro.
+Titles (Large Title, Title 1 to 3) use **Encode Sans**; everything else uses SF Pro, the system font, which needs no files.
+
+- Font files are in `ios/Fonts/`, taken unmodified from the Encode Sans project (SIL Open Font License; keep `OFL.txt` with them):
+
+  | File | Weight | PostScript name | Used by |
+  |---|---|---|---|
+  | `EncodeSans-Bold.ttf` | 700 | `EncodeSans-Bold` | Large Title, Title 1, Title 2 |
+  | `EncodeSans-SemiBold.ttf` | 600 | `EncodeSans-SmBold` | Title 3 |
+  | `EncodeSans-Regular.ttf` | 400 | `EncodeSans-Regular` | Not used by the tokens yet; included for app copy that needs it |
+
+- Setup: drag the three `.ttf` files into Xcode with the app target ticked, then add them to Info.plist under "Fonts provided by application" (`UIAppFonts`):
+
+  ```xml
+  <key>UIAppFonts</key>
+  <array>
+      <string>EncodeSans-Bold.ttf</string>
+      <string>EncodeSans-SemiBold.ttf</string>
+      <string>EncodeSans-Regular.ttf</string>
+  </array>
+  ```
+
+- `Typography.swift` asks for the family `"Encode Sans"` and sets the weight (`.bold`, `.semibold`), so iOS picks the matching file. Check a title on a device: if it shows in SF Pro, the font isn't registered (check the target membership and the Info.plist names). Don't rename the family token in Figma to fix it, because the website loads the font by that name.
+- Dynamic Type still works: each style uses `relativeTo:` an iOS text style. Encode Sans is wide, so check long titles at the largest accessibility sizes.
+- The website loads Encode Sans from Google Fonts (`web/src/fonts.css`), so these files are for the app only.
+- Never bundle SF Pro; the generated code uses the system font for it.
 
 ## Website
 The same tokens style a website. Everything is in `web/`:
