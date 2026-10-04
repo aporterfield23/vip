@@ -8,7 +8,7 @@ extension Color {
         static let accent = Color("Accent")
         /// Brand-owned. Light #006642, dark #80ccb1. Increase Contrast: #02482E / #80ccb1.
         static let accentStrong = Color("AccentStrong")
-        /// Brand-owned. Light #ffffff, dark #202944. Increase Contrast: #ffffff / #202944.
+        /// Brand-owned. Light #ffffff, dark #000000. Increase Contrast: #ffffff / #000000.
         static let onAccent = Color("OnAccent")
         /// Brand-owned. Light #ffffff, dark #1d242d. Increase Contrast: #ffffff / #1d242d.
         static let background = Color("Background")

@@ -58,7 +58,7 @@
   --radius-xl: 28px;
   --color-accent: #32ab7f;
   --color-accent-strong: #80ccb1;
-  --color-on-accent: #202944;
+  --color-on-accent: #000000;
   --color-background: #1d242d;
   --color-surface: #1d242d;
   --color-surface-raised: #212934;
@@ -133,7 +133,7 @@
     --radius-xl: 28px;
     --color-accent: #32ab7f;
     --color-accent-strong: #80ccb1;
-    --color-on-accent: #202944;
+    --color-on-accent: #000000;
     --color-background: #1d242d;
     --color-surface: #1d242d;
     --color-surface-raised: #212934;

@@ -25,9 +25,9 @@
     "swift": "Color(\"OnAccent\")",
     "colorset": "Assets.xcassets/OnAccent.colorset",
     "light": "#ffffff",
-    "dark": "#202944",
+    "dark": "#000000",
     "highContrastLight": "#ffffff",
-    "highContrastDark": "#202944"
+    "highContrastDark": "#000000"
   },
   {
     "token": "color.background",
