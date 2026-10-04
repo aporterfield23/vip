@@ -71,3 +71,13 @@
   --color-brand-navy: #9095a2;
   --color-secondary: #60a09c;
 }
+
+@media (prefers-contrast: more) {
+  [data-mode="dark"] {
+    --color-accent: #78C7AB;
+    --color-destructive: #F0A3AB;
+    --color-success: #91C39E;
+    --color-brand-navy: #B4B7C0;
+    --color-secondary: #95BFBD;
+  }
+}

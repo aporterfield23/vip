@@ -71,3 +71,14 @@
   --color-brand-navy: #202944;
   --color-secondary: #397874;
 }
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-accent: #005F3E;
+    --color-accent-strong: #00482F;
+    --color-destructive: #A7101F;
+    --color-success: #315B3C;
+    --color-warning: #873C00;
+    --color-secondary: #2B5B58;
+  }
+}

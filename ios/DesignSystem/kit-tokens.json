@@ -5,7 +5,9 @@
     "swift": "Color(\"Accent\")",
     "colorset": "Assets.xcassets/Accent.colorset",
     "light": "#007e52",
-    "dark": "#2fa87d"
+    "dark": "#2fa87d",
+    "highContrastLight": "#005F3E",
+    "highContrastDark": "#78C7AB"
   },
   {
     "token": "color.accent-strong",
@@ -13,7 +15,9 @@
     "swift": "Color(\"AccentStrong\")",
     "colorset": "Assets.xcassets/AccentStrong.colorset",
     "light": "#006642",
-    "dark": "#7ec9af"
+    "dark": "#7ec9af",
+    "highContrastLight": "#00482F",
+    "highContrastDark": "#7ec9af"
   },
   {
     "token": "color.on-accent",
@@ -21,7 +25,9 @@
     "swift": "Color(\"OnAccent\")",
     "colorset": "Assets.xcassets/OnAccent.colorset",
     "light": "#ffffff",
-    "dark": "#202944"
+    "dark": "#202944",
+    "highContrastLight": "#ffffff",
+    "highContrastDark": "#202944"
   },
   {
     "token": "color.background",
@@ -59,7 +65,9 @@
     "swift": "Color(\"Destructive\")",
     "colorset": "Assets.xcassets/Destructive.colorset",
     "light": "#da1528",
-    "dark": "#e8707b"
+    "dark": "#e8707b",
+    "highContrastLight": "#A7101F",
+    "highContrastDark": "#F0A3AB"
   },
   {
     "token": "color.success",
@@ -67,7 +75,9 @@
     "swift": "Color(\"Success\")",
     "colorset": "Assets.xcassets/Success.colorset",
     "light": "#41794f",
-    "dark": "#58a56c"
+    "dark": "#58a56c",
+    "highContrastLight": "#315B3C",
+    "highContrastDark": "#91C39E"
   },
   {
     "token": "color.warning",
@@ -75,7 +85,9 @@
     "swift": "Color(\"Warning\")",
     "colorset": "Assets.xcassets/Warning.colorset",
     "light": "#b25000",
-    "dark": "#ffb340"
+    "dark": "#ffb340",
+    "highContrastLight": "#873C00",
+    "highContrastDark": "#ffb340"
   },
   {
     "token": "color.brand-navy",
@@ -83,7 +95,9 @@
     "swift": "Color(\"BrandNavy\")",
     "colorset": "Assets.xcassets/BrandNavy.colorset",
     "light": "#202944",
-    "dark": "#9095a2"
+    "dark": "#9095a2",
+    "highContrastLight": "#202944",
+    "highContrastDark": "#B4B7C0"
   },
   {
     "token": "color.secondary",
@@ -91,7 +105,9 @@
     "swift": "Color(\"Secondary\")",
     "colorset": "Assets.xcassets/Secondary.colorset",
     "light": "#397874",
-    "dark": "#60a09c"
+    "dark": "#60a09c",
+    "highContrastLight": "#2B5B58",
+    "highContrastDark": "#95BFBD"
   },
   {
     "token": "type.large-title",
