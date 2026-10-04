@@ -16,7 +16,6 @@
 // "dark" become the dark theme; every other set is shared.
 import { readFileSync, writeFileSync, appendFileSync, mkdirSync, rmSync } from 'node:fs';
 import StyleDictionary from 'style-dictionary';
-import * as Leo from '@adobe/leonardo-contrast-colors';
 import { register } from '@tokens-studio/sd-transforms';
 
 register(StyleDictionary);
@@ -48,7 +47,7 @@ const css = (selector, file) => ({
   css: { transformGroup: 'tokens-studio', transforms: ['name/kebab'], buildPath: 'web/src/',
          files: [{ destination: file, format: 'css/variables', options: { selector, outputReferences: false } }] },
 });
-await newSD(lightTokens, css(':root', 'tokens.css')).buildAllPlatforms();
+await newSD(lightTokens, css(':root, [data-mode="light"]', 'tokens.css')).buildAllPlatforms();
 if (darkTokens) await newSD(darkTokens, css('[data-mode="dark"]', 'tokens-dark.css')).buildAllPlatforms();
 
 // ---------- iOS: resolve values, then write SwiftUI by hand ----------
@@ -85,25 +84,64 @@ function rgba(v) {
   throw new Error(`Unrecognised colour value: ${s}`);
 }
 
-// WCAG 2 contrast, and Leonardo (the tool the palette was built with) for stronger variants.
-const lum = (v) => {
-  const { r, g, b } = rgba(v);
-  const ch = (x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4);
-  return 0.2126 * ch(r) + 0.7152 * ch(g) + 0.0722 * ch(b);
-};
+// WCAG 2 contrast.
+const lin = (x) => (x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4);
+const lum = (v) => { const { r, g, b } = rgba(v); return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b); };
 const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
-// Increase Contrast variant: 1.5x the normal contrast, at least 7:1, at most 15:1.
-// Colours already at 10:1 or more stay as they are.
-function highContrast(value, bg) {
-  const { a } = rgba(value);
-  const base = contrast(value, bg);
-  if (a < 1 || base >= 10) return value;
-  const target = Math.min(Math.max(7.1, base * 1.5), 15);
-  const color = new Leo.Color({ name: 'c', colorKeys: [String(value)], ratios: [target], colorSpace: 'RGB' });
-  const back = new Leo.BackgroundColor({ name: 'bg', colorKeys: ['#808080'], ratios: [1], colorSpace: 'RGB' });
-  const theme = new Leo.Theme({ colors: [color], backgroundColor: back, lightness: lum(bg) > 0.5 ? 100 : 0, output: 'HEX' });
-  return theme.contrastColorPairs.c100.toUpperCase();
+
+// OKLCH, to change a colour's lightness while keeping its hue.
+const gam = (x) => (x <= 0.0031308 ? 12.92 * x : 1.055 * x ** (1 / 2.4) - 0.055);
+function toOklch(v) {
+  const { r, g, b } = rgba(v); const [R, G, B] = [lin(r), lin(g), lin(b)];
+  const l = Math.cbrt(0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B);
+  const m = Math.cbrt(0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B);
+  const s = Math.cbrt(0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B);
+  const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+  const A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  const Bb = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  return { L, C: Math.hypot(A, Bb), h: Math.atan2(Bb, A) };
 }
+function fromOklch({ L, C, h }) {
+  for (let c = C; c >= 0; c -= 0.002) { // reduce chroma until the colour fits in sRGB
+    const A = c * Math.cos(h), B = c * Math.sin(h);
+    const l = (L + 0.3963377774 * A + 0.2158037573 * B) ** 3;
+    const m = (L - 0.1055613458 * A - 0.0638541728 * B) ** 3;
+    const s = (L - 0.0894841775 * A - 1.291485548 * B) ** 3;
+    const rgb = [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+      -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+      -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s].map(gam);
+    if (rgb.every((x) => x >= -0.0005 && x <= 1.0005))
+      return '#' + rgb.map((x) => Math.round(Math.min(1, Math.max(0, x)) * 255).toString(16).padStart(2, '0')).join('').toUpperCase();
+  }
+  return L > 0.5 ? '#FFFFFF' : '#000000';
+}
+
+// Increase Contrast variant: 1.5x the colour's weakest contrast against the mode's
+// backgrounds and surfaces, at least 7:1 and at most 10:1. Colours already at 7:1 keep their value.
+function highContrast(value, bgs) {
+  const { a } = rgba(value);
+  const worst = bgs.reduce((w, b) => (contrast(value, b) < contrast(value, w) ? b : w), bgs[0]);
+  const base = contrast(value, worst);
+  if (a < 1 || base >= 7) return value;
+  const target = Math.min(Math.max(7.1, base * 1.5), 10);
+  const o = toOklch(value);
+  const darker = lum(value) < lum(worst);
+  let lo = darker ? 0 : o.L, hi = darker ? o.L : 1, best = null;
+  for (let i = 0; i < 40; i++) { // binary search on lightness
+    const mid = (lo + hi) / 2, hex = fromOklch({ ...o, L: mid });
+    const ok = contrast(hex, worst) >= target;
+    if (ok) { best = hex; if (darker) lo = mid; else hi = mid; } else if (darker) hi = mid; else lo = mid;
+  }
+  return best ?? (darker ? '#000000' : '#FFFFFF');
+}
+// Every background and surface colour of a mode (falls back to white / black).
+const surfacesOf = (map, fallback) => {
+  const vals = [...map].filter(([k, t]) => typeOf(t) === 'color' && /^color\.(background|surface)/.test(k)).map(([, t]) => valueOf(t)).filter((v) => rgba(v).a === 1);
+  return vals.length ? vals : [fallback];
+};
+const lightSurfaces = surfacesOf(light, '#ffffff');
+const darkSurfaces = surfacesOf(dark, '#000000');
+const isNeutral = (parts) => /^(background|surface|separator)/.test(parts[0]);
 const hcCss = { light: [], dark: [] };
 
 // Classify colours (rules from the design-tokens skill).
@@ -169,8 +207,9 @@ for (const [key, t] of light) {
   // Increase Contrast (Settings > Accessibility): stronger variants against the mode's background.
   // "on-" colours (text on a fill) keep their value; the fill under them gets stronger instead.
   const onColor = /^on-/.test(parts[parts.length - 1]);
-  const hcLight = onColor ? valueOf(t) : highContrast(valueOf(t), '#ffffff');
-  const hcDark = onColor ? darkVal : highContrast(darkVal, '#000000');
+  const keep = onColor || isNeutral(parts);
+  const hcLight = keep ? valueOf(t) : highContrast(valueOf(t), lightSurfaces);
+  const hcDark = keep ? darkVal : highContrast(darkVal, darkSurfaces);
   const colors = [
     { idiom: 'universal', color: comps(valueOf(t)) },
     { idiom: 'universal', appearances: [{ appearance: 'contrast', value: 'high' }], color: comps(hcLight) },
@@ -196,8 +235,7 @@ for (const [key, t] of light) {
 if (!light.has('color.accent')) console.warn('Note: no color.accent token, so no AccentColor asset was written.');
 else colorLines.push('    // Assets.xcassets/AccentColor is the app tint (same values as accent). Xcode uses it for every control.');
 // Web: the same stronger values when the browser asks for more contrast.
-if (hcCss.light.length) appendFileSync('web/src/tokens.css', `\n@media (prefers-contrast: more) {\n  :root {\n${hcCss.light.join('\n')}\n  }\n}\n`);
-if (hcCss.dark.length) appendFileSync('web/src/tokens-dark.css', `\n@media (prefers-contrast: more) {\n  [data-mode="dark"] {\n${hcCss.dark.join('\n')}\n  }\n}\n`);
+// The web gets the same stronger values; see the web section at the end.
 writeFileSync(`${out}/Colors.swift`, `${header}import SwiftUI\nimport UIKit\n\nextension Color {\n    enum Brand {\n${colorLines.map((l) => '    ' + l).join('\n')}\n    }\n}\n`);
 
 // Typography: Dynamic Type text styles, never fixed sizes for the system font.
@@ -257,3 +295,56 @@ const count = (c) => manifest.filter((m) => m.class === c).length;
 console.log(`Built tokens from ${sets.length} set(s)${darkTokens ? ' with a dark theme' : ''}: ` +
   `${count('sdk')} system colours, ${manifest.filter((m) => m.colorset).length} brand colours, ` +
   `${count('textStyle')} Dynamic Type styles, ${count('fixedSize')} fixed-size styles.`);
+
+// ---------- Web: dark mode, contrast, fonts, Tailwind ----------
+// System font stack: SF Pro is licensed for Apple platforms only, so the web
+// asks for the device's own system font (SF on Apple devices).
+const STACK = `-apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`;
+const webFamily = (f) => (isSystem(f) ? STACK : `'${f}', ${STACK}`);
+function webify(file) {
+  let s = readFileSync(file, 'utf8');
+  s = s.replace(/(--font-family-[\w-]+): ['"]?([^;'"]+?)['"]?;/g, (_, k, f) => `${k}: ${webFamily(f.trim())};`);
+  s = s.replace(/(--type-[\w-]+-(?:line-height|tracking)): (-?[\d.]+);/g, '$1: $2px;');
+  writeFileSync(file, s);
+}
+webify('web/src/tokens.css');
+const block = (sel, lines) => `  ${sel} {\n${lines.join('\n')}\n  }`;
+if (hcCss.light.length)
+  appendFileSync('web/src/tokens.css', `\n@media (prefers-contrast: more) {\n${block(':root, [data-mode="light"]', hcCss.light)}\n}\n`);
+if (darkTokens) {
+  webify('web/src/tokens-dark.css');
+  const darkLines = readFileSync('web/src/tokens-dark.css', 'utf8').match(/\{\n([\s\S]*?)\n\}/)[1].split('\n').map((l) => '  ' + l);
+  let extra = `\n/* Follow the visitor's system setting unless the page sets data-mode="light". */\n` +
+    `@media (prefers-color-scheme: dark) {\n${block(':root:not([data-mode="light"])', darkLines)}\n}\n`;
+  if (hcCss.dark.length) extra += `\n@media (prefers-contrast: more) {\n${block('[data-mode="dark"]', hcCss.dark)}\n}\n` +
+    `\n@media (prefers-color-scheme: dark) and (prefers-contrast: more) {\n${block(':root:not([data-mode="light"])', hcCss.dark)}\n}\n`;
+  appendFileSync('web/src/tokens-dark.css', extra);
+}
+
+// Brand fonts for the web: Google Fonts import for every non-system family.
+const webFonts = [...new Set(Object.values(families))].filter((f) => !isSystem(f));
+writeFileSync('web/src/fonts.css', `/* Generated by \`npm run tokens\`. Loads the brand fonts from Google Fonts. If a font is not on\n   Google Fonts, self-host it with @font-face instead. */\n` +
+  webFonts.map((f) => `@import url('https://fonts.googleapis.com/css2?family=${f.replace(/ /g, '+')}:wght@400;500;600;700&display=swap');`).join('\n') + '\n');
+
+// Tailwind: a preset that points every utility at the CSS variables, so light, dark and
+// Increase Contrast switch automatically. Tailwind 3: presets: [preset]. Tailwind 4: @config.
+const tw = { colors: {}, spacing: {}, borderRadius: {}, fontFamily: {}, fontSize: {} };
+for (const [key, t] of light) {
+  const v = `var(--${t.name})`;
+  if (typeOf(t) === 'color') tw.colors[(t.path[0] === 'color' ? t.path.slice(1) : t.path).join('-')] = v;
+  else if (t.path[0] === 'space' && t.path.length === 2) tw.spacing[t.path[1]] = v;
+  else if (t.path[0] === 'radius' && t.path.length === 2) tw.borderRadius[t.path[1]] = v;
+  else if (t.path[0] === 'font' && /^family-/.test(t.path[1] ?? '')) tw.fontFamily[t.path[1].replace(/^family-/, '')] = [v];
+}
+for (const [base] of styles) {
+  const n = base.split('.')[1];
+  tw.fontSize[n] = [`var(--type-${n}-size)`, { lineHeight: `var(--type-${n}-line-height)`, letterSpacing: `var(--type-${n}-tracking)`, fontWeight: `var(--type-${n}-weight)` }];
+}
+writeFileSync('web/tailwind.preset.js', `// Generated from tokens/tokens.json by \`npm run tokens\`. Do not edit by hand.\n` +
+  `// Load web/src/fonts.css, web/src/tokens.css and web/src/tokens-dark.css on the page, then:\n` +
+  `//   Tailwind 3: tailwind.config.js -> presets: [require('./tailwind.preset.js')] or import it\n` +
+  `//   Tailwind 4: @config "./tailwind.preset.js"; in your CSS\n` +
+  `// Classes such as bg-accent, text-text-primary, p-md, rounded-lg, font-display, text-body follow\n` +
+  `// light, dark and Increase Contrast automatically, so no dark: variants are needed for colour.\n` +
+  `export default ${JSON.stringify({ theme: { extend: tw } }, null, 2)};\n`);
+

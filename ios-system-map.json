@@ -1,13 +1,6 @@
 {
-  "_readme": "Tokens listed here are owned by iOS. They are emitted as references to Apple's system values (which adapt to light/dark and to future iOS releases), never as hex. Every other color token is the brand's own and goes into the asset catalog. Edit this file to move a token between the two. A token whose Figma/Tokens Studio description names 'SwiftUI Color.X' or 'UIKit UIColor.Y' is treated as system-owned automatically; 'not a public SDK colour' forces it to be the brand's own.",
-  "colors": {
-    "color.background": "Color(uiColor: .systemBackground)",
-    "color.surface": "Color(uiColor: .systemGroupedBackground)",
-    "color.surface-raised": "Color(uiColor: .secondarySystemGroupedBackground)",
-    "color.text-primary": "Color.primary",
-    "color.text-secondary": "Color.secondary",
-    "color.separator": "Color(uiColor: .separator)"
-  },
+  "_readme": "Tokens listed here are owned by iOS. They are emitted as references to Apple's system values (which adapt to light/dark and to future iOS releases), never as hex. Every other color token is the brand's own and goes into the asset catalog. Edit this file to move a token between the two. A token whose Figma/Tokens Studio description names 'SwiftUI Color.X' or 'UIKit UIColor.Y' is treated as system-owned automatically; 'not a public SDK colour' forces it to be the brand's own. VIP uses its own neutrals (from vipis.com), so 'colors' is empty and every colour token is brand-owned.",
+  "colors": {},
   "textStyles": {
     "type.large-title": "largeTitle",
     "type.title-1": "title",
@@ -21,5 +14,12 @@
     "type.caption": "caption",
     "type.caption-2": "caption2"
   },
-  "systemFontFamilies": ["SF Pro", "SF Pro Text", "SF Pro Display", "SF Pro Rounded", "System", ".SF UI"]
+  "systemFontFamilies": [
+    "SF Pro",
+    "SF Pro Text",
+    "SF Pro Display",
+    "SF Pro Rounded",
+    "System",
+    ".SF UI"
+  ]
 }

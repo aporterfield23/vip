@@ -9,8 +9,8 @@ Design tokens for a branded iOS app built on the iOS 27 Builder Figma kit.
 | `tokens/tokens.json` | Source of truth, written by Tokens Studio. Edit in Figma, not here. |
 | `sd.config.mjs` | Style Dictionary build. Sets with "Dark" in the name become the dark theme. |
 | `ios/` | Generated SwiftUI design system, asset catalog and brand font files for the developer. |
-| `ios-system-map.json` | Which tokens iOS owns (emitted as system references, never hex) and which text styles map to Dynamic Type. |
-| `web/` | The Vercel demo page. |
+| `ios-system-map.json` | Which tokens iOS owns (emitted as system references, never hex) and which text styles map to Dynamic Type. VIP uses its own neutrals, so no colours are listed and every colour is brand-owned. |
+| `web/` | The Vercel demo page, plus web styling a developer can reuse: CSS variables with system dark mode, `fonts.css` and a Tailwind preset (`web/tailwind.preset.js`). |
 | `HANDOFF.md` | Developer instructions. |
 
 Rebuild locally: `npm install && npm run tokens`.
