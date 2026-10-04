@@ -5,6 +5,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+# One token build at a time, so two quick pushes never race to commit.
+concurrency:
+  group: tokens-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +22,7 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: rebuild design tokens'
-          file_pattern: 'ios web/src'
+          file_pattern: 'ios web/src web/tailwind.preset.js'
 
   # Compiles what the build just committed, with Apple's own tools, so a
   # developer never receives Swift or an asset catalog that does not build.
