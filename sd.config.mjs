@@ -3,7 +3,9 @@
 //   web/src/tokens.css, tokens-dark.css   every value, for the Vercel demo
 //   ios/DesignSystem/*.swift              SwiftUI: system colours as references,
 //                                         text styles as Dynamic Type fonts
-//   ios/Assets.xcassets                   the brand's own colours, light + dark
+//   ios/Assets.xcassets                   the brand's own colours: light, dark and
+//                                         Increase Contrast variants, plus AccentColor
+//                                         (the app tint, from color.accent)
 //   ios/DesignSystem/kit-tokens.json      manifest: token -> class -> Swift
 //
 // Which colours iOS owns is set in ios-system-map.json. Those are never copied
@@ -12,8 +14,9 @@
 // Tokens Studio stores each Figma collection + mode as a "set", e.g.
 // "Primitives/Default", "Brand/Light", "Brand/Dark". Sets whose name contains
 // "dark" become the dark theme; every other set is shared.
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, appendFileSync, mkdirSync, rmSync } from 'node:fs';
 import StyleDictionary from 'style-dictionary';
+import * as Leo from '@adobe/leonardo-contrast-colors';
 import { register } from '@tokens-studio/sd-transforms';
 
 register(StyleDictionary);
@@ -82,6 +85,27 @@ function rgba(v) {
   throw new Error(`Unrecognised colour value: ${s}`);
 }
 
+// WCAG 2 contrast, and Leonardo (the tool the palette was built with) for stronger variants.
+const lum = (v) => {
+  const { r, g, b } = rgba(v);
+  const ch = (x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4);
+  return 0.2126 * ch(r) + 0.7152 * ch(g) + 0.0722 * ch(b);
+};
+const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+// Increase Contrast variant: 1.5x the normal contrast, at least 7:1, at most 15:1.
+// Colours already at 10:1 or more stay as they are.
+function highContrast(value, bg) {
+  const { a } = rgba(value);
+  const base = contrast(value, bg);
+  if (a < 1 || base >= 10) return value;
+  const target = Math.min(Math.max(7.1, base * 1.5), 15);
+  const color = new Leo.Color({ name: 'c', colorKeys: [String(value)], ratios: [target], colorSpace: 'RGB' });
+  const back = new Leo.BackgroundColor({ name: 'bg', colorKeys: ['#808080'], ratios: [1], colorSpace: 'RGB' });
+  const theme = new Leo.Theme({ colors: [color], backgroundColor: back, lightness: lum(bg) > 0.5 ? 100 : 0, output: 'HEX' });
+  return theme.contrastColorPairs.c100.toUpperCase();
+}
+const hcCss = { light: [], dark: [] };
+
 // Classify colours (rules from the design-tokens skill).
 function classify(key, t) {
   const d = descOf(t);
@@ -142,14 +166,38 @@ for (const [key, t] of light) {
     return { 'color-space': 'srgb', components: { red: f(r), green: f(g), blue: f(b), alpha: f(a) } };
   };
   const darkVal = valueOf(dark.get(key)) ?? valueOf(t);
-  const colors = [{ idiom: 'universal', color: comps(valueOf(t)) }];
-  if (darkTokens) colors.push({ idiom: 'universal', appearances: [{ appearance: 'luminosity', value: 'dark' }], color: comps(darkVal) });
+  // Increase Contrast (Settings > Accessibility): stronger variants against the mode's background.
+  // "on-" colours (text on a fill) keep their value; the fill under them gets stronger instead.
+  const onColor = /^on-/.test(parts[parts.length - 1]);
+  const hcLight = onColor ? valueOf(t) : highContrast(valueOf(t), '#ffffff');
+  const hcDark = onColor ? darkVal : highContrast(darkVal, '#000000');
+  const colors = [
+    { idiom: 'universal', color: comps(valueOf(t)) },
+    { idiom: 'universal', appearances: [{ appearance: 'contrast', value: 'high' }], color: comps(hcLight) },
+  ];
+  if (darkTokens) {
+    colors.push({ idiom: 'universal', appearances: [{ appearance: 'luminosity', value: 'dark' }], color: comps(darkVal) });
+    colors.push({ idiom: 'universal', appearances: [{ appearance: 'luminosity', value: 'dark' }, { appearance: 'contrast', value: 'high' }], color: comps(hcDark) });
+  }
+  const colorset = JSON.stringify({ colors, info: { author: 'xcode', version: 1 } }, null, 2) + '\n';
   mkdirSync(`${assets}/${name}.colorset`, { recursive: true });
-  writeFileSync(`${assets}/${name}.colorset/Contents.json`, JSON.stringify({ colors, info: { author: 'xcode', version: 1 } }, null, 2) + '\n');
-  colorLines.push(`    /// Brand-owned. Light ${valueOf(t)}${darkTokens ? `, dark ${darkVal}` : ''}.`);
+  writeFileSync(`${assets}/${name}.colorset/Contents.json`, colorset);
+  // The app-wide tint: Xcode applies the AccentColor asset to every control automatically.
+  if (key === 'color.accent') {
+    mkdirSync(`${assets}/AccentColor.colorset`, { recursive: true });
+    writeFileSync(`${assets}/AccentColor.colorset/Contents.json`, colorset);
+  }
+  if (hcLight !== valueOf(t)) hcCss.light.push(`    --${t.name}: ${hcLight};`);
+  if (darkTokens && hcDark !== darkVal) hcCss.dark.push(`    --${t.name}: ${hcDark};`);
+  colorLines.push(`    /// Brand-owned. Light ${valueOf(t)}${darkTokens ? `, dark ${darkVal}` : ''}. Increase Contrast: ${hcLight}${darkTokens ? ` / ${hcDark}` : ''}.`);
   colorLines.push(`    static let ${id} = Color("${name}")`);
-  manifest.push({ token: key, class: 'own', swift: `Color("${name}")`, colorset: `Assets.xcassets/${name}.colorset`, light: valueOf(t), dark: darkVal });
+  manifest.push({ token: key, class: 'own', swift: `Color("${name}")`, colorset: `Assets.xcassets/${name}.colorset`, light: valueOf(t), dark: darkVal, highContrastLight: hcLight, highContrastDark: hcDark });
 }
+if (!light.has('color.accent')) console.warn('Note: no color.accent token, so no AccentColor asset was written.');
+else colorLines.push('    // Assets.xcassets/AccentColor is the app tint (same values as accent). Xcode uses it for every control.');
+// Web: the same stronger values when the browser asks for more contrast.
+if (hcCss.light.length) appendFileSync('web/src/tokens.css', `\n@media (prefers-contrast: more) {\n  :root {\n${hcCss.light.join('\n')}\n  }\n}\n`);
+if (hcCss.dark.length) appendFileSync('web/src/tokens-dark.css', `\n@media (prefers-contrast: more) {\n  [data-mode="dark"] {\n${hcCss.dark.join('\n')}\n  }\n}\n`);
 writeFileSync(`${out}/Colors.swift`, `${header}import SwiftUI\nimport UIKit\n\nextension Color {\n    enum Brand {\n${colorLines.map((l) => '    ' + l).join('\n')}\n    }\n}\n`);
 
 // Typography: Dynamic Type text styles, never fixed sizes for the system font.
