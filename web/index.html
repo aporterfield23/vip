@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Brand App Demo</title>
   <!-- Generated from tokens/tokens.json by `npm run tokens`. Do not edit these two files by hand. -->
+  <link rel="stylesheet" href="src/fonts.css">
   <link rel="stylesheet" href="src/tokens.css">
   <link rel="stylesheet" href="src/tokens-dark.css">
   <style>
@@ -94,7 +95,7 @@
   <script>
     const phone = document.getElementById('phone');
     const set = (mode) => {
-      if (mode === 'dark') phone.setAttribute('data-mode', 'dark'); else phone.removeAttribute('data-mode');
+      phone.setAttribute('data-mode', mode);
       document.getElementById('light').setAttribute('aria-pressed', mode === 'light');
       document.getElementById('dark').setAttribute('aria-pressed', mode === 'dark');
     };
