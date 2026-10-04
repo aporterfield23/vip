@@ -4,16 +4,16 @@
     "class": "own",
     "swift": "Color(\"Accent\")",
     "colorset": "Assets.xcassets/Accent.colorset",
-    "light": "#1f4fd8",
-    "dark": "#6a93ff"
+    "light": "#007e52",
+    "dark": "#2fa87d"
   },
   {
     "token": "color.accent-strong",
     "class": "own",
     "swift": "Color(\"AccentStrong\")",
     "colorset": "Assets.xcassets/AccentStrong.colorset",
-    "light": "#1740b0",
-    "dark": "#8aabff"
+    "light": "#006642",
+    "dark": "#7ec9af"
   },
   {
     "token": "color.on-accent",
@@ -21,7 +21,7 @@
     "swift": "Color(\"OnAccent\")",
     "colorset": "Assets.xcassets/OnAccent.colorset",
     "light": "#ffffff",
-    "dark": "#0a1230"
+    "dark": "#202944"
   },
   {
     "token": "color.background",
@@ -58,16 +58,16 @@
     "class": "own",
     "swift": "Color(\"Destructive\")",
     "colorset": "Assets.xcassets/Destructive.colorset",
-    "light": "#d70015",
-    "dark": "#ff6961"
+    "light": "#da1528",
+    "dark": "#e8707b"
   },
   {
     "token": "color.success",
     "class": "own",
     "swift": "Color(\"Success\")",
     "colorset": "Assets.xcassets/Success.colorset",
-    "light": "#248a3d",
-    "dark": "#30d158"
+    "light": "#41794f",
+    "dark": "#58a56c"
   },
   {
     "token": "color.warning",
@@ -78,24 +78,40 @@
     "dark": "#ffb340"
   },
   {
+    "token": "color.brand-navy",
+    "class": "own",
+    "swift": "Color(\"BrandNavy\")",
+    "colorset": "Assets.xcassets/BrandNavy.colorset",
+    "light": "#202944",
+    "dark": "#9095a2"
+  },
+  {
+    "token": "color.secondary",
+    "class": "own",
+    "swift": "Color(\"Secondary\")",
+    "colorset": "Assets.xcassets/Secondary.colorset",
+    "light": "#397874",
+    "dark": "#60a09c"
+  },
+  {
     "token": "type.large-title",
     "class": "textStyle",
-    "swift": "Font.largeTitle.weight(.bold)"
+    "swift": "Font.custom(\"Encode Sans\", size: 34, relativeTo: .largeTitle).weight(.bold)"
   },
   {
     "token": "type.title-1",
     "class": "textStyle",
-    "swift": "Font.title.weight(.bold)"
+    "swift": "Font.custom(\"Encode Sans\", size: 28, relativeTo: .title).weight(.bold)"
   },
   {
     "token": "type.title-2",
     "class": "textStyle",
-    "swift": "Font.title2.weight(.bold)"
+    "swift": "Font.custom(\"Encode Sans\", size: 22, relativeTo: .title2).weight(.bold)"
   },
   {
     "token": "type.title-3",
     "class": "textStyle",
-    "swift": "Font.title3.weight(.semibold)"
+    "swift": "Font.custom(\"Encode Sans\", size: 20, relativeTo: .title3).weight(.semibold)"
   },
   {
     "token": "type.headline",

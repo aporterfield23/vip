@@ -3,14 +3,14 @@ import SwiftUI
 
 extension Font {
     enum Brand {
-        /// iOS .largeTitle: design size 34 pt at the default text size; scales with Dynamic Type.
-        static let largeTitle = Font.largeTitle.weight(.bold)
-        /// iOS .title: design size 28 pt at the default text size; scales with Dynamic Type.
-        static let title1 = Font.title.weight(.bold)
-        /// iOS .title2: design size 22 pt at the default text size; scales with Dynamic Type.
-        static let title2 = Font.title2.weight(.bold)
-        /// iOS .title3: design size 20 pt at the default text size; scales with Dynamic Type.
-        static let title3 = Font.title3.weight(.semibold)
+        /// Encode Sans sized like .largeTitle; scales with Dynamic Type. Use the font's PostScript name if it differs.
+        static let largeTitle = Font.custom("Encode Sans", size: 34, relativeTo: .largeTitle).weight(.bold)
+        /// Encode Sans sized like .title; scales with Dynamic Type. Use the font's PostScript name if it differs.
+        static let title1 = Font.custom("Encode Sans", size: 28, relativeTo: .title).weight(.bold)
+        /// Encode Sans sized like .title2; scales with Dynamic Type. Use the font's PostScript name if it differs.
+        static let title2 = Font.custom("Encode Sans", size: 22, relativeTo: .title2).weight(.bold)
+        /// Encode Sans sized like .title3; scales with Dynamic Type. Use the font's PostScript name if it differs.
+        static let title3 = Font.custom("Encode Sans", size: 20, relativeTo: .title3).weight(.semibold)
         /// iOS .headline: design size 17 pt at the default text size; scales with Dynamic Type.
         static let headline = Font.headline.weight(.semibold)
         /// iOS .body: design size 17 pt at the default text size; scales with Dynamic Type.

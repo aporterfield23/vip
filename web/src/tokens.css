@@ -3,7 +3,7 @@
  */
 
 :root {
-  --font-family-display: 'SF Pro';
+  --font-family-display: 'Encode Sans';
   --font-family-body: 'SF Pro';
   --type-large-title-size: 34px;
   --type-large-title-weight: 700;
@@ -56,8 +56,8 @@
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
-  --color-accent: #1f4fd8;
-  --color-accent-strong: #1740b0;
+  --color-accent: #007e52;
+  --color-accent-strong: #006642;
   --color-on-accent: #ffffff;
   --color-background: #ffffff;
   --color-surface: #f2f2f7;
@@ -65,7 +65,9 @@
   --color-text-primary: #000000;
   --color-text-secondary: #6b6b73;
   --color-separator: #c6c6c8;
-  --color-destructive: #d70015;
-  --color-success: #248a3d;
+  --color-destructive: #da1528;
+  --color-success: #41794f;
   --color-warning: #b25000;
+  --color-brand-navy: #202944;
+  --color-secondary: #397874;
 }

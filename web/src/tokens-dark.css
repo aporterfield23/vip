@@ -3,7 +3,7 @@
  */
 
 [data-mode="dark"] {
-  --font-family-display: 'SF Pro';
+  --font-family-display: 'Encode Sans';
   --font-family-body: 'SF Pro';
   --type-large-title-size: 34px;
   --type-large-title-weight: 700;
@@ -56,16 +56,18 @@
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
-  --color-accent: #6a93ff;
-  --color-accent-strong: #8aabff;
-  --color-on-accent: #0a1230;
+  --color-accent: #2fa87d;
+  --color-accent-strong: #7ec9af;
+  --color-on-accent: #202944;
   --color-background: #000000;
   --color-surface: #1c1c1e;
   --color-surface-raised: #2c2c2e;
   --color-text-primary: #ffffff;
   --color-text-secondary: #a1a1aa;
   --color-separator: #38383a;
-  --color-destructive: #ff6961;
-  --color-success: #30d158;
+  --color-destructive: #e8707b;
+  --color-success: #58a56c;
   --color-warning: #ffb340;
+  --color-brand-navy: #9095a2;
+  --color-secondary: #60a09c;
 }
