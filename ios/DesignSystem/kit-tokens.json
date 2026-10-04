@@ -5,9 +5,9 @@
     "swift": "Color(\"Accent\")",
     "colorset": "Assets.xcassets/Accent.colorset",
     "light": "#007e52",
-    "dark": "#2fa87d",
-    "highContrastLight": "#005F3E",
-    "highContrastDark": "#78C7AB"
+    "dark": "#32ab7f",
+    "highContrastLight": "#045D3C",
+    "highContrastDark": "#5FD2A3"
   },
   {
     "token": "color.accent-strong",
@@ -15,9 +15,9 @@
     "swift": "Color(\"AccentStrong\")",
     "colorset": "Assets.xcassets/AccentStrong.colorset",
     "light": "#006642",
-    "dark": "#7ec9af",
-    "highContrastLight": "#00482F",
-    "highContrastDark": "#7ec9af"
+    "dark": "#80ccb1",
+    "highContrastLight": "#02482E",
+    "highContrastDark": "#80ccb1"
   },
   {
     "token": "color.on-accent",
@@ -31,33 +31,63 @@
   },
   {
     "token": "color.background",
-    "class": "sdk",
-    "swift": "Color(uiColor: .systemBackground)"
+    "class": "own",
+    "swift": "Color(\"Background\")",
+    "colorset": "Assets.xcassets/Background.colorset",
+    "light": "#ffffff",
+    "dark": "#1d242d",
+    "highContrastLight": "#ffffff",
+    "highContrastDark": "#1d242d"
   },
   {
     "token": "color.surface",
-    "class": "sdk",
-    "swift": "Color(uiColor: .systemGroupedBackground)"
+    "class": "own",
+    "swift": "Color(\"Surface\")",
+    "colorset": "Assets.xcassets/Surface.colorset",
+    "light": "#f2f3f5",
+    "dark": "#1d242d",
+    "highContrastLight": "#f2f3f5",
+    "highContrastDark": "#1d242d"
   },
   {
     "token": "color.surface-raised",
-    "class": "sdk",
-    "swift": "Color(uiColor: .secondarySystemGroupedBackground)"
+    "class": "own",
+    "swift": "Color(\"SurfaceRaised\")",
+    "colorset": "Assets.xcassets/SurfaceRaised.colorset",
+    "light": "#ffffff",
+    "dark": "#212934",
+    "highContrastLight": "#ffffff",
+    "highContrastDark": "#212934"
   },
   {
     "token": "color.text-primary",
-    "class": "sdk",
-    "swift": "Color.primary"
+    "class": "own",
+    "swift": "Color(\"TextPrimary\")",
+    "colorset": "Assets.xcassets/TextPrimary.colorset",
+    "light": "#202944",
+    "dark": "#ffffff",
+    "highContrastLight": "#202944",
+    "highContrastDark": "#ffffff"
   },
   {
     "token": "color.text-secondary",
-    "class": "sdk",
-    "swift": "Color.secondary"
+    "class": "own",
+    "swift": "Color(\"TextSecondary\")",
+    "colorset": "Assets.xcassets/TextSecondary.colorset",
+    "light": "#4a4e57",
+    "dark": "#9ea0a4",
+    "highContrastLight": "#4a4e57",
+    "highContrastDark": "#C2C4C9"
   },
   {
     "token": "color.separator",
-    "class": "sdk",
-    "swift": "Color(uiColor: .separator)"
+    "class": "own",
+    "swift": "Color(\"Separator\")",
+    "colorset": "Assets.xcassets/Separator.colorset",
+    "light": "#e2e2e2",
+    "dark": "#3a4454",
+    "highContrastLight": "#e2e2e2",
+    "highContrastDark": "#3a4454"
   },
   {
     "token": "color.destructive",
@@ -65,9 +95,9 @@
     "swift": "Color(\"Destructive\")",
     "colorset": "Assets.xcassets/Destructive.colorset",
     "light": "#da1528",
-    "dark": "#e8707b",
-    "highContrastLight": "#A7101F",
-    "highContrastDark": "#F0A3AB"
+    "dark": "#eb737d",
+    "highContrastLight": "#A70118",
+    "highContrastDark": "#FFA5A9"
   },
   {
     "token": "color.success",
@@ -75,9 +105,9 @@
     "swift": "Color(\"Success\")",
     "colorset": "Assets.xcassets/Success.colorset",
     "light": "#41794f",
-    "dark": "#58a56c",
-    "highContrastLight": "#315B3C",
-    "highContrastDark": "#91C39E"
+    "dark": "#5aa86e",
+    "highContrastLight": "#245C34",
+    "highContrastDark": "#80CF92"
   },
   {
     "token": "color.warning",
@@ -86,7 +116,7 @@
     "colorset": "Assets.xcassets/Warning.colorset",
     "light": "#b25000",
     "dark": "#ffb340",
-    "highContrastLight": "#873C00",
+    "highContrastLight": "#873B02",
     "highContrastDark": "#ffb340"
   },
   {
@@ -95,9 +125,9 @@
     "swift": "Color(\"BrandNavy\")",
     "colorset": "Assets.xcassets/BrandNavy.colorset",
     "light": "#202944",
-    "dark": "#9095a2",
+    "dark": "#9298a5",
     "highContrastLight": "#202944",
-    "highContrastDark": "#B4B7C0"
+    "highContrastDark": "#B7BECB"
   },
   {
     "token": "color.secondary",
@@ -105,9 +135,39 @@
     "swift": "Color(\"Secondary\")",
     "colorset": "Assets.xcassets/Secondary.colorset",
     "light": "#397874",
-    "dark": "#60a09c",
-    "highContrastLight": "#2B5B58",
-    "highContrastDark": "#95BFBD"
+    "dark": "#62a39e",
+    "highContrastLight": "#175A57",
+    "highContrastDark": "#87C9C4"
+  },
+  {
+    "token": "color.background-secondary",
+    "class": "own",
+    "swift": "Color(\"BackgroundSecondary\")",
+    "colorset": "Assets.xcassets/BackgroundSecondary.colorset",
+    "light": "#f2f3f5",
+    "dark": "#212934",
+    "highContrastLight": "#f2f3f5",
+    "highContrastDark": "#212934"
+  },
+  {
+    "token": "color.background-tertiary",
+    "class": "own",
+    "swift": "Color(\"BackgroundTertiary\")",
+    "colorset": "Assets.xcassets/BackgroundTertiary.colorset",
+    "light": "#ffffff",
+    "dark": "#26303e",
+    "highContrastLight": "#ffffff",
+    "highContrastDark": "#26303e"
+  },
+  {
+    "token": "color.surface-tertiary",
+    "class": "own",
+    "swift": "Color(\"SurfaceTertiary\")",
+    "colorset": "Assets.xcassets/SurfaceTertiary.colorset",
+    "light": "#f2f3f5",
+    "dark": "#26303e",
+    "highContrastLight": "#f2f3f5",
+    "highContrastDark": "#26303e"
   },
   {
     "token": "type.large-title",

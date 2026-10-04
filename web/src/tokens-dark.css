@@ -3,48 +3,48 @@
  */
 
 [data-mode="dark"] {
-  --font-family-display: 'Encode Sans';
-  --font-family-body: 'SF Pro';
+  --font-family-display: 'Encode Sans', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-body: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --type-large-title-size: 34px;
   --type-large-title-weight: 700;
-  --type-large-title-line-height: 41;
-  --type-large-title-tracking: 0;
+  --type-large-title-line-height: 41px;
+  --type-large-title-tracking: 0px;
   --type-title-1-size: 28px;
   --type-title-1-weight: 700;
-  --type-title-1-line-height: 34;
-  --type-title-1-tracking: 0;
+  --type-title-1-line-height: 34px;
+  --type-title-1-tracking: 0px;
   --type-title-2-size: 22px;
   --type-title-2-weight: 700;
-  --type-title-2-line-height: 28;
-  --type-title-2-tracking: 0;
+  --type-title-2-line-height: 28px;
+  --type-title-2-tracking: 0px;
   --type-title-3-size: 20px;
   --type-title-3-weight: 600;
-  --type-title-3-line-height: 25;
-  --type-title-3-tracking: 0;
+  --type-title-3-line-height: 25px;
+  --type-title-3-tracking: 0px;
   --type-headline-size: 17px;
   --type-headline-weight: 600;
-  --type-headline-line-height: 22;
-  --type-headline-tracking: 0;
+  --type-headline-line-height: 22px;
+  --type-headline-tracking: 0px;
   --type-body-size: 17px;
   --type-body-weight: 400;
-  --type-body-line-height: 22;
-  --type-body-tracking: 0;
+  --type-body-line-height: 22px;
+  --type-body-tracking: 0px;
   --type-callout-size: 16px;
   --type-callout-weight: 400;
-  --type-callout-line-height: 21;
-  --type-callout-tracking: 0;
+  --type-callout-line-height: 21px;
+  --type-callout-tracking: 0px;
   --type-subheadline-size: 15px;
   --type-subheadline-weight: 400;
-  --type-subheadline-line-height: 20;
-  --type-subheadline-tracking: 0;
+  --type-subheadline-line-height: 20px;
+  --type-subheadline-tracking: 0px;
   --type-footnote-size: 13px;
   --type-footnote-weight: 400;
-  --type-footnote-line-height: 18;
-  --type-footnote-tracking: 0;
+  --type-footnote-line-height: 18px;
+  --type-footnote-tracking: 0px;
   --type-caption-size: 12px;
   --type-caption-weight: 400;
-  --type-caption-line-height: 16;
-  --type-caption-tracking: 0;
+  --type-caption-line-height: 16px;
+  --type-caption-tracking: 0px;
   --space-xxs: 2px;
   --space-xs: 4px;
   --space-sm: 8px;
@@ -56,28 +56,119 @@
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
-  --color-accent: #2fa87d;
-  --color-accent-strong: #7ec9af;
+  --color-accent: #32ab7f;
+  --color-accent-strong: #80ccb1;
   --color-on-accent: #202944;
-  --color-background: #000000;
-  --color-surface: #1c1c1e;
-  --color-surface-raised: #2c2c2e;
+  --color-background: #1d242d;
+  --color-surface: #1d242d;
+  --color-surface-raised: #212934;
   --color-text-primary: #ffffff;
-  --color-text-secondary: #a1a1aa;
-  --color-separator: #38383a;
-  --color-destructive: #e8707b;
-  --color-success: #58a56c;
+  --color-text-secondary: #9ea0a4;
+  --color-separator: #3a4454;
+  --color-destructive: #eb737d;
+  --color-success: #5aa86e;
   --color-warning: #ffb340;
-  --color-brand-navy: #9095a2;
-  --color-secondary: #60a09c;
+  --color-brand-navy: #9298a5;
+  --color-secondary: #62a39e;
+  --color-background-secondary: #212934;
+  --color-background-tertiary: #26303e;
+  --color-surface-tertiary: #26303e;
+}
+
+/* Follow the visitor's system setting unless the page sets data-mode="light". */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="light"]) {
+    --font-family-display: 'Encode Sans', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-body: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --type-large-title-size: 34px;
+    --type-large-title-weight: 700;
+    --type-large-title-line-height: 41px;
+    --type-large-title-tracking: 0px;
+    --type-title-1-size: 28px;
+    --type-title-1-weight: 700;
+    --type-title-1-line-height: 34px;
+    --type-title-1-tracking: 0px;
+    --type-title-2-size: 22px;
+    --type-title-2-weight: 700;
+    --type-title-2-line-height: 28px;
+    --type-title-2-tracking: 0px;
+    --type-title-3-size: 20px;
+    --type-title-3-weight: 600;
+    --type-title-3-line-height: 25px;
+    --type-title-3-tracking: 0px;
+    --type-headline-size: 17px;
+    --type-headline-weight: 600;
+    --type-headline-line-height: 22px;
+    --type-headline-tracking: 0px;
+    --type-body-size: 17px;
+    --type-body-weight: 400;
+    --type-body-line-height: 22px;
+    --type-body-tracking: 0px;
+    --type-callout-size: 16px;
+    --type-callout-weight: 400;
+    --type-callout-line-height: 21px;
+    --type-callout-tracking: 0px;
+    --type-subheadline-size: 15px;
+    --type-subheadline-weight: 400;
+    --type-subheadline-line-height: 20px;
+    --type-subheadline-tracking: 0px;
+    --type-footnote-size: 13px;
+    --type-footnote-weight: 400;
+    --type-footnote-line-height: 18px;
+    --type-footnote-tracking: 0px;
+    --type-caption-size: 12px;
+    --type-caption-weight: 400;
+    --type-caption-line-height: 16px;
+    --type-caption-tracking: 0px;
+    --space-xxs: 2px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-xxl: 48px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --color-accent: #32ab7f;
+    --color-accent-strong: #80ccb1;
+    --color-on-accent: #202944;
+    --color-background: #1d242d;
+    --color-surface: #1d242d;
+    --color-surface-raised: #212934;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #9ea0a4;
+    --color-separator: #3a4454;
+    --color-destructive: #eb737d;
+    --color-success: #5aa86e;
+    --color-warning: #ffb340;
+    --color-brand-navy: #9298a5;
+    --color-secondary: #62a39e;
+    --color-background-secondary: #212934;
+    --color-background-tertiary: #26303e;
+    --color-surface-tertiary: #26303e;
+  }
 }
 
 @media (prefers-contrast: more) {
   [data-mode="dark"] {
-    --color-accent: #78C7AB;
-    --color-destructive: #F0A3AB;
-    --color-success: #91C39E;
-    --color-brand-navy: #B4B7C0;
-    --color-secondary: #95BFBD;
+    --color-accent: #5FD2A3;
+    --color-text-secondary: #C2C4C9;
+    --color-destructive: #FFA5A9;
+    --color-success: #80CF92;
+    --color-brand-navy: #B7BECB;
+    --color-secondary: #87C9C4;
+  }
+}
+
+@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+  :root:not([data-mode="light"]) {
+    --color-accent: #5FD2A3;
+    --color-text-secondary: #C2C4C9;
+    --color-destructive: #FFA5A9;
+    --color-success: #80CF92;
+    --color-brand-navy: #B7BECB;
+    --color-secondary: #87C9C4;
   }
 }

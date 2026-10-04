@@ -2,49 +2,49 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-:root {
-  --font-family-display: 'Encode Sans';
-  --font-family-body: 'SF Pro';
+:root, [data-mode="light"] {
+  --font-family-display: 'Encode Sans', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-body: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --type-large-title-size: 34px;
   --type-large-title-weight: 700;
-  --type-large-title-line-height: 41;
-  --type-large-title-tracking: 0;
+  --type-large-title-line-height: 41px;
+  --type-large-title-tracking: 0px;
   --type-title-1-size: 28px;
   --type-title-1-weight: 700;
-  --type-title-1-line-height: 34;
-  --type-title-1-tracking: 0;
+  --type-title-1-line-height: 34px;
+  --type-title-1-tracking: 0px;
   --type-title-2-size: 22px;
   --type-title-2-weight: 700;
-  --type-title-2-line-height: 28;
-  --type-title-2-tracking: 0;
+  --type-title-2-line-height: 28px;
+  --type-title-2-tracking: 0px;
   --type-title-3-size: 20px;
   --type-title-3-weight: 600;
-  --type-title-3-line-height: 25;
-  --type-title-3-tracking: 0;
+  --type-title-3-line-height: 25px;
+  --type-title-3-tracking: 0px;
   --type-headline-size: 17px;
   --type-headline-weight: 600;
-  --type-headline-line-height: 22;
-  --type-headline-tracking: 0;
+  --type-headline-line-height: 22px;
+  --type-headline-tracking: 0px;
   --type-body-size: 17px;
   --type-body-weight: 400;
-  --type-body-line-height: 22;
-  --type-body-tracking: 0;
+  --type-body-line-height: 22px;
+  --type-body-tracking: 0px;
   --type-callout-size: 16px;
   --type-callout-weight: 400;
-  --type-callout-line-height: 21;
-  --type-callout-tracking: 0;
+  --type-callout-line-height: 21px;
+  --type-callout-tracking: 0px;
   --type-subheadline-size: 15px;
   --type-subheadline-weight: 400;
-  --type-subheadline-line-height: 20;
-  --type-subheadline-tracking: 0;
+  --type-subheadline-line-height: 20px;
+  --type-subheadline-tracking: 0px;
   --type-footnote-size: 13px;
   --type-footnote-weight: 400;
-  --type-footnote-line-height: 18;
-  --type-footnote-tracking: 0;
+  --type-footnote-line-height: 18px;
+  --type-footnote-tracking: 0px;
   --type-caption-size: 12px;
   --type-caption-weight: 400;
-  --type-caption-line-height: 16;
-  --type-caption-tracking: 0;
+  --type-caption-line-height: 16px;
+  --type-caption-tracking: 0px;
   --space-xxs: 2px;
   --space-xs: 4px;
   --space-sm: 8px;
@@ -60,25 +60,28 @@
   --color-accent-strong: #006642;
   --color-on-accent: #ffffff;
   --color-background: #ffffff;
-  --color-surface: #f2f2f7;
+  --color-surface: #f2f3f5;
   --color-surface-raised: #ffffff;
-  --color-text-primary: #000000;
-  --color-text-secondary: #6b6b73;
-  --color-separator: #c6c6c8;
+  --color-text-primary: #202944;
+  --color-text-secondary: #4a4e57;
+  --color-separator: #e2e2e2;
   --color-destructive: #da1528;
   --color-success: #41794f;
   --color-warning: #b25000;
   --color-brand-navy: #202944;
   --color-secondary: #397874;
+  --color-background-secondary: #f2f3f5;
+  --color-background-tertiary: #ffffff;
+  --color-surface-tertiary: #f2f3f5;
 }
 
 @media (prefers-contrast: more) {
-  :root {
-    --color-accent: #005F3E;
-    --color-accent-strong: #00482F;
-    --color-destructive: #A7101F;
-    --color-success: #315B3C;
-    --color-warning: #873C00;
-    --color-secondary: #2B5B58;
+  :root, [data-mode="light"] {
+    --color-accent: #045D3C;
+    --color-accent-strong: #02482E;
+    --color-destructive: #A70118;
+    --color-success: #245C34;
+    --color-warning: #873B02;
+    --color-secondary: #175A57;
   }
 }
