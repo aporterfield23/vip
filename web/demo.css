@@ -222,3 +222,11 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 .phone[data-mode="dark"] { --field-fill: color-mix(in srgb, var(--color-text-primary) 7%, var(--color-surface-raised)); --field-border: color-mix(in srgb, var(--color-text-primary) 40%, var(--field-fill)); --focus-line: var(--color-accent-strong); }
 .field input, .field textarea, .field select, .codeboxes input { border-color: var(--field-border); background: var(--field-fill); }
 .field input:focus, .field textarea:focus, .field select:focus, .codeboxes input:focus { border-color: var(--focus-line); }
+
+/* Left-hand section note (text from the Figma cover screens). Hidden when there is no room beside the phone. */
+.side { position: fixed; left: max(24px, calc(50% - 201px - 336px)); top: 96px; width: 300px; color: #E6E6E6; font: 15px/1.5 var(--stack); }
+.side .kicker { margin: 0 0 6px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #8b8f98; }
+.side h2 { margin: 0 0 10px; font: 700 26px/1.2 var(--stack); color: #fff; }
+.side p { margin: 0; color: #C9CBD1; }
+@media (max-width: 1099px) { .side { display: none; } }
+body.full .side { display: none; }

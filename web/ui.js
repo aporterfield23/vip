@@ -72,7 +72,7 @@ function render() {
   if (bind) { const el = p.querySelector(`[data-bind="${bind}"]`); if (el) { el.focus(); try { el.setSelectionRange(selStart, selStart); } catch (e) {} } }
   if (S.focusNext) { const el = p.querySelector(`[data-bind="${S.focusNext}"]`); if (el) { el.focus(); el.select && el.select(); } S.focusNext = null; }
   p.setAttribute('data-mode', S.mode);
-  navTitle();
+  navTitle(); if (typeof sideNote === 'function') sideNote();
   const dd = document.getElementById('jump'); if (dd) dd.value = '';
 }
 // iOS large-title behaviour: once the large title scrolls under the toolbar, its text fades into the navigation bar and the bar gains a hairline.
