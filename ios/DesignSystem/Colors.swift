@@ -4,7 +4,7 @@ import UIKit
 
 extension Color {
     enum Brand {
-        /// Brand-owned. Light #007e52, dark #32ab7f. Increase Contrast: #045D3C / #5DCFA1.
+        /// Brand-owned. Light #007e52, dark #278462. Increase Contrast: #045D3C / #6EC6A0.
         static let accent = Color("Accent")
         /// Brand-owned. Light #006642, dark #80ccb1. Increase Contrast: #02482E / #80ccb1.
         static let accentStrong = Color("AccentStrong")

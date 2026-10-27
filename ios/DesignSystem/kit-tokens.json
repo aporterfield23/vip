@@ -5,9 +5,9 @@
     "swift": "Color(\"Accent\")",
     "colorset": "Assets.xcassets/Accent.colorset",
     "light": "#007e52",
-    "dark": "#32ab7f",
+    "dark": "#278462",
     "highContrastLight": "#045D3C",
-    "highContrastDark": "#5DCFA1"
+    "highContrastDark": "#6EC6A0"
   },
   {
     "token": "color.accent-strong",
