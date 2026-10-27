@@ -204,3 +204,4 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 .toolbar { --nav-k: 0; transition: box-shadow .15s; }
 .toolbar:has(+ .largetitle) .mid .t { opacity: var(--nav-k); }
 .toolbar.collapsed { box-shadow: 0 0.5px 0 var(--color-separator, color-mix(in srgb, var(--color-text-primary) 18%, transparent)); background: color-mix(in srgb, var(--color-background-secondary) 88%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.phone[data-mode="dark"] .toolbar.collapsed { box-shadow: 0 0.5px 0 color-mix(in srgb, var(--color-text-primary) 26%, transparent); }
