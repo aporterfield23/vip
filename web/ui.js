@@ -82,7 +82,7 @@ function navTitle() {
   const t = tb.querySelector('.mid .t'); if (t && !t.textContent) t.textContent = lt.textContent.trim();
   const end = lt.offsetTop + lt.offsetHeight - tb.offsetHeight; // scroll position where the large title is fully under the bar
   const k = Math.max(0, Math.min(1, (sc.scrollTop - (end - 14)) / 14));
-  tb.style.setProperty('--nav-k', k.toFixed(2)); tb.classList.toggle('collapsed', k >= 1);
+  tb.style.setProperty('--nav-k', k.toFixed(2)); tb.classList.toggle('collapsed', k >= 1); sc.classList.toggle('navcollapsed', k >= 1);
 }
 document.addEventListener('scroll', (e) => { if (e.target && e.target.id === 'screen') navTitle(); }, true);
 function setMode() {

@@ -37,7 +37,7 @@ SCREENS.schedule = () => {
       list += `<div class="day">${fmtLong(d)}</div>` + (as.map(asgEntry).join('') || '<div class="empty" style="padding:16px">No assignments</div>');
     }
   }
-  return `${toolbar({})}<div class="largetitle t-large">Schedule</div>${seg('schedSeg', ['Upcoming', 'Past 5 days'], S.schedSeg, '', past ? 'Past 5 days' : null)}<div class="page">${list}</div>`;
+  return `${toolbar({})}<div class="largetitle t-large">Schedule</div>${seg('schedSeg', ['Upcoming', 'Past 5 days'], S.schedSeg, 'pinned', past ? 'Past 5 days' : null)}<div class="page">${list}</div>`;
 };
 
 function actionsFor(a) {

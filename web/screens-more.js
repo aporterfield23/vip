@@ -16,7 +16,7 @@ SCREENS.timesheets = () => {
     if (S.period === 'ytd' && !S.range) extra = card(row({ title: 'Year to date summary', sub: `${es.length} paid entries`, trail: I.chev, act: 'ytd' }));
   }
   const filters = s === 'Paid' ? `<div class="filters"><button class="btn bordered small" data-act="periodSheet">${esc(rangeLabel())} ⌄</button><button class="btn bordered small" data-act="payRates">Pay rates</button></div>` : `<div class="filters"><button class="btn bordered small" data-act="payRates">Pay rates</button></div>`;
-  return `${toolbar({})}<div class="largetitle t-large">Timesheets</div>${seg('tsSeg', ['Open', 'Approved', 'Paid'], S.tsSeg)}<p class="t-sub sec" style="margin:6px 16px 10px">${note}</p>${filters}
+  return `${toolbar({})}<div class="largetitle t-large">Timesheets</div>${seg('tsSeg', ['Open', 'Approved', 'Paid'], S.tsSeg, 'pinned')}<p class="t-sub sec" style="margin:6px 16px 10px">${note}</p>${filters}
   <div class="page" style="padding-top:8px">${extra}${es.length ? groupByDate(es) : '<div class="empty">No timesheets here yet</div>'}</div>`;
 };
 SCREENS.tsEntry = (c) => {
