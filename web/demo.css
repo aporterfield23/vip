@@ -216,3 +216,9 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 .seg.pinned button { position: relative; margin: 2px; }
 /* Dark: the selected segment must stand out from the track (surface-raised is too close to it). */
 .phone[data-mode="dark"] .seg button[aria-selected="true"] { background: color-mix(in srgb, var(--color-text-primary) 26%, var(--color-background-secondary)); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+
+/* Form fields: resting border >= 3:1 against the field and the page (WCAG 1.4.11); focus border >= 3:1 too. */
+.phone { --field-fill: var(--color-surface-raised); --field-border: color-mix(in srgb, var(--color-text-primary) 55%, var(--color-surface-raised)); --focus-line: var(--color-accent); }
+.phone[data-mode="dark"] { --field-fill: color-mix(in srgb, var(--color-text-primary) 7%, var(--color-surface-raised)); --field-border: color-mix(in srgb, var(--color-text-primary) 40%, var(--field-fill)); --focus-line: var(--color-accent-strong); }
+.field input, .field textarea, .field select, .codeboxes input { border-color: var(--field-border); background: var(--field-fill); }
+.field input:focus, .field textarea:focus, .field select:focus, .codeboxes input:focus { border-color: var(--focus-line); }
