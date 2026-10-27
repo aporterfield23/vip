@@ -199,3 +199,8 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 /* Green used as text on the page background: the darker brand green fails AA on dark surfaces, so dark mode uses accent-strong. */
 .phone { --accent-text: var(--color-accent); }
 .phone[data-mode="dark"] { --accent-text: var(--color-accent-strong); }
+
+/* Large title collapses into the navigation bar on scroll (set by navTitle in ui.js). */
+.toolbar { --nav-k: 0; transition: box-shadow .15s; }
+.toolbar:has(+ .largetitle) .mid .t { opacity: var(--nav-k); }
+.toolbar.collapsed { box-shadow: 0 0.5px 0 var(--color-separator, color-mix(in srgb, var(--color-text-primary) 18%, transparent)); background: color-mix(in srgb, var(--color-background-secondary) 88%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }

@@ -72,8 +72,19 @@ function render() {
   if (bind) { const el = p.querySelector(`[data-bind="${bind}"]`); if (el) { el.focus(); try { el.setSelectionRange(selStart, selStart); } catch (e) {} } }
   if (S.focusNext) { const el = p.querySelector(`[data-bind="${S.focusNext}"]`); if (el) { el.focus(); el.select && el.select(); } S.focusNext = null; }
   p.setAttribute('data-mode', S.mode);
+  navTitle();
   const dd = document.getElementById('jump'); if (dd) dd.value = '';
 }
+// iOS large-title behaviour: once the large title scrolls under the toolbar, its text fades into the navigation bar and the bar gains a hairline.
+function navTitle() {
+  const sc = document.getElementById('screen'); if (!sc) return;
+  const lt = sc.querySelector('.largetitle'), tb = sc.querySelector('.toolbar'); if (!lt || !tb) return;
+  const t = tb.querySelector('.mid .t'); if (t && !t.textContent) t.textContent = lt.textContent.trim();
+  const end = lt.offsetTop + lt.offsetHeight - tb.offsetHeight; // scroll position where the large title is fully under the bar
+  const k = Math.max(0, Math.min(1, (sc.scrollTop - (end - 14)) / 14));
+  tb.style.setProperty('--nav-k', k.toFixed(2)); tb.classList.toggle('collapsed', k >= 1);
+}
+document.addEventListener('scroll', (e) => { if (e.target && e.target.id === 'screen') navTitle(); }, true);
 function setMode() {
   const sys = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   S.mode = S.appearance === 'Dark' ? 'dark' : S.appearance === 'Light' ? 'light' : (S.demoMode || sys);
