@@ -209,3 +209,10 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 .screen.navcollapsed:has(.seg.pinned) .toolbar.collapsed { box-shadow: none; }
 .screen.navcollapsed .seg.pinned { background: color-mix(in srgb, var(--color-background-secondary) 88%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 0.5px 0 color-mix(in srgb, var(--color-text-primary) 18%, transparent); }
 .phone[data-mode="dark"] .screen.navcollapsed .seg.pinned { box-shadow: 0 0.5px 0 color-mix(in srgb, var(--color-text-primary) 26%, transparent); }
+
+/* Pinned segmented control: the bar surface is the element's background, so the track is drawn behind the buttons. */
+.seg.pinned { padding: 6px 18px 8px; }
+.seg.pinned::before { content: ""; position: absolute; z-index: -1; inset: 4px 16px 6px; border-radius: 10px; background: color-mix(in srgb, var(--color-text-primary) 10%, transparent); }
+.seg.pinned button { position: relative; margin: 2px; }
+/* Dark: the selected segment must stand out from the track (surface-raised is too close to it). */
+.phone[data-mode="dark"] .seg button[aria-selected="true"] { background: color-mix(in srgb, var(--color-text-primary) 26%, var(--color-background-secondary)); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
