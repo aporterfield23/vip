@@ -93,7 +93,7 @@ button.row, .row[data-act] { cursor: pointer; }
 .row .sub { font-size: 15px; line-height: 20px; color: var(--color-text-secondary); }
 .row .trail { color: var(--color-text-secondary); display: flex; align-items: center; gap: 6px; font-size: 17px; }
 .chev { width: 8px; height: 13px; stroke: var(--color-text-secondary); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.pen { width: 20px; height: 20px; stroke: var(--color-accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pen { width: 20px; height: 20px; stroke: var(--accent-text); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .check { width: 20px; height: 20px; stroke: var(--color-text-primary); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; border-radius: 13px; font-size: 13px; font-weight: 500; background: color-mix(in srgb, var(--color-text-primary) 8%, transparent); }
 .chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-text-secondary); }
@@ -116,7 +116,7 @@ button.row, .row[data-act] { cursor: pointer; }
 .req { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 0; }
 .req div { display: flex; align-items: center; gap: 10px; font-size: 15px; }
 .req svg { width: 22px; height: 22px; flex: none; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.req .met svg { stroke: var(--color-accent); } .req .unmet svg { stroke: var(--color-text-secondary); }
+.req .met svg { stroke: var(--accent-text); } .req .unmet svg { stroke: var(--color-text-secondary); }
 .codeboxes { display: flex; gap: 8px; justify-content: space-between; margin: 12px 0; }
 .codeboxes input { width: 100%; min-width: 0; height: 58px; text-align: center; font-size: 24px; font-weight: 600; border-radius: 12px; border: 1px solid var(--color-separator); background: var(--color-surface-raised); color: var(--color-text-primary); outline: none; padding: 0; }
 .codeboxes input:focus { border: 2px solid var(--color-accent); }
@@ -130,7 +130,7 @@ button.row, .row[data-act] { cursor: pointer; }
 /* hero (sign-in, done) */
 .hero { padding: 24px 16px 0; }
 .iconTile { width: 80px; height: 80px; border-radius: 40px; background: color-mix(in srgb, var(--color-accent) 14%, transparent); display: grid; place-items: center; margin-bottom: 20px; }
-.iconTile svg { width: 40px; height: 40px; stroke: var(--color-accent); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.iconTile svg { width: 40px; height: 40px; stroke: var(--accent-text); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .logo { width: 120px; height: 120px; border-radius: 28px; background: var(--color-accent); color: var(--color-on-accent); display: grid; place-items: center; font: 700 40px var(--font-family-display), var(--stack); margin: 56px auto 28px; }
 .fill { flex: 1; }
 .col { display: flex; flex-direction: column; min-height: 100%; }
