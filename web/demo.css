@@ -195,6 +195,3 @@ body.full .controls, body.full .hint { display: none; }
 body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: auto; right: 10px; transform: none; padding: 8px 12px; font-size: 13px; background: rgba(30,30,34,.82); box-shadow: none; }
 @media (max-width: 440px) { .cta { display: none; } }
 @media (max-height: 940px) { body { padding-top: 12px; padding-bottom: 64px; } }
-
-/* Dark mode: text and icons on VIP Green are white (design decision). Icons use currentColor. */
-.phone[data-mode="dark"] { --color-on-accent: #ffffff; }
