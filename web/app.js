@@ -110,13 +110,23 @@ document.addEventListener('input', (e) => {
 document.addEventListener('change', (e) => { const t = e.target; if (t.id === 'eqFile') { F.photoCount = (F.photoCount || 0) + t.files.length; F.photoMB = (F.photoMB || 0) + [...t.files].reduce((s, f) => s + f.size, 0) / 1048576; render(); } });
 document.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && /^c\d$/.test(e.target.dataset?.bind || '') && !e.target.value) { const i = +e.target.dataset.bind[1]; if (i > 0) { S.focusNext = 'c' + (i - 1); render(); } } });
 
+const fitPhone = () => { const p = phone(); if (!p) return; const z = document.body.classList.contains('full') || innerWidth <= 440 ? 1 : Math.max(0.6, Math.min(1, (innerHeight - 88) / 872)); p.style.zoom = z; };
+function setFull(on) {
+  document.body.classList.toggle('full', on); const b = document.getElementById('full');
+  b.textContent = on ? '✕ Exit full screen' : '⤢ View full screen'; b.setAttribute('aria-pressed', on); fitPhone();
+  try { if (on && document.documentElement.requestFullscreen && !document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {}); else if (!on && document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+}
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && document.body.classList.contains('full')) setFull(false); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('full')) setFull(false); });
+addEventListener('resize', fitPhone);
 document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('full').onclick = () => setFull(!document.body.classList.contains('full'));
   document.getElementById('light').onclick = () => { S.appearance = 'System default'; S.demoMode = 'light'; setMode(); render(); };
   document.getElementById('dark').onclick = () => { S.appearance = 'System default'; S.demoMode = 'dark'; setMode(); render(); };
   document.getElementById('restart').onclick = () => resetApp();
   document.getElementById('jump').onchange = (e) => { if (e.target.value) jump(e.target.value); };
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { setMode(); render(); });
   if (location.hash === '#dark') S.demoMode = 'dark';
-  setMode(); render();
+  setMode(); render(); fitPhone();
   if (location.hash.startsWith('#go=')) jump(location.hash.slice(4));
 });
