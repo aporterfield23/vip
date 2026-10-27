@@ -46,7 +46,7 @@ const ACT = {
   submitTs: (id) => { const a = asgOf(id); const d = tsData(a); a.ts = true; if (a.photos === 'done') a.step = 'done';
     S.ts.push({ id: 'n' + a.id, org: a.org, sub: `${a.type} · ${fmtShortDate(a)}`, place: a.city, date: a.date, photo: d.assign, miles: d.miles, drive: d.trav, tolls: d.tolls.reduce((t, x) => t + x, 0), status: 'Pending' }); closeOverlay(); },
   qrSheet: () => open('qr', { id: curAsgId() }), noteSheet: () => { F.noteText = ''; open('note', { id: curAsgId() }); },
-  addNote: (id) => { const a = asgOf(id); (a.notes = a.notes || [{ who: PEOPLE.leadName, when: 'Oct 7', text: 'Park behind the building. Check in at the front office and ask for the gym door key.' }]).unshift({ who: S.profile.name + ' (you)', when: 'Today', text: F.noteText.trim() }); S.detailSeg = 'Notes'; closeOverlay(); },
+  addNote: (id) => { const a = asgOf(id); (a.notes = a.notes || [{ who: PEOPLE.leadName, when: fmtShort(rel(-1)), text: 'Park behind the building. Check in at the front office and ask for the gym door key.' }]).unshift({ who: S.profile.name + ' (you)', when: 'Today', text: F.noteText.trim() }); S.detailSeg = 'Notes'; closeOverlay(); },
   report: () => open('report'), cantAttend: () => open('cantAttend'), mapPick: () => open('mapPick'),
   call: (n) => { S.overlay = null; render(); location.href = phoneLink(n); },
   openMap: (w) => { const a = asgOf(curAsgId()); const q = encodeURIComponent(a.address); window.open(w === 'apple' ? `https://maps.apple.com/?q=${q}` : `https://www.google.com/maps/search/?api=1&query=${q}`, '_blank', 'noopener'); closeOverlay(); },

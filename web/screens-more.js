@@ -42,8 +42,8 @@ SCREENS.statement = (c) => {
   <p style="color:#666;margin:12px 0 0">Placeholder rates. Amounts are for demonstration only.</p></div><div class="page">${btn('Share or save PDF', { act: 'savePdf' })}</div>`;
 };
 SCREENS.ytd = () => {
-  const es = S.ts.filter((e) => e.status === 'Paid' && e.date >= '2026-01-01'); const sum = (f) => es.reduce((t, e) => t + f(e), 0);
-  return `${toolbar({ back: true, title: 'Year to date', sub: 'Jan 1 – Oct 8' })}<div class="page" style="padding-top:12px">${card(row({ title: String(es.length), sub: 'Paid entries' }), row({ title: hrs(sum((e) => e.photo)), sub: 'Photography time' }), row({ title: hrs(sum((e) => e.drive)), sub: 'Driving time' }), row({ title: sum((e) => e.miles) + ' mi', sub: 'Driving miles' }), row({ title: money(sum((e) => e.tolls)), sub: 'Tolls' }), row({ title: money(sum(total)), sub: 'Total paid' }))}<p class="note">Totals include paid entries only. Rates are placeholders.</p></div>`;
+  const es = S.ts.filter((e) => e.status === 'Paid' && e.date >= PERIODS[4].from); const sum = (f) => es.reduce((t, e) => t + f(e), 0);
+  return `${toolbar({ back: true, title: 'Year to date', sub: fmtRange(PERIODS[4].from, TODAY) })}<div class="page" style="padding-top:12px">${card(row({ title: String(es.length), sub: 'Paid entries' }), row({ title: hrs(sum((e) => e.photo)), sub: 'Photography time' }), row({ title: hrs(sum((e) => e.drive)), sub: 'Driving time' }), row({ title: sum((e) => e.miles) + ' mi', sub: 'Driving miles' }), row({ title: money(sum((e) => e.tolls)), sub: 'Tolls' }), row({ title: money(sum(total)), sub: 'Total paid' }))}<p class="note">Totals include paid entries only. Rates are placeholders.</p></div>`;
 };
 
 /* Account */
