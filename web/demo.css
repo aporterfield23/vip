@@ -191,7 +191,10 @@ button.row, .row[data-act] { cursor: pointer; }
 .cta:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 body.full { padding: 0; background: #000; }
 body.full .phone { width: min(430px, 100vw); height: 100vh; height: 100dvh; max-width: none; border: 0; border-radius: 0; box-shadow: none; zoom: 1 !important; }
-body.full .controls, body.full .hint { display: none; }
+body.full .hint { display: none; }
+body.full .controls { top: auto; right: auto; bottom: 24px; left: max(24px, calc(50% - 215px - 336px)); width: 300px; max-width: none; justify-content: flex-start; }
+body.full .controls select { flex: 1 0 100%; }
+@media (max-width: 1099px) { body.full .controls { display: none; } }
 body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: auto; right: 10px; transform: none; padding: 8px 12px; font-size: 13px; background: transparent; box-shadow: none; }
 @media (max-width: 440px) { .cta { display: none; } }
 @media (max-height: 940px) { body { padding-top: 12px; padding-bottom: 64px; } }
