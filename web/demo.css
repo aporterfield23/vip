@@ -232,3 +232,8 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 .side p { margin: 0; color: #C9CBD1; }
 @media (max-width: 1099px) { .side { display: none; } }
 body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
+
+/* Native date fields: tell the browser which scheme the phone is in so the calendar icon and picker follow it (black icon on dark otherwise). */
+.phone[data-mode="light"] .field input { color-scheme: light; }
+.phone[data-mode="dark"] .field input { color-scheme: dark; }
+.phone[data-mode="dark"] .field input[type="date"]::-webkit-calendar-picker-indicator { opacity: 1; filter: none; cursor: pointer; }
