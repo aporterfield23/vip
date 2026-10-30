@@ -229,4 +229,4 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 .side h2 { margin: 0 0 10px; font: 700 26px/1.2 var(--stack); color: #fff; }
 .side p { margin: 0; color: #C9CBD1; }
 @media (max-width: 1099px) { .side { display: none; } }
-body.full .side { display: none; }
+body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
