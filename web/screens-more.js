@@ -13,7 +13,7 @@ SCREENS.timesheets = () => {
     es = periodEntries(); note = 'Approved and paid timesheets can’t be changed.';
     const single = !S.range && ['p1', 'p2', 'p3'].includes(S.period); const pr = periodObj();
     if (single) extra = card(`<button class="row" data-act="openStatement" data-arg="${pr.id}">${docTile}<span class="grow"><span class="ttl" style="display:block">Payment statement · ${fmtShort(pr.paid)}</span><span class="sub" style="display:block">${pr.label} · PDF</span></span>${ICON_PDF}</button>`) + '<div style="height:4px"></div>';
-    if (S.period === 'ytd' && !S.range) extra = card(row({ title: 'Year to date summary', sub: `${es.length} paid entries`, trail: I.chev, act: 'ytd' }));
+    if ((S.period === 'ytd' || S.period === 'lastyear') && !S.range) extra = card(row({ title: (S.period === 'ytd' ? 'Year to date' : 'Last year') + ' summary', sub: `${es.length} paid entries`, trail: I.chev, act: 'ytd', arg: S.period }));
   }
   const filters = s === 'Paid' ? `<div class="filters"><button class="btn bordered small" data-act="periodSheet">${esc(rangeLabel())} ⌄</button><button class="btn bordered small" data-act="payRates">Pay rates</button></div>` : `<div class="filters"><button class="btn bordered small" data-act="payRates">Pay rates</button></div>`;
   return `${toolbar({})}<div class="largetitle t-large">Timesheets</div>${seg('tsSeg', ['Open', 'Approved', 'Paid'], S.tsSeg, 'pinned')}<p class="t-sub sec" style="margin:6px 16px 10px">${note}</p>${filters}
@@ -41,9 +41,10 @@ SCREENS.statement = (c) => {
   <table><tr><td colspan="2" style="font-weight:700;border-bottom:1px solid #999">Summary</td></tr>${lines.map(([k, v]) => `<tr><td>${k}</td><td>${money(v)}</td></tr>`).join('')}<tr class="tot"><td>Total</td><td>${money(lines.reduce((t, l) => t + l[1], 0))}</td></tr></table>
   <p style="color:#666;margin:12px 0 0">Placeholder rates. Amounts are for demonstration only.</p></div><div class="page">${btn('Share or save PDF', { act: 'savePdf' })}</div>`;
 };
-SCREENS.ytd = () => {
-  const es = S.ts.filter((e) => e.status === 'Paid' && e.date >= PERIODS[4].from); const sum = (f) => es.reduce((t, e) => t + f(e), 0);
-  return `${toolbar({ back: true, title: 'Year to date', sub: fmtRange(PERIODS[4].from, TODAY) })}<div class="page" style="padding-top:12px">${card(row({ title: String(es.length), sub: 'Paid entries' }), row({ title: hrs(sum((e) => e.photo)), sub: 'Photography time' }), row({ title: hrs(sum((e) => e.drive)), sub: 'Driving time' }), row({ title: sum((e) => e.miles) + ' mi', sub: 'Driving miles' }), row({ title: money(sum((e) => e.tolls)), sub: 'Tolls' }), row({ title: money(sum(total)), sub: 'Total paid' }))}<p class="note">Totals include paid entries only. Rates are placeholders.</p></div>`;
+SCREENS.ytd = (c) => {
+  const pe = PERIODS.find((p) => p.id === (c && c.id)) || PERIODS[4]; const ly = pe.id === 'lastyear';
+  const es = S.ts.filter((e) => e.status === 'Paid' && e.date >= pe.from && e.date <= pe.to); const sum = (f) => es.reduce((t, e) => t + f(e), 0);
+  return `${toolbar({ back: true, title: pe.label, sub: fmtRange(pe.from, ly ? pe.to : TODAY) })}<div class="page" style="padding-top:12px">${card(row({ title: String(es.length), sub: 'Paid entries' }), row({ title: hrs(sum((e) => e.photo)), sub: 'Photography time' }), row({ title: hrs(sum((e) => e.drive)), sub: 'Driving time' }), row({ title: sum((e) => e.miles) + ' mi', sub: 'Driving miles' }), row({ title: money(sum((e) => e.tolls)), sub: 'Tolls' }), row({ title: money(sum(total)), sub: 'Total paid' }))}<p class="note">Totals include paid entries only. Rates are placeholders.</p></div>`;
 };
 
 /* Account */

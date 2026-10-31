@@ -42,10 +42,12 @@ const _dow = (dt(TODAY).getUTCDay() + 6) % 7; // Monday = 0
 const MONDAY = addDays(TODAY, -_dow);
 const _pm = dt(TODAY); const PREV_MONTH_START = iso(new Date(Date.UTC(_pm.getUTCFullYear(), _pm.getUTCMonth() - 1, 1)));
 const PREV_MONTH_END = iso(new Date(Date.UTC(_pm.getUTCFullYear(), _pm.getUTCMonth(), 0)));
-const _period = (k) => { const from = addDays(MONDAY, -7 * k), to = addDays(from, 6); const paid = addDays(to, 3) > TODAY ? TODAY : addDays(to, 3); return { id: 'p' + k, label: fmtRange(from, to), from, to, paid }; };
+const _period = (k) => { const from = addDays(MONDAY, -7 * k), to = addDays(from, 6); const paid = addDays(to, 3) > TODAY ? TODAY : addDays(to, 3); return { id: 'p' + k, label: fmtRange(from, to), name: k === 1 ? 'Current pay period' : k === 2 ? 'Previous pay period' : undefined, from, to, paid }; };
+const LAST_YEAR = Number(TODAY.slice(0, 4)) - 1;
 const PERIODS = [_period(1), _period(2), _period(3),
   { id: 'month', label: 'Last month', from: PREV_MONTH_START, to: PREV_MONTH_END },
-  { id: 'ytd', label: 'Year to date', from: TODAY.slice(0, 4) + '-01-01', to: TODAY }];
+  { id: 'ytd', label: 'Year to date', from: TODAY.slice(0, 4) + '-01-01', to: TODAY },
+  { id: 'lastyear', label: 'Last year', from: LAST_YEAR + '-01-01', to: LAST_YEAR + '-12-31' }];
 const _sub = (type, d) => type + ' · ' + WD[dt(d).getUTCDay()] + ', ' + fmtShort(d);
 const _paidEntry = (id, org, type, place, period, dow, photo, miles, drive, tolls) => { const p = PERIODS[period - 1]; const date = addDays(p.from, dow); return { id, org, sub: _sub(type, date), place, date, photo, miles, drive, tolls, status: 'Paid', paid: p.paid }; };
 const _openEntry = (id, org, type, place, n, status, photo, miles, drive) => { const date = rel(n); return { id, org, sub: _sub(type, date), place, date, photo, miles, drive, tolls: 0, status, approved: status === 'Approved' ? fmtShort(rel(Math.min(0, n + 2))) : undefined }; };
@@ -62,6 +64,7 @@ const TS = [
   _paidEntry('s10', 'Elk Grove High School', 'School Sports', 'Elk Grove Village, IL', 3, 3, 4.0, 40, 1.25, 4.8),
   { id: 's11', org: 'Townhall Elementary', sub: _sub('School Pictures', addDays(PREV_MONTH_START, 8)), place: 'Oak Park, IL', date: addDays(PREV_MONTH_START, 8), photo: 5.5, miles: 16, drive: 0.5, tolls: 0, status: 'Paid', paid: addDays(PREV_MONTH_START, 15) },
   { id: 's12', org: 'Rich Township High School', sub: _sub('School Pictures', addDays(PREV_MONTH_START, -10)), place: 'Olympia Fields, IL', date: addDays(PREV_MONTH_START, -10), photo: 6.0, miles: 31, drive: 1.0, tolls: 2.4, status: 'Paid', paid: addDays(PREV_MONTH_START, -5) },
+  ...[['s13', 'Elk Grove High School', 'School Pictures', 'Elk Grove Village, IL', '-03-14', 6.5, 40, 1.25, 4.8], ['s14', 'Maple Elementary', 'School Pictures', 'Skokie, IL', '-06-09', 6.0, 22, 0.5, 0], ['s15', 'Townhall Elementary', 'School Pictures', 'Oak Park, IL', '-11-04', 5.5, 16, 0.5, 0]].map(([id, org, type, place, md, photo, miles, drive, tolls]) => { const date = LAST_YEAR + md; return { id, org, sub: _sub(type, date), place, date, photo, miles, drive, tolls, status: 'Paid', paid: addDays(date, 7) }; }),
 ];
 const earn = (e) => ({ photo: e.photo * RATES.photo, drive: e.drive * RATES.drive, miles: e.miles * RATES.mile, tolls: e.tolls });
 const total = (e) => { const x = earn(e); return x.photo + x.drive + x.miles + x.tolls; };

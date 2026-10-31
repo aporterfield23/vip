@@ -62,7 +62,7 @@ const ACT = {
   // timesheets
   periodSheet: () => open('periodSheet'), setPeriod: (id) => { S.period = id; S.range = null; closeOverlay(); },
   rangeSheet: () => { F.rgFrom = ''; F.rgTo = ''; open('rangeSheet'); }, applyRange: () => { S.range = { from: F.rgFrom, to: F.rgTo }; closeOverlay(); },
-  payRates: () => open('payRates'), openStatement: (id) => push('statement', { id }), ytd: () => push('ytd'),
+  payRates: () => open('payRates'), openStatement: (id) => push('statement', { id }), ytd: (id) => push('ytd', { id }),
   savePdf: () => flash('Payment statement', 'PDF saved to Files (demo).', 'none'),
   editTs: (k) => { const e = tsOf(cur().id); const c = cur(); F.et = String((c.draft && c.draft[k] != null) ? c.draft[k] : e[k]); open('editTs', { k }); },
   saveEditTs: (k) => { const c = cur(); c.draft = c.draft || {}; c.draft[k] = parseFloat(F.et); closeOverlay(); },
