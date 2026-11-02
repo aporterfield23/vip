@@ -60,7 +60,7 @@ const ACT = {
   withdrawTO: (id) => open('withdrawTO', { id }), cancelTO: (id) => open('cancelTO', { id }),
   doWithdrawTO: (id) => { const o = toOf(id); o.status = 'Cancelled'; o.decided = fmtShort(TODAY); S.overlay = null; render(); }, doCancelTO: (id) => { const o = toOf(id); o.status = 'Cancelled'; o.decided = fmtShort(TODAY); S.overlay = null; render(); },
   // timesheets
-  periodSheet: () => open('periodSheet'), setPeriod: (id) => { S.period = id; S.range = null; closeOverlay(); },
+  periodSheet: () => { const ph = document.getElementById('phone'), b = document.querySelector('[data-act="periodSheet"]'); if (ph && b) { const pr = ph.getBoundingClientRect(), br = b.getBoundingClientRect(), k = pr.width / ph.offsetWidth || 1; S.menuAnchor = { top: Math.round((br.bottom - pr.top) / k + 6), left: Math.max(12, Math.round((br.left - pr.left) / k)) }; } open('periodSheet'); }, setPeriod: (id) => { S.period = id; S.range = null; closeOverlay(); },
   rangeSheet: () => { F.rgFrom = ''; F.rgTo = ''; open('rangeSheet'); }, applyRange: () => { S.range = { from: F.rgFrom, to: F.rgTo }; closeOverlay(); },
   payRates: () => open('payRates'), openStatement: (id) => push('statement', { id }), ytd: (id) => push('ytd', { id }),
   savePdf: () => flash('Payment statement', 'PDF saved to Files (demo).', 'none'),

@@ -237,3 +237,13 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .phone[data-mode="light"] .field input { color-scheme: light; }
 .phone[data-mode="dark"] .field input { color-scheme: dark; }
 .phone[data-mode="dark"] .field input[type="date"]::-webkit-calendar-picker-indicator { opacity: 1; filter: none; cursor: pointer; }
+
+/* Menu attached to a button (iOS pull-down menu pattern): compact items, grouped, checkmark on the active choice. */
+.scrim.clear { background: rgba(0,0,0,.12); }
+.menu { position: absolute; z-index: 41; width: 300px; max-width: calc(100% - 24px); background: color-mix(in srgb, var(--color-surface-raised) 94%, transparent); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,.28); overflow: hidden; animation: fade .15s; }
+.menu hr { border: 0; border-top: 6px solid color-mix(in srgb, var(--color-text-primary) 8%, transparent); margin: 0; }
+.menu .mi { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; padding: 8px 16px; border: 0; background: none; text-align: left; font-size: 17px; color: var(--color-text-primary); cursor: pointer; }
+.menu .mi + .mi { border-top: .5px solid var(--color-separator); }
+.menu .mi .mt { display: flex; flex-direction: column; }
+.menu .mi small { font-size: 13px; color: var(--color-text-secondary); margin-top: 1px; }
+.menu .mi svg { width: 18px; height: 18px; flex: none; stroke: var(--accent-text); }
