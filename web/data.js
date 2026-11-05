@@ -12,6 +12,8 @@ const fmtShort = (s) => { const d = dt(s); return MON[d.getUTCMonth()] + ' ' + d
 const fmtDay = (s) => { const d = dt(s); return WD[d.getUTCDay()] + ' ' + fmtShort(s); };
 const fmtLong = (s) => { const d = dt(s); return WDL[d.getUTCDay()] + ', ' + fmtShort(s); };
 const fmtRange = (a, b) => a === b ? fmtShort(a) : fmtShort(a) + ' – ' + fmtShort(b);
+const fmtWd = (s) => WD[dt(s).getUTCDay()] + ', ' + fmtShort(s);
+const fmtRangeWd = (a, b) => a === b ? fmtWd(a) : fmtWd(a) + ' – ' + fmtWd(b);
 const diffDays = (a, b) => Math.round((dt(b) - dt(a)) / 864e5);
 const money = (n) => '$' + n.toFixed(2);
 const hrs = (n) => (Math.round(n * 100) / 100).toString().replace(/(\.\d)$/, '$10') + ' h';
