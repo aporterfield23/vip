@@ -21,7 +21,7 @@ const GLYPH = {
   Sports: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><path d="M5.6 5.6c3.2 3.2 3.2 9.6 0 12.8M18.4 5.6c-3.2 3.2-3.2 9.6 0 12.8"/></svg>',
   School: '<svg viewBox="0 0 24 24"><path d="M12 4L2.5 9l9.5 5 9.5-5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M21.5 9v6"/></svg>'
 };
-const glyph = (kind, tile) => `<span class="glyph ${tile ? 'tile' : ''}" aria-hidden="true">${GLYPH[kind] || GLYPH.School}</span>`;
+const glyph = (kind, tile) => !S.icons ? '' : `<span class="glyph ${tile ? 'tile' : ''}" aria-hidden="true">${GLYPH[kind] || GLYPH.School}</span>`;
 const ICON_PDF = '<span style="border:1px solid var(--color-text-secondary);color:var(--color-text-secondary);border-radius:5px;font-size:11px;font-weight:600;padding:2px 6px">PDF</span>';
 const docTile = '<span style="width:44px;height:44px;border-radius:22px;background:color-mix(in srgb,var(--color-text-primary) 8%,transparent);display:grid;place-items:center;flex:none">' + I.doc + '</span>';
 
@@ -43,7 +43,7 @@ const pair = (upAct, downAct, upOff, downOff) => `<div class="pair"><button clas
 // ---------- state ----------
 const F = {}; // form values
 const S = {
-  mode: 'light', appearance: 'System default', authed: false, auth: ['welcome'], tab: 'Schedule',
+  mode: 'light', appearance: 'System default', icons: true, authed: false, auth: ['welcome'], tab: 'Schedule',
   stacks: { Schedule: [{ n: 'schedule' }], 'Time Off': [{ n: 'timeoff' }], Timesheets: [{ n: 'timesheets' }], Account: [{ n: 'account' }] },
   schedSeg: 'Upcoming', tsSeg: 'Open', period: 'p1', range: null, detailSeg: 'Details',
   notif: { on: true, denied: false, types: { assignments: true, soon: true, photos: true, approved: true, timeoff: true } },

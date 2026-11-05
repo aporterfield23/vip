@@ -261,3 +261,6 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .page.hdr { padding-bottom: 4px; }
 .page.hdr .pillrow { margin-bottom: 0; }
 .page.hdr > :last-child { margin-bottom: 0 !important; }
+
+/* App settings: a quiet sub-label above the Appearance list inside the section. */
+.subhead { font-size: 13px; color: var(--color-text-secondary); margin: 14px 0 6px; }

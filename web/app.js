@@ -73,13 +73,14 @@ const ACT = {
   toPw: () => { F.opw = F.npw = F.cpw = ''; push('pw'); }, updatePw: () => { const st = S.stacks[S.tab]; st[st.length - 1] = { n: 'pwDone' }; render(); }, pwDone: () => { S.stacks.Account = [{ n: 'account' }]; render(); },
   toNotif: () => push('notif'), notifMaster: () => { S.notif.on = !S.notif.on; render(); }, notifType: (k) => { S.notif.types[k] = !S.notif.types[k]; render(); },
   openSettings: () => { S.notif.denied = false; S.notif.on = true; render(); flash('Notifications on', 'Turned on in iPhone Settings (demo).', 'none'); },
+  toggleIcons: () => { S.icons = !S.icons; render(); },
   appear: (t) => { S.appearance = t; if (t === 'System default') S.demoMode = null; setMode(); render(); },
   signOut: () => open('signOutAlert'), doSignOut: () => resetApp({ signedOut: true }),
 };
 function afterEnter() { clearTimeout(S.bannerT); if (S.notif.on && S.notif.types.assignments) S.bannerT = setTimeout(() => { if (S.authed) flash('Schedule updated', 'Lincoln High School now starts at 7:30 AM.'); }, 3500); }
 function resetApp(o = {}) {
   clearInterval(S.upT); clearTimeout(S.bannerT); clearTimeout(flash.t);
-  const keep = { appearance: S.appearance, demoMode: S.demoMode };
+  const keep = { appearance: S.appearance, demoMode: S.demoMode, icons: S.icons };
   Object.keys(F).forEach((k) => delete F[k]);
   Object.assign(S, { authed: false, auth: ['welcome'], signingIn: false, tab: 'Schedule', stacks: { Schedule: [{ n: 'schedule' }], 'Time Off': [{ n: 'timeoff' }], Timesheets: [{ n: 'timesheets' }], Account: [{ n: 'account' }] },
     schedSeg: 'Upcoming', tsSeg: 'Open', period: 'p1', range: null, detailSeg: 'Details', notif: { on: true, denied: false, types: { assignments: true, soon: true, photos: true, approved: true, timeoff: true } },
