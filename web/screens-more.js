@@ -57,7 +57,7 @@ SCREENS.account = () => {
   <div class="sectionhead">Profile</div>${card(...pr.map(([k, v, l]) => row({ title: esc(v), sub: l, trail: I.pen, act: 'editField', arg: k })), row({ title: '••••••••••', sub: 'Password', trail: I.pen, act: 'toPw' }))}
   <div class="sectionhead">Settings</div>${card(
     row({ title: 'Notifications', sub: nsub, trail: I.chev, act: 'toNotif' }),
-    row({ title: 'Appearance', trail: `<span class="sec" style="margin-right:6px">${S.appearance}</span>${I.chev}`, act: 'toAppearance' }),
+    row({ title: 'Appearance', sub: S.appearance, trail: I.chev, act: 'toAppearance' }),
     row({ title: 'Show assignment icons', sub: 'School and sports icons', trail: toggle(S.icons, 'toggleIcons') }))}
   <div style="height:16px"></div>${card(`<button class="row" data-act="signOut"><span class="ttl danger">Sign out</span></button>`)}</div>`;
 };
