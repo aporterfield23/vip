@@ -71,6 +71,7 @@ const ACT = {
   editField: (k) => { F.ef = S.profile[k]; open('editField', { k }); }, saveField: (k) => { S.profile[k] = F.ef.trim(); closeOverlay(); },
   photoSheet: () => open('photoSheet'), photoDone: (m) => { S.overlay = null; flash(m, 'Your profile photo was updated.', 'none'); },
   toPw: () => { F.opw = F.npw = F.cpw = ''; push('pw'); }, updatePw: () => { const st = S.stacks[S.tab]; st[st.length - 1] = { n: 'pwDone' }; render(); }, pwDone: () => { S.stacks.Account = [{ n: 'account' }]; render(); },
+  togglePw: (k) => { S.showPw = S.showPw || {}; S.showPw[k] = !S.showPw[k]; S.focusNext = k; render(); },
   toAppearance: () => push('appearance'),
   toNotif: () => push('notif'), notifMaster: () => { S.notif.on = !S.notif.on; render(); }, notifType: (k) => { S.notif.types[k] = !S.notif.types[k]; render(); },
   openSettings: () => { S.notif.denied = false; S.notif.on = true; render(); flash('Notifications on', 'Turned on in iPhone Settings (demo).', 'none'); },

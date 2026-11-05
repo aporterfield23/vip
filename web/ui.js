@@ -15,6 +15,8 @@ const I = {
   person: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18c1.5-2.5 3.2-3.5 5.5-3.5s4 1 5.5 3.5"/></svg>',
   bell: '<svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15z"/><path d="M10 21h4"/></svg>',
   doc: '<svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:var(--color-text-primary);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg>',
+  eye: '<svg viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  eyeOff: '<svg viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg>',
   tick: '<svg viewBox="0 0 40 40"><path d="M9 21l8 8 14-17"/></svg>',
 };
 const GLYPH = {
@@ -35,7 +37,16 @@ const row = (o) => {
 const card = (...rows) => `<div class="card">${rows.join('')}</div>`;
 const toggle = (on, act, arg, disabled) => `<button class="toggle" role="switch" aria-checked="${!!on}" data-act="${act}" data-arg="${esc(arg ?? '')}" ${disabled ? 'disabled' : ''}></button>`;
 const seg = (act, opts, sel, cls = '', dot) => `<div class="seg ${cls}" role="tablist">${opts.map((o) => `<button role="tab" aria-selected="${o === sel}" data-act="${act}" data-arg="${esc(o)}">${esc(o)}${dot === o ? '<span class="dotbadge"></span>' : ''}</button>`).join('')}</div>`;
-const field = (key, label, o = {}) => `<label class="field ${o.err ? 'error' : ''}"><span>${esc(label)}</span>${o.area ? `<textarea data-bind="${key}" placeholder="${esc(o.ph || '')}">${esc(F[key] ?? '')}</textarea>` : `<input data-bind="${key}" type="${o.type || 'text'}" value="${esc(F[key] ?? '')}" placeholder="${esc(o.ph || '')}" ${o.attrs || ''} autocomplete="off">`}${o.err ? `<span class="err">${esc(o.err)}</span>` : ''}</label>`;
+const field = (key, label, o = {}) => {
+  const val = esc(F[key] ?? ''), ph = esc(o.ph || '');
+  let ctl;
+  if (o.area) ctl = `<textarea data-bind="${key}" placeholder="${ph}">${val}</textarea>`;
+  else if (o.type === 'password') {
+    const on = !!(S.showPw && S.showPw[key]);
+    ctl = `<span class="pwwrap"><input data-bind="${key}" type="${on ? 'text' : 'password'}" value="${val}" placeholder="${ph}" ${o.attrs || ''} autocomplete="off"><button type="button" class="eye" data-act="togglePw" data-arg="${key}" aria-label="${on ? 'Hide' : 'Show'} password" aria-pressed="${on}">${on ? I.eyeOff : I.eye}</button></span>`;
+  } else ctl = `<input data-bind="${key}" type="${o.type || 'text'}" value="${val}" placeholder="${ph}" ${o.attrs || ''} autocomplete="off">`;
+  return `<label class="field ${o.err ? 'error' : ''}"><span>${esc(label)}</span>${ctl}${o.err ? `<span class="err">${esc(o.err)}</span>` : ''}</label>`;
+};
 const toolbar = (o = {}) => `<div class="toolbar">${o.back ? `<button class="circle-btn" data-act="back" aria-label="Back">${I.back}</button>` : o.cancel ? `<button class="text-btn" data-act="${o.cancel}">Cancel</button>` : '<span class="spacer"></span>'}
   <div class="mid"><div class="t">${esc(o.title || '')}</div>${o.sub ? `<div class="s">${esc(o.sub)}</div>` : ''}</div>${o.trail || '<span class="spacer"></span>'}</div>`;
 const pair = (upAct, downAct, upOff, downOff) => `<div class="pair"><button class="circle-btn" data-act="${upAct}" aria-label="Previous assignment" ${upOff ? 'disabled' : ''}>${I.up}</button><button class="circle-btn" data-act="${downAct}" aria-label="Next assignment" ${downOff ? 'disabled' : ''}>${I.down}</button></div>`;
