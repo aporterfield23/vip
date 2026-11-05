@@ -13,7 +13,7 @@ const SECTIONS = {
   account: ['Account', 'Your profile and app settings.'],
   notifications: ['Notifications', 'Push notifications, in-app alerts and settings.'],
 };
-const OVERLAY_SECTION = { startTravel: 'start', travelLog: 'start', mapPick: 'start', qr: 'data', note: 'note', tsSheet: 'submit', equip: 'details', equipSent: 'details', report: 'details', cantAttend: 'details', reqTO: 'timeoff', cancelTO: 'timeoff', withdrawTO: 'timeoff', periodSheet: 'timesheets', rangeSheet: 'timesheets', payRates: 'timesheets', editTs: 'timesheets', editField: 'account', photoSheet: 'account', signOutAlert: 'account' };
+const OVERLAY_SECTION = { startTravel: 'start', travelLog: 'start', mapPick: 'start', qr: 'data', note: 'note', tsSheet: 'submit', equip: 'details', equipSent: 'details', report: 'details', cantAttend: 'details', reqTO: 'timeoff', cancelTO: 'timeoff', withdrawTO: 'timeoff', periodSheet: 'timesheets', rangeSheet: 'timesheets', payRates: 'timesheets', editTs: 'timesheets', editField: 'account', confirmCode: 'account', confirmEmail: 'account', photoSheet: 'account', signOutAlert: 'account' };
 const SCREEN_SECTION = { schedule: 'schedule', timeoff: 'timeoff', offDetail: 'timeoff', timesheets: 'timesheets', tsEntry: 'timesheets', statement: 'timesheets', ytd: 'timesheets', account: 'account', appearance: 'account', editField: 'account', pw: 'account', pwDone: 'account', notif: 'notifications' };
 const STEP_SECTION = { scheduled: 'details', traveling: 'start', arrived: 'start', active: 'next', ended: 'submit', done: 'submit' };
 

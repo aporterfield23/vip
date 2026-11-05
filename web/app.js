@@ -68,7 +68,9 @@ const ACT = {
   saveEditTs: (k) => { const c = cur(); c.draft = c.draft || {}; c.draft[k] = parseFloat(F.et); closeOverlay(); },
   saveTs: () => { const c = cur(); const e = tsOf(c.id); Object.assign(e, c.draft); c.draft = {}; flash('Changes saved', 'Sent for approval again.', 'none'); },
   // account
-  editField: (k) => { F.ef = S.profile[k]; push('editField', { k }); }, saveField: () => { const k = cur().k; S.profile[k] = (F.ef || '').trim(); const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); },
+  editField: (k) => { F.ef = S.profile[k]; push('editField', { k }); }, saveField: () => { const k = cur().k, v = (F.ef || '').trim(); if ((k === 'phone' || k === 'email') && v !== S.profile[k]) { S.pend = { k, v }; F.code = ''; push(k === 'phone' ? 'confirmCode' : 'confirmEmail'); return; } S.profile[k] = v; const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); },
+  confirmPending: () => { const { k, v } = S.pend; S.profile[k] = v; S.pend = null; F.code = ''; S.stacks.Account = [{ n: 'account' }]; render(); flash(k === 'phone' ? 'Phone number updated' : 'Email updated', k === 'phone' ? 'Your number is confirmed.' : 'Your new address is confirmed.', 'none'); },
+  resendPending: () => flash(S.pend.k === 'phone' ? 'Code sent' : 'Link sent', S.pend.k === 'phone' ? 'A new code is on its way.' : 'A new link is on its way.', 'none'),
   photoSheet: () => open('photoSheet'), photoDone: (m) => { S.overlay = null; flash(m, 'Your profile photo was updated.', 'none'); },
   toPw: () => { F.opw = F.npw = F.cpw = ''; push('pw'); }, updatePw: () => { const st = S.stacks[S.tab]; st[st.length - 1] = { n: 'pwDone' }; render(); }, pwDone: () => { S.stacks.Account = [{ n: 'account' }]; render(); },
   togglePw: (k) => { S.showPw = S.showPw || {}; S.showPw[k] = !S.showPw[k]; S.focusNext = k; render(); },
