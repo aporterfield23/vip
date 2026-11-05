@@ -107,9 +107,11 @@ document.addEventListener('click', (e) => {
   const t = e.target.closest('[data-act]'); if (!t || t.disabled) return; const act = t.dataset.act; if (!act) return;
   if (!t.closest('#phone') && !t.closest('.controls')) return; const fn = ACT[act]; if (fn) { e.preventDefault(); fn(t.dataset.arg); }
 });
+const NUMERIC_BINDS = ['tlHrs', 'tlMiles', 'toll', 'et']; // amounts: digits and one decimal point only
 document.addEventListener('input', (e) => {
   const t = e.target; if (t.id === 'eqFile') return; const b = t.dataset && t.dataset.bind; if (!b) return;
   if (/^c\d$/.test(b)) { const i = +b[1]; const d = t.value.replace(/\D/g, '').slice(-1); const cur = (F.code || '').padEnd(6, ' ').split(''); cur[i] = d || ' '; F.code = cur.join('').replace(/ +$/, ''); S.focusNext = d && i < 5 ? 'c' + (i + 1) : b; render(); return; }
+  if (NUMERIC_BINDS.includes(b)) { const v = t.value.replace(/[^\d.]/g, '').replace(/^(\d*\.\d*).*$/, (m, x) => x); const caret = t.selectionStart ?? v.length; const lost = t.value.length - v.length; t.value = v; try { t.setSelectionRange(Math.max(0, caret - lost), Math.max(0, caret - lost)); } catch (err) {} F[b] = v; render(); return; }
   if (b === 'acPhone' || (b === 'ef' && S.authed && cur().k === 'phone')) {
     const caret = t.selectionStart ?? t.value.length; const before = t.value.slice(0, caret).replace(/\D/g, '').length; const f = fmtPhone(t.value);
     let pos = f.length, seen = 0; if (before < phoneDigits(t.value).length) { pos = 0; for (let i = 0; i < f.length && seen < before; i++) { pos = i + 1; if (/\d/.test(f[i])) seen++; } }
