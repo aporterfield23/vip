@@ -30,7 +30,7 @@ const ASSIGNMENTS = [
   { id: 'a3', date: rel(1), start: 1050, end: 1200, kind: 'Sports', type: 'Sports Portraits', org: 'Saint Viator Lion’s Hockey Club', city: 'Palatine, IL', address: '1213 E Oakton St, Arlington Heights, IL 60004', meet: 'Rink Lobby', lead: true, qr: true, records: 188, step: 'scheduled', photos: 'none', ts: false, schedule: [['5:30 PM', 'Varsity', '22 athletes'], ['6:30 PM', 'Junior Varsity', '20 athletes'], ['7:15 PM', 'Squirts', '18 athletes']] },
   { id: 'a4', date: rel(4), start: 480, end: 720, kind: 'School', type: 'School Pictures', org: 'Townhall Elementary', city: 'Oak Park, IL', address: '325 Lake St, Oak Park, IL 60302', meet: 'Front Office', lead: false, step: 'scheduled', photos: 'none', ts: false, schedule: [['8:00 AM', 'Grades 1–3', '150 students']] },
 ];
-const PEOPLE = { leadName: 'Priya Raman', leadPhone: '(312) 555-0161', others: [['Marcus Lee', '(312) 555-0187']], client: ['Dana Whitfield', '(773) 555-0129'], manager: ['Chris Alvarez', '(312) 555-0102'] };
+const PEOPLE = { leadName: 'Jordan Ellis', leadPhone: '(312) 555-0118', others: [['Priya Natarajan', '(312) 555-0142'], ['Marcus Bell', '(312) 555-0129']], client: ['Ellen Ruiz', '(630) 555-0177'], manager: ['Sam Okafor', '(312) 555-0163'] }; // matches the Figma Details screens
 
 const TIMEOFF = [
   { id: 't1', start: rel(7), end: rel(8), part: 'All Day', hours: 16, status: 'Approved', requested: fmtShort(rel(-6)), decided: fmtShort(rel(-5)) },

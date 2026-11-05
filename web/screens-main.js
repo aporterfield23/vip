@@ -67,13 +67,13 @@ SCREENS.assignment = (c) => {
   const a = asgOf(c.id); const q = seq(); const i = q.findIndex((x) => x.k === 'asg' && x.id === a.id);
   const { primary, sec } = actionsFor(a);
   const detailRows = () => {
-    const tel = (n, p) => row({ title: esc(n), sub: 'Phone', trail: `<a class="link phonelink" href="tel:${p.replace(/\D/g, '')}" aria-label="Call ${esc(n)}, ${p}">${I.phone}<span>${p}</span></a>` });
+    // Matches Figma: name as title, "Role · number" as subtitle, phone symbol trailing; the whole row is one tel: link.
+    const tel = (n, p, role) => `<a class="row telrow" href="tel:${p.replace(/\D/g, '')}" aria-label="Call ${esc(n)}, ${esc(role)}, ${p}"><div class="grow"><div class="ttl">${esc(n)}</div><div class="sub">${role} · ${p}</div></div><div class="trail">${I.phone}</div></a>`;
     let h = '';
     if (a.qr) h += `<div class="sectionhead" style="margin-top:6px">QR code</div>` + card(`<button class="row" data-act="qrSheet"><span style="width:56px;height:56px;background:#fff;border-radius:8px;padding:4px;flex:none">${S.qrFail ? '' : qrSvg(a.id)}</span><span class="grow"><span class="ttl" style="display:block">Assignment QR code</span><span class="sub" style="display:block">Tap to enlarge and scan with the tablet</span></span></button>`);
     h += `<div class="sectionhead">When and where</div>` + card(row({ title: esc(a.org), sub: 'Client' }), row({ title: fmtLong(a.date), sub: 'Date' }), row({ title: timeRange(a), sub: 'Times' }),
       row({ title: esc(a.address), sub: 'Location', trail: I.chev, act: 'mapPick' }), row({ title: a.meet, sub: 'Meeting location' }));
-    h += `<div class="sectionhead">Team</div>` + card(tel(PEOPLE.leadName, PEOPLE.leadPhone).replace('Phone', 'Lead photographer'), ...PEOPLE.others.map(([n, p]) => tel(n, p).replace('Phone', 'Photographer')));
-    h += `<div class="sectionhead">Contacts</div>` + card(tel(PEOPLE.client[0], PEOPLE.client[1]).replace('Phone', 'Client contact'), tel(PEOPLE.manager[0], PEOPLE.manager[1]).replace('Phone', 'Account manager'));
+    h += '<div style="height:16px"></div>' + card(tel(PEOPLE.leadName, PEOPLE.leadPhone, 'Lead photographer'), ...PEOPLE.others.map(([n, p]) => tel(n, p, 'Photographer')), tel(PEOPLE.client[0], PEOPLE.client[1], 'Client contact'), tel(PEOPLE.manager[0], PEOPLE.manager[1], 'Account manager'));
     const L = a.log || {}; const logs = [];
     if (L.travelStart != null) logs.push(['Start Travel', clock(L.travelStart)]); if (L.arrived != null) logs.push(['Arrived', clock(L.arrived)]);
     if (L.startAsg != null) logs.push(['Start Assignment', clock(L.startAsg)]); if (L.endAsg != null) logs.push(['End Assignment', clock(L.endAsg)]);
