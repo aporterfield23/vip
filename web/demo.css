@@ -108,11 +108,11 @@ button.row, .row[data-act] { cursor: pointer; }
 /* fields */
 .field { display: block; margin: 0 0 14px; }
 .field > span { display: block; font-size: 15px; font-weight: 600; color: var(--color-text-secondary); margin: 0 0 6px; }
-.field input, .field textarea, .field select { width: 100%; font: inherit; font-size: 17px; padding: 15px 16px; border-radius: 12px; border: 1px solid var(--color-separator); background: var(--color-surface-raised); color: var(--color-text-primary); outline: none; }
-.field input:focus, .field textarea:focus, .field select:focus { border: 2px solid var(--color-accent); padding: 14px 15px; }
+.field input, .field , .field select { width: 100%; font: inherit; font-size: 17px; padding: 15px 16px; border-radius: 12px; border: 1px solid var(--color-separator); background: var(--color-surface-raised); color: var(--color-text-primary); outline: none; }
+.field input:focus, .field :focus, .field select:focus { border: 2px solid var(--color-accent); padding: 14px 15px; }
 .field.error input { border: 2px solid var(--color-destructive); padding: 14px 15px; }
 .field .err { color: var(--color-destructive); font-size: 13px; margin-top: 6px; display: block; font-weight: 400; }
-.field textarea { min-height: 96px; resize: none; }
+.field  { min-height: 96px; resize: none; }
 .req { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 0; }
 .req div { display: flex; align-items: center; gap: 10px; font-size: 15px; }
 .req svg { width: 22px; height: 22px; flex: none; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
@@ -222,8 +222,8 @@ body.full .cta { top: max(10px, env(safe-area-inset-top)); bottom: auto; left: a
 /* Form fields: resting border >= 3:1 against the field and the page (WCAG 1.4.11); focus border >= 3:1 too. */
 .phone { --field-fill: var(--color-surface-raised); --field-border: color-mix(in srgb, var(--color-text-primary) 55%, var(--color-surface-raised)); --focus-line: var(--color-accent); }
 .phone[data-mode="dark"] { --field-fill: color-mix(in srgb, var(--color-text-primary) 7%, var(--color-surface-raised)); --field-border: color-mix(in srgb, var(--color-text-primary) 40%, var(--field-fill)); --focus-line: var(--color-accent-strong); }
-.field input, .field textarea, .field select, .codeboxes input { border-color: var(--field-border); background: var(--field-fill); }
-.field input:focus, .field textarea:focus, .field select:focus, .codeboxes input:focus { border-color: var(--focus-line); }
+.field input, .field , .field select, .codeboxes input { border-color: var(--field-border); background: var(--field-fill); }
+.field input:focus, .field :focus, .field select:focus, .codeboxes input:focus { border-color: var(--focus-line); }
 
 /* Left-hand section note (text from the Figma cover screens). Hidden when there is no room beside the phone. */
 .side { position: fixed; left: max(24px, calc(50% - 201px - 336px)); top: 96px; width: 300px; color: #E6E6E6; font: 15px/1.5 var(--stack); }

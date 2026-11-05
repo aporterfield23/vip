@@ -130,7 +130,7 @@ const push = (n, o = {}) => { S.stacks[S.tab].push({ n, ...o }); S.overlay = nul
 const goTab = (t) => { S.tab = t; S.overlay = null; render(); };
 function sheet(title, body, o = {}) {
   return `<div class="scrim" data-act="${o.dismiss === false ? '' : 'close'}"></div><div class="sheet ${o.short ? 'short' : ''}" role="dialog" aria-label="${esc(title)}">
-  <div class="sh-bar">${o.noCancel ? '<span class="spacer" style="width:60px"></span>' : `<button class="text-btn" data-act="close">${o.cancelLabel || 'Cancel'}</button>`}<div class="t">${esc(title)}</div>${o.trail || '<span style="width:60px"></span>'}</div>
+  <div class="sh-bar">${o.noCancel ? '<span class="spacer" style="width:60px"></span>' : `<button class="text-btn" data-act="${o.cancelAct || 'close'}">${o.cancelLabel || 'Cancel'}</button>`}<div class="t">${esc(title)}</div>${o.trail || '<span style="width:60px"></span>'}</div>
   <div class="sh-body">${body}</div>${o.foot ? `<div class="sh-foot">${o.foot}</div>` : ''}</div>`;
 }
 function actionSheet(title, msg, items, keepLabel) {

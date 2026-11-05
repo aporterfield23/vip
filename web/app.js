@@ -42,6 +42,11 @@ const ACT = {
     e.photo = parseFloat(F.tsPhoto); e.miles = parseFloat(F.tsMiles); e.drive = parseFloat(F.tsDrive); e.tolls = parseFloat(F.tsTolls); e.reason = F.tsReason.trim(); e.edited = true;
     const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); flash('Changes saved', 'Sent for approval again.', 'none'); },
   tlEdit: () => { const a = asgOf(curAsgId()); F.tlHrs = String(roundUp15(a.log.tmp.mins) / 60); F.tlMiles = String(a.log.tmp.miles); F.tlReason = ''; S.overlay.edit = true; render(); },
+  tlEditCancel: () => { S.overlay.edit = false; render(); },
+  tsxOpen: () => { const a = asgOf(S.overlay.id); const d = tsData(a); F.tsxTrav = String(d.trav); F.tsxMiles = String(d.miles); F.tsxTolls = String(d.tolls.reduce((x, y) => x + y, 0)); F.tsxReason = ''; F.tsxTried = false; S.overlay.edit = true; render(); },
+  tsxCancel: () => { S.overlay.edit = false; render(); },
+  tsxSave: () => { const er = tsSheetErrors(); F.tsxTried = true; const first = ['tsxTrav','tsxMiles','tsxTolls','tsxReason'].find((k) => er[k]); if (first) { S.focusNext = first; render(); return; } if (er.none) { render(); return; }
+    const a = asgOf(S.overlay.id); a.log = a.log || {}; a.log.travelHrs = parseFloat(F.tsxTrav); a.log.miles = parseFloat(F.tsxMiles); const t = parseFloat(F.tsxTolls); a.log.tolls = t > 0 ? [t] : []; a.log.tsReason = F.tsxReason.trim(); a.log.flag = true; S.overlay.edit = false; render(); },
   tlSave: () => { const a = asgOf(curAsgId()); const t = a.log.tmp; t.mins = Math.round(parseFloat(F.tlHrs || '0') * 60); t.miles = Math.round(parseFloat(F.tlMiles || '0')); t.flag = true; t.reason = F.tlReason; S.overlay.edit = false; render(); },
   tlConfirm: () => { const a = asgOf(curAsgId()); const t = a.log.tmp; a.log.arrived = t.end; a.log.travelHrs = roundUp15(t.mins) / 60; a.log.miles = t.miles; if (t.flag) a.log.flag = true; a.step = 'arrived'; closeOverlay(); },
   startAsg: () => { const a = asgOf(curAsgId()); a.log.startAsg = a.start + 2; a.step = 'active'; render(); },
@@ -111,7 +116,7 @@ document.addEventListener('click', (e) => {
   const t = e.target.closest('[data-act]'); if (!t || t.disabled) return; const act = t.dataset.act; if (!act) return;
   if (!t.closest('#phone') && !t.closest('.controls')) return; const fn = ACT[act]; if (fn) { e.preventDefault(); fn(t.dataset.arg); }
 });
-const NUMERIC_BINDS = ['tlHrs', 'tlMiles', 'toll', 'tsPhoto', 'tsMiles', 'tsDrive', 'tsTolls']; // amounts: digits and one decimal point only
+const NUMERIC_BINDS = ['tlHrs', 'tlMiles', 'toll', 'tsxTrav', 'tsxMiles', 'tsxTolls', 'tsPhoto', 'tsMiles', 'tsDrive', 'tsTolls']; // amounts: digits and one decimal point only
 document.addEventListener('input', (e) => {
   const t = e.target; if (t.id === 'eqFile') return; const b = t.dataset && t.dataset.bind; if (!b) return;
   if (/^c\d$/.test(b)) { const i = +b[1]; const d = t.value.replace(/\D/g, '').slice(-1); const cur = (F.code || '').padEnd(6, ' ').split(''); cur[i] = d || ' '; F.code = cur.join('').replace(/ +$/, ''); S.focusNext = d && i < 5 ? 'c' + (i + 1) : b; render(); return; }
