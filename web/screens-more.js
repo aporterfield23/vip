@@ -70,7 +70,7 @@ const PROFILE_EDIT = {
   address: ['Address', 'Home address', 'Used as your starting point for travel and mileage.', 'text'],
 };
 SCREENS.editField = (c) => { const [title, label, intro, type] = PROFILE_EDIT[c.k];
-  return `${toolbar({ back: true, title })}<div class="page" style="padding-top:12px"><p class="t-body sec" style="margin:0 0 18px">${intro}</p>${field('ef', label, { type, attrs: type === 'tel' ? 'inputmode="tel"' : '' })}</div>
+  return `${toolbar({ back: true, title })}<div class="page" style="padding-top:12px"><p class="t-body sec" style="margin:0 0 18px">${intro}</p>${field('ef', label, { type, attrs: type === 'tel' ? 'inputmode="tel"' : '', err: c.k === 'phone' ? F.efErr : '' })}</div>
   <div class="footer" style="position:sticky;bottom:96px">${btn('Save', { act: 'saveField', disabled: !(F.ef || '').trim() })}</div>`; };
 SCREENS.confirmCode = () => { const d = (F.code || '').padEnd(6, ' ').split('');
   return `${toolbar({ back: true, title: 'Confirm number' })}<div class="page" style="padding-top:12px"><p class="t-body sec" style="margin:0 0 8px">We sent a 6-digit code to ${esc(S.pend ? S.pend.v : '')}.</p>

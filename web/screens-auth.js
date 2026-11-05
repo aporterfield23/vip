@@ -18,7 +18,7 @@ SCREENS.invite = () => {
     <p class="note">Demo: use ${INVITE}</p>`, btn('Continue', { act: 'checkInvite', disabled: !v }));
 };
 SCREENS.createAccount = () => authPage(`<span class="chip accent" style="margin-bottom:14px"><i></i>Invite verified</span><h1 class="t-title1">Welcome, Jordan</h1><p class="t-body sec" style="margin:8px 0 20px">Confirm your details to create your account.</p>
-  ${field('acName', 'Name')}${field('acEmail', 'Email', { type: 'email' })}${field('acPhone', 'Mobile phone', { type: 'tel' })}
+  ${field('acName', 'Name')}${field('acEmail', 'Email', { type: 'email' })}${field('acPhone', 'Mobile phone', { type: 'tel', err: F.acPhoneErr })}
   <p class="note">By continuing you agree to the VIP Terms of Use and Privacy Policy.</p>`, btn('Continue', { act: 'toPassword', disabled: !(F.acName && F.acEmail && F.acPhone) }));
 SCREENS.password = () => { const ok = pwChecks(F.pw || '').every((c) => c[0]); return authPage(`<h1 class="t-title1">Create a password</h1><p class="t-body sec" style="margin:8px 0 20px">You’ll use it with a verification code to sign in.</p>${field('pw', 'Password', { type: 'password' })}${pwList(F.pw || '')}`, btn('Continue', { act: 'toMfa', disabled: !ok })); };
 SCREENS.mfa = () => authPage(`<h1 class="t-title1">Verify it’s you</h1><p class="t-body sec" style="margin:8px 0 20px">We’ll text a verification code to your mobile phone each time you sign in on a new device.</p>
