@@ -104,7 +104,7 @@ SCREENS.offDetail = (c) => {
   const o = toOf(c.id); const q = seq().filter((x) => x.k === 'off' || x.k === 'asg'); const idx = q.findIndex((x) => x.k === 'off' && x.id === o.id);
   const trail = o.status === 'Approved' ? pair('prevAsg', 'nextAsg', false, false) : '';
   const canCancel = o.status === 'Approved' && diffDays(TODAY, o.start) >= 1;
-  return `${toolbar({ back: true, title: 'Time Off', sub: fmtRangeWd(o.start, o.end), trail })}<div class="page"><div style="display:flex;gap:8px;align-items:center;margin:8px 0 14px"><span class="typeline">Time Off</span>${statusChip(o.status)}</div>
+  return `${toolbar({ back: true, title: 'Time Off', sub: fmtRangeWd(o.start, o.end), trail })}<div class="page"><div style="display:flex;gap:8px;align-items:center;margin:8px 0 14px">${statusChip(o.status)}</div>
   ${card(row({ title: fmtRange(o.start, o.end), sub: 'Date' }), row({ title: o.part, sub: 'Time of day' }), row({ title: o.hours + ' hours', sub: 'Total time off' }), row({ title: o.requested, sub: 'Requested' }), o.decided ? row({ title: o.decided, sub: o.status === 'Approved' ? 'Approved' : o.status }) : '')}
   <p class="note">${o.status === 'Approved' ? 'Approved by your scheduler. You can cancel until the day before. Your scheduler will be notified.' : o.status === 'Pending' ? 'Your scheduler will approve or deny this request.' : o.status === 'Denied' ? 'Your scheduler denied this request. You may still be scheduled on these dates.' : 'This request was cancelled.'}</p>
   <div style="margin-top:20px">${o.status === 'Pending' ? btn('Withdraw request', { kind: 'destructive', act: 'withdrawTO', arg: o.id }) : ''}${canCancel ? btn('Cancel Time Off', { kind: 'destructive', act: 'cancelTO', arg: o.id }) : ''}</div></div>`;
