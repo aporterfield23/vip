@@ -271,3 +271,5 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .field .eye { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 0; background: none; display: grid; place-items: center; cursor: pointer; border-radius: 22px; }
 .field .eye svg { width: 22px; height: 22px; fill: none; stroke: var(--color-text-secondary); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .field .eye[aria-pressed="true"] svg { stroke: var(--accent-text); }
+
+.field .fhint { color: var(--color-text-secondary); font-size: 13px; margin-top: 6px; display: block; font-weight: 400; }

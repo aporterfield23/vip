@@ -42,6 +42,8 @@ const seg = (act, opts, sel, cls = '', dot) => `<div class="seg ${cls}" role="ta
 const phoneDigits = (v) => { let d = String(v || '').replace(/\D/g, ''); if (d.length === 11 && d[0] === '1') d = d.slice(1); return d.slice(0, 15); };
 const fmtPhone = (v) => { const d = phoneDigits(v); if (!d) return ''; if (d.length <= 3) return `(${d}`; if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`; return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`; };
 const phoneErr = (v) => (phoneDigits(v).length === 10 ? '' : 'Enter a 10-digit phone number.');
+// Live feedback: a neutral hint while the number is incomplete, an error once it has too many digits. Empty shows nothing.
+const phoneMsg = (v) => { const n = phoneDigits(v).length; return { err: n > 10 ? phoneErr(v) : '', hint: n > 0 && n < 10 ? phoneErr(v) : '' }; };
 const field = (key, label, o = {}) => {
   const val = esc(F[key] ?? ''), ph = esc(o.ph || '');
   let ctl;
@@ -55,7 +57,7 @@ const field = (key, label, o = {}) => {
     const kb = { email: 'inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"', number: 'inputmode="decimal"' }[o.type] || '';
     ctl = `<input data-bind="${key}" type="${kb ? 'text' : (o.type || 'text')}" ${kb} value="${val}" placeholder="${ph}" ${o.attrs || ''} autocomplete="off">`;
   }
-  return `<label class="field ${o.err ? 'error' : ''}"><span>${esc(label)}</span>${ctl}${o.err ? `<span class="err">${esc(o.err)}</span>` : ''}</label>`;
+  return `<label class="field ${o.err ? 'error' : ''}"><span>${esc(label)}</span>${ctl}${o.err ? `<span class="err">${esc(o.err)}</span>` : o.hint ? `<span class="fhint">${esc(o.hint)}</span>` : ''}</label>`;
 };
 const toolbar = (o = {}) => `<div class="toolbar">${o.back ? `<button class="circle-btn" data-act="back" aria-label="Back">${I.back}</button>` : o.cancel ? `<button class="text-btn" data-act="${o.cancel}">Cancel</button>` : '<span class="spacer"></span>'}
   <div class="mid"><div class="t">${esc(o.title || '')}</div>${o.sub ? `<div class="s">${esc(o.sub)}</div>` : ''}</div>${o.trail || '<span class="spacer"></span>'}</div>`;

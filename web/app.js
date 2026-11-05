@@ -14,7 +14,7 @@ const ACT = {
   toInvite: () => authPush('invite'), toSignin: () => { S.signingIn = true; authPush('signin'); },
   authBack: () => { S.auth.pop(); if (S.auth.length === 1) S.signingIn = false; render(); },
   checkInvite: () => { if ((F.invite || '').trim().toUpperCase() === INVITE) { F.inviteErr = false; F.acName = F.acName ?? 'Jordan Ellis'; F.acEmail = F.acEmail ?? 'jordan.ellis@example.com'; F.acPhone = F.acPhone ?? '(312) 555-0148'; authPush('createAccount'); } else { F.inviteErr = true; render(); } },
-  toPassword: () => { const er = phoneErr(F.acPhone); if (er) { F.acPhoneErr = er; render(); return; } S.profile.name = F.acName; S.profile.email = F.acEmail; S.profile.phone = F.acPhone; authPush('password'); },
+  toPassword: () => { S.profile.name = F.acName; S.profile.email = F.acEmail; S.profile.phone = F.acPhone; authPush('password'); },
   toMfa: () => authPush('mfa'), toCode: () => { F.code = ''; authPush('code'); setTimeout(() => document.querySelector('[data-bind="c0"]')?.focus(), 50); },
   resend: () => flash('Code sent', 'A new code is on its way.'),
   signinNext: () => { S.profile.email = F.siEmail; authPush('mfa'); },
@@ -68,7 +68,7 @@ const ACT = {
   saveEditTs: (k) => { const c = cur(); c.draft = c.draft || {}; c.draft[k] = parseFloat(F.et); closeOverlay(); },
   saveTs: () => { const c = cur(); const e = tsOf(c.id); Object.assign(e, c.draft); c.draft = {}; flash('Changes saved', 'Sent for approval again.', 'none'); },
   // account
-  editField: (k) => { F.ef = S.profile[k]; F.efErr = ''; push('editField', { k }); }, saveField: () => { const k = cur().k, v = (F.ef || '').trim(); if (k === 'phone') { const er = phoneErr(v); if (er) { F.efErr = er; render(); return; } } if ((k === 'phone' || k === 'email') && v !== S.profile[k]) { S.pend = { k, v }; F.code = ''; push(k === 'phone' ? 'confirmCode' : 'confirmEmail'); return; } S.profile[k] = v; const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); },
+  editField: (k) => { F.ef = S.profile[k]; push('editField', { k }); }, saveField: () => { const k = cur().k, v = (F.ef || '').trim(); if ((k === 'phone' || k === 'email') && v !== S.profile[k]) { S.pend = { k, v }; F.code = ''; push(k === 'phone' ? 'confirmCode' : 'confirmEmail'); return; } S.profile[k] = v; const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); },
   confirmPending: () => { const { k, v } = S.pend; S.profile[k] = v; S.pend = null; F.code = ''; S.stacks.Account = [{ n: 'account' }]; render(); flash(k === 'phone' ? 'Phone number updated' : 'Email updated', k === 'phone' ? 'Your number is confirmed.' : 'Your new address is confirmed.', 'none'); },
   resendPending: () => flash(S.pend.k === 'phone' ? 'Code sent' : 'Link sent', S.pend.k === 'phone' ? 'A new code is on its way.' : 'A new link is on its way.', 'none'),
   photoSheet: () => open('photoSheet'), photoDone: (m) => { S.overlay = null; flash(m, 'Your profile photo was updated.', 'none'); },
@@ -113,7 +113,7 @@ document.addEventListener('input', (e) => {
   if (b === 'acPhone' || (b === 'ef' && S.authed && cur().k === 'phone')) {
     const caret = t.selectionStart ?? t.value.length; const before = t.value.slice(0, caret).replace(/\D/g, '').length; const f = fmtPhone(t.value);
     let pos = f.length, seen = 0; if (before < phoneDigits(t.value).length) { pos = 0; for (let i = 0; i < f.length && seen < before; i++) { pos = i + 1; if (/\d/.test(f[i])) seen++; } }
-    t.value = f; try { t.setSelectionRange(pos, pos); } catch (err) {} F[b] = f; F[b === 'ef' ? 'efErr' : 'acPhoneErr'] = ''; render(); return;
+    t.value = f; try { t.setSelectionRange(pos, pos); } catch (err) {} F[b] = f; render(); return;
   }
   F[b] = t.value; render();
 });
