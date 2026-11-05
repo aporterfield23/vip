@@ -45,7 +45,12 @@ const field = (key, label, o = {}) => {
   else if (o.type === 'password') {
     const on = !!(S.showPw && S.showPw[key]);
     ctl = `<span class="pwwrap"><input data-bind="${key}" type="${on ? 'text' : 'password'}" value="${val}" placeholder="${ph}" ${o.attrs || ''} autocomplete="off"><button type="button" class="eye" data-act="togglePw" data-arg="${key}" aria-label="${on ? 'Hide' : 'Show'} password" aria-pressed="${on}">${on ? I.eyeOff : I.eye}</button></span>`;
-  } else ctl = `<input data-bind="${key}" type="${o.type || 'text'}" value="${val}" placeholder="${ph}" ${o.attrs || ''} autocomplete="off">`;
+  } else {
+    // Email and number inputs don't expose a caret position, so the per-keystroke re-render would reset it to the start (text typed backwards).
+    // Use a text input with the right keyboard hint instead.
+    const kb = { email: 'inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"', number: 'inputmode="decimal"' }[o.type] || '';
+    ctl = `<input data-bind="${key}" type="${kb ? 'text' : (o.type || 'text')}" ${kb} value="${val}" placeholder="${ph}" ${o.attrs || ''} autocomplete="off">`;
+  }
   return `<label class="field ${o.err ? 'error' : ''}"><span>${esc(label)}</span>${ctl}${o.err ? `<span class="err">${esc(o.err)}</span>` : ''}</label>`;
 };
 const toolbar = (o = {}) => `<div class="toolbar">${o.back ? `<button class="circle-btn" data-act="back" aria-label="Back">${I.back}</button>` : o.cancel ? `<button class="text-btn" data-act="${o.cancel}">Cancel</button>` : '<span class="spacer"></span>'}
