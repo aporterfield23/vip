@@ -17,6 +17,11 @@ const I = {
   doc: '<svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:var(--color-text-primary);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg>',
   tick: '<svg viewBox="0 0 40 40"><path d="M9 21l8 8 14-17"/></svg>',
 };
+const GLYPH = {
+  Sports: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><path d="M5.6 5.6c3.2 3.2 3.2 9.6 0 12.8M18.4 5.6c-3.2 3.2-3.2 9.6 0 12.8"/></svg>',
+  School: '<svg viewBox="0 0 24 24"><path d="M12 4L2.5 9l9.5 5 9.5-5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M21.5 9v6"/></svg>'
+};
+const glyph = (kind, tile) => `<span class="glyph ${tile ? 'tile' : ''}" aria-hidden="true">${GLYPH[kind] || GLYPH.School}</span>`;
 const ICON_PDF = '<span style="border:1px solid var(--color-text-secondary);color:var(--color-text-secondary);border-radius:5px;font-size:11px;font-weight:600;padding:2px 6px">PDF</span>';
 const docTile = '<span style="width:44px;height:44px;border-radius:22px;background:color-mix(in srgb,var(--color-text-primary) 8%,transparent);display:grid;place-items:center;flex:none">' + I.doc + '</span>';
 

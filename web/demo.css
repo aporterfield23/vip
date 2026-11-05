@@ -247,3 +247,12 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .menu .mi .mt { display: flex; flex-direction: column; }
 .menu .mi small { font-size: 13px; color: var(--color-text-secondary); margin-top: 1px; }
 .menu .mi svg { width: 18px; height: 18px; flex: none; stroke: var(--accent-text); }
+
+/* Assignment type glyphs (basketball = Sports, graduation cap = School), per the Figma Type Glyph components. */
+.glyph { display: inline-grid; place-items: center; flex: none; }
+.glyph svg { width: 20px; height: 20px; fill: none; stroke: var(--color-text-primary); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.glyph.tile { width: 44px; height: 44px; border-radius: 22px; background: color-mix(in srgb, var(--color-text-primary) 8%, transparent); margin-right: 12px; }
+.glyph.tile svg { width: 24px; height: 24px; }
+.entry .top .grow { flex: 1; min-width: 0; }
+.typeline { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; color: var(--color-text-primary); }
+.entry .top { align-items: center; }
