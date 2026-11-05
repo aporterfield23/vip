@@ -41,7 +41,7 @@ const seg = (act, opts, sel, cls = '', dot) => `<div class="seg ${cls}" role="ta
 // Phone entry: (312) 555-0123 as you type. Up to 15 digits are kept so "too many" can be reported on save.
 const phoneDigits = (v) => { let d = String(v || '').replace(/\D/g, ''); if (d.length === 11 && d[0] === '1') d = d.slice(1); return d.slice(0, 15); };
 const fmtPhone = (v) => { const d = phoneDigits(v); if (!d) return ''; if (d.length <= 3) return `(${d}`; if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`; return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`; };
-const phoneErr = (v) => { const n = phoneDigits(v).length; return n < 10 ? 'Enter all 10 digits of your phone number.' : n > 10 ? 'That number has too many digits. Phone numbers have 10 digits.' : ''; };
+const phoneErr = (v) => (phoneDigits(v).length === 10 ? '' : 'Enter a 10-digit phone number.');
 const field = (key, label, o = {}) => {
   const val = esc(F[key] ?? ''), ph = esc(o.ph || '');
   let ctl;
