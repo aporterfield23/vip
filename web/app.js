@@ -68,7 +68,7 @@ const ACT = {
   saveEditTs: (k) => { const c = cur(); c.draft = c.draft || {}; c.draft[k] = parseFloat(F.et); closeOverlay(); },
   saveTs: () => { const c = cur(); const e = tsOf(c.id); Object.assign(e, c.draft); c.draft = {}; flash('Changes saved', 'Sent for approval again.', 'none'); },
   // account
-  editField: (k) => { F.ef = S.profile[k]; if (k === 'phone') { push('editPhone'); return; } open('editField', { k }); }, savePhone: () => { S.profile.phone = (F.ef || '').trim(); const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); }, saveField: (k) => { S.profile[k] = F.ef.trim(); closeOverlay(); },
+  editField: (k) => { F.ef = S.profile[k]; push('editField', { k }); }, saveField: () => { const k = cur().k; S.profile[k] = (F.ef || '').trim(); const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); },
   photoSheet: () => open('photoSheet'), photoDone: (m) => { S.overlay = null; flash(m, 'Your profile photo was updated.', 'none'); },
   toPw: () => { F.opw = F.npw = F.cpw = ''; push('pw'); }, updatePw: () => { const st = S.stacks[S.tab]; st[st.length - 1] = { n: 'pwDone' }; render(); }, pwDone: () => { S.stacks.Account = [{ n: 'account' }]; render(); },
   togglePw: (k) => { S.showPw = S.showPw || {}; S.showPw[k] = !S.showPw[k]; S.focusNext = k; render(); },

@@ -62,8 +62,16 @@ SCREENS.account = () => {
   <div style="height:16px"></div>${card(`<button class="row" data-act="signOut"><span class="ttl danger">Sign out</span></button>`)}</div>`;
 };
 SCREENS.appearance = () => `${toolbar({ back: true, title: 'Appearance' })}<div class="page" style="padding-top:12px">${card(...[['System default', 'Match your iPhone setting'], ['Light', 'Always use light'], ['Dark', 'Always use dark']].map(([t, s]) => row({ title: t, sub: s, trail: S.appearance === t ? I.check : '', act: 'appear', arg: t })))}<p class="note">The choice applies to the whole app right away.</p></div>`;
-SCREENS.editPhone = () => `${toolbar({ back: true, title: 'Phone number' })}<div class="page" style="padding-top:12px"><p class="t-body sec" style="margin:0 0 18px">We’ll text a code to confirm a new number.</p>${field('ef', 'Mobile phone', { type: 'tel', attrs: 'inputmode="tel"' })}</div>
-  <div class="footer" style="position:sticky;bottom:96px">${btn('Save', { act: 'savePhone', disabled: !(F.ef || '').trim() })}</div>`;
+const PROFILE_EDIT = {
+  name: ['Name', 'Name', 'Shown to your schedulers and team.', 'text'],
+  title: ['Job title', 'Job title', 'Shown to your schedulers and team.', 'text'],
+  phone: ['Phone number', 'Mobile phone', 'We’ll text a code to confirm a new number.', 'tel'],
+  email: ['Email', 'Email', 'We’ll email a link to confirm a new address.', 'email'],
+  address: ['Address', 'Home address', 'Used as your starting point for travel and mileage.', 'text'],
+};
+SCREENS.editField = (c) => { const [title, label, intro, type] = PROFILE_EDIT[c.k];
+  return `${toolbar({ back: true, title })}<div class="page" style="padding-top:12px"><p class="t-body sec" style="margin:0 0 18px">${intro}</p>${field('ef', label, { type, attrs: type === 'tel' ? 'inputmode="tel"' : '' })}</div>
+  <div class="footer" style="position:sticky;bottom:96px">${btn('Save', { act: 'saveField', disabled: !(F.ef || '').trim() })}</div>`; };
 SCREENS.pw = () => { const ok = pwChecks(F.npw || '').every((c) => c[0]) && F.npw === F.cpw && F.opw; return `${toolbar({ back: true, title: 'Change password' })}<div class="page" style="padding-top:12px"><p class="t-body sec" style="margin:0 0 18px">Choose a new password you don’t use anywhere else.</p>${field('opw', 'Current password', { type: 'password' })}${field('npw', 'New password', { type: 'password' })}${field('cpw', 'Confirm new password', { type: 'password', err: F.cpw && F.cpw !== F.npw ? 'Passwords don’t match.' : '' })}${pwList(F.npw || '')}</div>
   <div class="footer" style="padding-bottom:120px">${btn('Update password', { act: 'updatePw', disabled: !ok })}</div>`; };
 SCREENS.pwDone = () => `<div class="hero" style="padding-top:48px"><div class="iconTile">${I.tick}</div><h1 class="t-title1">Password updated</h1><p class="t-body sec" style="margin:8px 0 24px">You’ve been signed out on your other devices. Use your new password next time you sign in.</p>${btn('Done', { act: 'pwDone' })}</div>`;
