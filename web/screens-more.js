@@ -55,7 +55,7 @@ SCREENS.account = () => {
   return `${toolbar({})}<div class="largetitle t-large">Account</div><div class="page" style="padding-top:0">
   ${card(`<div class="row" style="align-items:center"><span style="width:72px;height:72px;border-radius:36px;background:color-mix(in srgb,var(--color-text-primary) 8%,transparent);display:grid;place-items:center;font:700 24px var(--font-family-display);flex:none">${initials()}</span><span class="grow"><span class="t-sub sec" style="display:block;font-weight:600;margin-bottom:8px">Shown to your schedulers and team</span><button class="btn bordered small" data-act="photoSheet">Update photo</button></span></div>`)}
   <div class="sectionhead">Profile</div>${card(...pr.map(([k, v, l]) => row({ title: esc(v), sub: l, trail: I.pen, act: 'editField', arg: k })), row({ title: '••••••••••', sub: 'Password', trail: I.pen, act: 'toPw' }))}
-  <div class="sectionhead">Settings</div>${card(
+  <div class="sectionhead">App settings</div>${card(
     row({ title: 'Notifications', sub: nsub, trail: I.chev, act: 'toNotif' }),
     row({ title: 'Appearance', sub: S.appearance, trail: I.chev, act: 'toAppearance' }),
     row({ title: 'Show assignment icons', sub: 'School and sports icons', trail: toggle(S.icons, 'toggleIcons') }))}
