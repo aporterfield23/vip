@@ -256,7 +256,3 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .entry .top .grow { flex: 1; min-width: 0; }
 .typeline { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; color: var(--color-text-primary); }
 .entry .top { align-items: center; }
-
-/* Assignment header keeps a fixed height: the primary-action and secondary-action slots stay reserved when empty, so the segmented control and content never jump up. */
-.slot-primary { min-height: 50px; }
-.slot-secondary { min-height: 37px; }
