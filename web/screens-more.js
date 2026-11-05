@@ -19,19 +19,27 @@ SCREENS.timesheets = () => {
   return `${toolbar({})}<div class="largetitle t-large">Timesheets</div>${seg('tsSeg', ['Open', 'Approved', 'Paid'], S.tsSeg, 'pinned')}<p class="t-sub sec" style="margin:6px 16px 10px">${note}</p>${filters}
   <div class="page" style="padding-top:8px">${extra}${es.length ? groupByDate(es) : '<div class="empty">No timesheets here yet</div>'}</div>`;
 };
+// Open timesheet entry: read-only values, one Edit button, one form (see decision 102).
+const TS_FIELDS = [['tsPhoto', 'Photography time (hours)', 'photo'], ['tsMiles', 'Driving miles', 'miles'], ['tsDrive', 'Driving time (hours)', 'drive'], ['tsTolls', 'Tolls ($)', 'tolls']];
+const tsErrors = (e) => { const er = {}; for (const [k] of TS_FIELDS) if (!(parseFloat(F[k]) >= 0)) er[k] = 'Enter a number, 0 or more.';
+  if (!(F.tsReason || '').trim()) er.tsReason = 'Enter a reason for the change.';
+  if (!Object.keys(er).length && TS_FIELDS.every(([k, , f]) => parseFloat(F[k]) === +e[f])) er.none = 'Change at least one value to save.'; return er; };
+SCREENS.tsEdit = (c) => { const e = tsOf(c.id); const er = F.tsTried ? tsErrors(e) : {};
+  return `${toolbar({ back: true, title: 'Edit entry', sub: esc(e.org) })}<div class="page" style="padding-top:12px">
+  <p class="t-body sec" style="margin:0 0 ${er.none ? 8 : 18}px">Correct any value that’s wrong. Payroll sees the original values, your changes and the reason.</p>${er.none ? `<p class="err" style="color:var(--color-destructive);font-size:13px;margin:0 0 14px" role="alert">${er.none}</p>` : ''}
+  ${TS_FIELDS.map(([k, l]) => field(k, l, { type: 'number', err: er[k] || '' })).join('')}${field('tsReason', 'Reason for the change (required)', { area: true, ph: 'For example: the drive took longer because of a detour', err: er.tsReason || '' })}</div>
+  <div class="footer" style="padding-bottom:120px">${btn('Save changes', { act: 'tsSave' })}</div>`; };
 SCREENS.tsEntry = (c) => {
-  const e = tsOf(c.id); const edit = e.status === 'Pending'; const draft = c.draft || {};
-  const v = (k) => (draft[k] != null ? draft[k] : e[k]);
-  const rows = [['photo', 'Photography time', hrs(v('photo'))], ['miles', 'Driving miles', v('miles') + ' mi'], ['drive', 'Driving time', hrs(v('drive'))], ['tolls', 'Tolls', money(+v('tolls'))]];
+  const e = tsOf(c.id); const edit = e.status === 'Pending';
+  const rows = [['Photography time', hrs(e.photo)], ['Driving miles', e.miles + ' mi'], ['Driving time', hrs(e.drive)], ['Tolls', money(+e.tolls)]];
   const titles = { Pending: 'Open entry', Approved: 'Approved entry', Paid: 'Paid entry' };
   const sub = { Pending: 'Pending approval', Approved: 'Approved ' + (e.approved || ''), Paid: 'Paid ' + fmtShort(e.paid || TODAY) }[e.status];
-  const changed = Object.keys(draft).length > 0;
   const stmt = e.status === 'Paid' ? (() => { const p = PERIODS.find((p) => p.paid === e.paid && e.date >= p.from && e.date <= p.to); return p ? '<div style="height:12px"></div>' + card(`<button class="row" data-act="openStatement" data-arg="${p.id}">${docTile}<span class="grow"><span class="ttl" style="display:block">In payment statement · ${fmtShort(p.paid)}</span><span class="sub" style="display:block">${p.label} · PDF</span></span>${ICON_PDF}</button>`) : ''; })() : '';
-  return `${toolbar({ back: true, title: titles[e.status], sub })}<div class="page" style="padding-top:12px">
-  ${card(row({ title: esc(e.org), sub: esc(e.sub) }), ...rows.map(([k, l, val]) => row({ title: val, sub: l, trail: edit ? I.pen : '', act: edit ? 'editTs' : '', arg: edit ? k : '' })))}
-  <p class="note">${edit ? 'Tap a value to edit it. Changes are sent for approval again.' : e.status === 'Approved' ? 'Approved entries are locked. Contact your scheduler to request a change.' : 'Paid entries can’t be changed.'}</p>${stmt}</div>
-  ${edit ? `<div class="footer" style="position:sticky;bottom:96px">${btn('Save changes', { act: 'saveTs', disabled: !changed })}</div>` : ''}`;
+  return `${toolbar({ back: true, title: titles[e.status], sub, trail: edit ? '<button class="text-btn" data-act="tsEditOpen">Edit</button>' : '' })}<div class="page" style="padding-top:12px">
+  ${card(row({ title: esc(e.org), sub: esc(e.sub) }), ...rows.map(([l, val]) => row({ title: val, sub: l })), ...(e.reason ? [row({ title: esc(e.reason), sub: 'Reason for the change' })] : []))}
+  <p class="note">${edit ? 'Tap Edit to correct a value. Changes are sent for approval again.' : e.status === 'Approved' ? 'Approved entries are locked. Contact your scheduler to request a change.' : 'Paid entries can’t be changed.'}</p>${stmt}</div>`;
 };
+
 SCREENS.statement = (c) => {
   const p = PERIODS.find((x) => x.id === c.id); const es = S.ts.filter((e) => e.status === 'Paid' && e.date >= p.from && e.date <= p.to);
   const sum = (f) => es.reduce((t, e) => t + f(e), 0);

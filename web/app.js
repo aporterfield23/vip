@@ -35,6 +35,12 @@ const ACT = {
   startTravel: () => { F.startAddr = S.profile.address; open('startTravel', { id: curAsgId() }); },
   doStartTravel: () => { const a = asgOf(curAsgId()); a.log = a.log || {}; a.log.travelStart = a.start - 55; a.log.startAddr = F.startAddr; a.step = 'traveling'; closeOverlay(); },
   arrived: () => { const a = asgOf(curAsgId()); const mins = 28 + (a.id.charCodeAt(1) % 9) * 2; a.log.tmp = { start: a.log.travelStart, end: a.log.travelStart + mins, mins, miles: Math.round(estMiles(a)) }; open('travelLog', { id: a.id }); },
+  tsEditOpen: () => { const e = tsOf(cur().id); F.tsPhoto = String(e.photo); F.tsMiles = String(e.miles); F.tsDrive = String(e.drive); F.tsTolls = String(e.tolls); F.tsReason = ''; F.tsTried = false; push('tsEdit', { id: cur().id }); },
+  tsSave: () => { const e = tsOf(cur().id); const er = tsErrors(e); F.tsTried = true; const first = ['tsPhoto', 'tsMiles', 'tsDrive', 'tsTolls', 'tsReason'].find((k) => er[k]);
+    if (first) { S.focusNext = first; render(); return; }
+    if (er.none) { render(); document.getElementById('screen').scrollTop = 0; return; }
+    e.photo = parseFloat(F.tsPhoto); e.miles = parseFloat(F.tsMiles); e.drive = parseFloat(F.tsDrive); e.tolls = parseFloat(F.tsTolls); e.reason = F.tsReason.trim(); e.edited = true;
+    const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); flash('Changes saved', 'Sent for approval again.', 'none'); },
   tlEdit: () => { const a = asgOf(curAsgId()); F.tlHrs = String(roundUp15(a.log.tmp.mins) / 60); F.tlMiles = String(a.log.tmp.miles); F.tlReason = ''; S.overlay.edit = true; render(); },
   tlSave: () => { const a = asgOf(curAsgId()); const t = a.log.tmp; t.mins = Math.round(parseFloat(F.tlHrs || '0') * 60); t.miles = Math.round(parseFloat(F.tlMiles || '0')); t.flag = true; t.reason = F.tlReason; S.overlay.edit = false; render(); },
   tlConfirm: () => { const a = asgOf(curAsgId()); const t = a.log.tmp; a.log.arrived = t.end; a.log.travelHrs = roundUp15(t.mins) / 60; a.log.miles = t.miles; if (t.flag) a.log.flag = true; a.step = 'arrived'; closeOverlay(); },
@@ -64,9 +70,7 @@ const ACT = {
   rangeSheet: () => { F.rgFrom = ''; F.rgTo = ''; open('rangeSheet'); }, applyRange: () => { S.range = { from: F.rgFrom, to: F.rgTo }; closeOverlay(); },
   payRates: () => open('payRates'), openStatement: (id) => push('statement', { id }), ytd: (id) => push('ytd', { id }),
   savePdf: () => flash('Payment statement', 'PDF saved to Files (demo).', 'none'),
-  editTs: (k) => { const e = tsOf(cur().id); const c = cur(); F.et = String((c.draft && c.draft[k] != null) ? c.draft[k] : e[k]); open('editTs', { k }); },
-  saveEditTs: (k) => { const c = cur(); c.draft = c.draft || {}; c.draft[k] = parseFloat(F.et); closeOverlay(); },
-  saveTs: () => { const c = cur(); const e = tsOf(c.id); Object.assign(e, c.draft); c.draft = {}; flash('Changes saved', 'Sent for approval again.', 'none'); },
+ 
   // account
   editField: (k) => { F.ef = S.profile[k]; push('editField', { k }); }, saveField: () => { const k = cur().k, v = (F.ef || '').trim(); if ((k === 'phone' || k === 'email') && v !== S.profile[k]) { S.pend = { k, v }; F.code = ''; push(k === 'phone' ? 'confirmCode' : 'confirmEmail'); return; } S.profile[k] = v; const st = S.stacks[S.tab]; if (st.length > 1) st.pop(); render(); },
   confirmPending: () => { const { k, v } = S.pend; S.profile[k] = v; S.pend = null; F.code = ''; S.stacks.Account = [{ n: 'account' }]; render(); flash(k === 'phone' ? 'Phone number updated' : 'Email updated', k === 'phone' ? 'Your number is confirmed.' : 'Your new address is confirmed.', 'none'); },
@@ -107,7 +111,7 @@ document.addEventListener('click', (e) => {
   const t = e.target.closest('[data-act]'); if (!t || t.disabled) return; const act = t.dataset.act; if (!act) return;
   if (!t.closest('#phone') && !t.closest('.controls')) return; const fn = ACT[act]; if (fn) { e.preventDefault(); fn(t.dataset.arg); }
 });
-const NUMERIC_BINDS = ['tlHrs', 'tlMiles', 'toll', 'et']; // amounts: digits and one decimal point only
+const NUMERIC_BINDS = ['tlHrs', 'tlMiles', 'toll', 'tsPhoto', 'tsMiles', 'tsDrive', 'tsTolls']; // amounts: digits and one decimal point only
 document.addEventListener('input', (e) => {
   const t = e.target; if (t.id === 'eqFile') return; const b = t.dataset && t.dataset.bind; if (!b) return;
   if (/^c\d$/.test(b)) { const i = +b[1]; const d = t.value.replace(/\D/g, '').slice(-1); const cur = (F.code || '').padEnd(6, ' ').split(''); cur[i] = d || ' '; F.code = cur.join('').replace(/ +$/, ''); S.focusNext = d && i < 5 ? 'c' + (i + 1) : b; render(); return; }
