@@ -273,3 +273,6 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .field .eye[aria-pressed="true"] svg { stroke: var(--accent-text); }
 
 .field .fhint { color: var(--color-text-secondary); font-size: 13px; margin-top: 6px; display: block; font-weight: 400; }
+
+.phonelink { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; text-decoration: none; }
+.phonelink .phic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }

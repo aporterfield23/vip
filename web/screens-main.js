@@ -67,7 +67,7 @@ SCREENS.assignment = (c) => {
   const a = asgOf(c.id); const q = seq(); const i = q.findIndex((x) => x.k === 'asg' && x.id === a.id);
   const { primary, sec } = actionsFor(a);
   const detailRows = () => {
-    const tel = (n, p) => row({ title: esc(n), sub: 'Phone', trail: `<a class="link" href="tel:${p.replace(/\D/g, '')}" style="text-decoration:none">${p}</a>` });
+    const tel = (n, p) => row({ title: esc(n), sub: 'Phone', trail: `<a class="link phonelink" href="tel:${p.replace(/\D/g, '')}" aria-label="Call ${esc(n)}, ${p}">${I.phone}<span>${p}</span></a>` });
     let h = '';
     if (a.qr) h += `<div class="sectionhead" style="margin-top:6px">QR code</div>` + card(`<button class="row" data-act="qrSheet"><span style="width:56px;height:56px;background:#fff;border-radius:8px;padding:4px;flex:none">${S.qrFail ? '' : qrSvg(a.id)}</span><span class="grow"><span class="ttl" style="display:block">Assignment QR code</span><span class="sub" style="display:block">Tap to enlarge and scan with the tablet</span></span></button>`);
     h += `<div class="sectionhead">When and where</div>` + card(row({ title: esc(a.org), sub: 'Client' }), row({ title: fmtLong(a.date), sub: 'Date' }), row({ title: timeRange(a), sub: 'Times' }),
