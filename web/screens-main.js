@@ -86,7 +86,7 @@ SCREENS.assignment = (c) => {
   const failNote = a.upFailed ? `<p class="note" style="color:var(--color-destructive)">Upload didn’t finish. Check your connection and try again. Your timesheet isn’t affected.</p>` : '';
   const remind = isEnded(a) && a.photos !== 'done' && a.photos !== 'uploading' ? '<p class="note">Reminder: upload your photos within 5 days of the assignment.</p>' : '';
   return `${toolbar({ back: true, title: a.org, sub: fmtShortDate(a) + ' · ' + timeRange(a), trail: pair('prevAsg', 'nextAsg', i <= 0, i >= q.length - 1) })}
-  <div class="page"><div style="display:flex;gap:8px;align-items:center;margin:8px 0 12px;flex-wrap:wrap"><span class="typeline">${glyph(a.kind)}${esc(a.type)}</span>${chip(statusLabel(a), statusLabel(a) === 'Completed' ? 'green' : 'accent')}</div>
+  <div class="page hdr"><div style="display:flex;gap:8px;align-items:center;margin:8px 0 12px;flex-wrap:wrap"><span class="typeline">${glyph(a.kind)}${esc(a.type)}</span>${chip(statusLabel(a), statusLabel(a) === 'Completed' ? 'green' : 'accent')}</div>
   ${primary ? btn(primary.label, { act: primary.act, arg: primary.arg, disabled: primary.disabled }) : ''}
   ${a.photos === 'uploading' ? `<div class="progress"><i style="width:${S.upload ? S.upload.pct : 0}%"></i></div>` : ''}${failNote}${remind}
   ${sec.length ? `<div class="pillrow" style="margin-top:14px">${sec.map((s) => `<button data-act="${s.act}" data-arg="${s.arg || ''}">${s.label}</button>`).join('')}</div>` : ''}</div>

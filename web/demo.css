@@ -256,3 +256,8 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .entry .top .grow { flex: 1; min-width: 0; }
 .typeline { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; color: var(--color-text-primary); }
 .entry .top { align-items: center; }
+
+/* Assignment header: no reserved space; the tabs sit just below the last action and move up as items are removed. */
+.page.hdr { padding-bottom: 4px; }
+.page.hdr .pillrow { margin-bottom: 0; }
+.page.hdr > :last-child { margin-bottom: 0 !important; }
