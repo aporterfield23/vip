@@ -56,7 +56,7 @@ SCREENS.account = () => {
   <div class="sectionhead">Profile Image</div>${card(`<div class="row" style="align-items:center"><span style="width:72px;height:72px;border-radius:36px;background:color-mix(in srgb,var(--color-text-primary) 8%,transparent);display:grid;place-items:center;font:700 24px var(--font-family-display);flex:none">${initials()}</span><span class="grow"><span class="t-sub sec" style="display:block;font-weight:600;margin-bottom:8px">Shown to your schedulers and team</span><button class="btn bordered small" data-act="photoSheet">Update photo</button></span></div>`)}
   <div class="sectionhead">Password</div>${card(row({ title: '••••••••••', sub: 'Password', trail: I.pen, act: 'toPw' }))}
   <div class="sectionhead">Notifications</div>${card(row({ title: 'Alerts and reminders', sub: S.notif.denied ? 'Off in iPhone Settings' : S.notif.on ? 'Notification settings' : 'Off', trail: I.chev, act: 'toNotif' }))}
-  <div class="sectionhead">App settings</div>${card(row({ title: 'Show assignment icons', sub: 'School and sports icons on your schedule', trail: toggle(S.icons, 'toggleIcons') }))}
+  <div class="sectionhead">App settings</div>${card(row({ title: 'Show assignment icons', sub: 'School and sports icons', trail: toggle(S.icons, 'toggleIcons') }))}
   <div class="subhead">Appearance</div>${card(...[['System default', 'Match your iPhone setting'], ['Light', 'Always use light'], ['Dark', 'Always use dark']].map(([t, s]) => row({ title: t, sub: s, trail: S.appearance === t ? I.check : '', act: 'appear', arg: t })))}
   <div style="height:16px"></div>${card(`<button class="row" data-act="signOut"><span class="ttl danger">Sign out</span></button>`)}</div>`;
 };
