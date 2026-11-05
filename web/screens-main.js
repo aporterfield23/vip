@@ -43,16 +43,16 @@ SCREENS.schedule = () => {
 function actionsFor(a) {
   const sec = [], todayDay = a.date === TODAY; let primary = null;
   const cant = { label: 'Can’t attend', act: 'cantAttend' }, rep = { label: 'Report issue', act: 'report' }, tsb = { label: 'Timesheet', act: 'tsSheet', arg: a.id };
-  const note = a.lead ? { label: 'Add note', act: 'noteSheet' } : null, qr = a.qr ? { label: 'QR code', act: 'qrSheet' } : null;
-  if (a.step === 'scheduled') { if (todayDay) primary = { label: 'Start Travel', act: 'startTravel' }; sec.push(cant, rep, note, qr); }
-  else if (a.step === 'traveling') { primary = { label: 'Arrived', act: 'arrived' }; sec.push(cant, rep, tsb, note, qr); }
-  else if (a.step === 'arrived') { primary = { label: 'Start Assignment', act: 'startAsg' }; sec.push(cant, rep, tsb, note, qr); }
-  else if (a.step === 'active') { primary = { label: 'End Assignment', act: 'endAsg' }; sec.push(rep, tsb, note, qr); }
+  const note = a.lead ? { label: 'Add note', act: 'noteSheet' } : null;
+  if (a.step === 'scheduled') { if (todayDay) primary = { label: 'Start Travel', act: 'startTravel' }; sec.push(cant, rep, note); }
+  else if (a.step === 'traveling') { primary = { label: 'Arrived', act: 'arrived' }; sec.push(cant, rep, tsb, note); }
+  else if (a.step === 'arrived') { primary = { label: 'Start Assignment', act: 'startAsg' }; sec.push(cant, rep, tsb, note); }
+  else if (a.step === 'active') { primary = { label: 'End Assignment', act: 'endAsg' }; sec.push(rep, tsb, note); }
   else if (isEnded(a)) {
     if (a.photos === 'uploading') { primary = { label: 'Uploading photos…', act: '', disabled: true }; if (!a.ts) sec.push(tsb); }
     else if (a.photos !== 'done') { primary = { label: a.upFailed ? 'Upload again' : 'Upload Photos', act: 'upload' }; sec.push({ ...tsb, label: a.ts ? 'Timesheet (view)' : 'Timesheet' }); }
     else if (!a.ts) primary = { label: 'Submit Timesheet', act: 'tsSheet', arg: a.id };
-    sec.push(note, qr);
+    sec.push(note);
   }
   return { primary, sec: sec.filter(Boolean) };
 }
