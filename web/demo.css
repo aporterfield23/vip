@@ -301,3 +301,6 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 /* Light: a grey tint under green text can't reach 4.5:1 on the grey page, so bordered buttons are white with a hairline. */
 .phone[data-mode="light"] .btn.bordered { background: var(--color-surface-raised); box-shadow: inset 0 0 0 1px var(--color-separator); }
 .mapic { width: 24px; height: 24px; fill: none; stroke: var(--accent-text); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; display: block; }
+
+/* Dark: round icon buttons (back, prev/next, More) use the same darker fill as Figma proposal: white glyph >=5.4:1, fill vs page ~3:1 */
+.phone[data-mode="dark"] .circle-btn { background: #656875; color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
