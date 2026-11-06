@@ -292,3 +292,5 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .moremenu button { display: block; width: 100%; min-height: 48px; padding: 0 16px; border: 0; background: none; text-align: left; font: inherit; font-size: 17px; color: var(--color-text-primary); cursor: pointer; }
 .moremenu button + button { border-top: .5px solid var(--color-separator); }
 .moremenu button:active { background: color-mix(in srgb, var(--color-text-primary) 8%, transparent); }
+/* No primary button: the secondary actions show as two 44 pt buttons instead of a menu. */
+.primaryrow .btn.bordered { min-height: 44px; font-size: 17px; }
