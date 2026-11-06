@@ -31,7 +31,7 @@ ul{padding-left:20px}li{margin:4px 0}
 .tag.b{color:#8a3b12;background:#fdeee3}.tag.a{color:#0b5c3f;background:#e3f6ee}
 @media(prefers-color-scheme:dark){.tag.b{color:#ffc9a3;background:#3a2314}.tag.a{color:#a6e8cf;background:#10382b}}
 @media screen and (min-width:780px),print{.dec{display:grid;grid-template-columns:1fr auto;column-gap:20px;align-items:start}.dec>*{grid-column:1}.dec>.k,.dec>h3{grid-column:1/-1}.dec>.ba{grid-column:2;grid-row:3/span 3;margin:0}.ba.wide{flex-direction:column}.ba.wide img{width:300px}}
-.more{font-size:14px}
+.more{font-size:14px}.ext{display:inline-block;vertical-align:-1px;margin-left:4px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}@media print{.ext{width:9px;height:9px}}
 .fn{color:var(--mut);font-size:13px}
 @media print{@page{size:letter portrait;margin:14mm}body{font-size:11.5px}main{max-width:none;padding:0}h1{font-size:24px}h2{font-size:16px;margin-top:20px;break-after:avoid}.lede{font-size:13px}.dec{break-inside:avoid;padding:10px;margin-top:12px}.ba.ph img{width:105px}.ba.wide img{width:210px}.links a{padding:3px 10px;font-size:11px}.ba{gap:10px;margin:8px 0 2px}}
 </style>
@@ -40,12 +40,12 @@ ul{padding-left:20px}li{margin:4px 0}
 <h1>The Photographer&#x27;s Journey</h1>
 <p class="by">Designing an iOS app for VIP photographers · Alan Porterfield</p>
 <p class="lede">Photographers had a desktop website for work that happens in the field. I designed a phone app around their day: the schedule, time and travel, reporting a problem, and delivering photos. This page covers the process, what the evaluation found, and four design decisions, with links to the PRD, the full evaluation and the full decision log.</p>
-<div class="links"><a href="prd.html">Product requirements</a><a href="heuristic-evaluation.html">Heuristic evaluation</a><a href="design-decisions.html">Design decisions</a><a href="https://vip-eta-six.vercel.app/">Interactive demo</a></div>
+<div class="links"><a href="prd.html" target="_blank" rel="noopener">Product requirements<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a><a href="heuristic-evaluation.html" target="_blank" rel="noopener">Heuristic evaluation<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a><a href="design-decisions.html" target="_blank" rel="noopener">Design decisions<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a><a href="https://vip-eta-six.vercel.app/" target="_blank" rel="noopener">Interactive demo<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a></div>
 
 <h2>Process</h2>
 <ul>
 <li><b>Research.</b> Two months shadowing VIP photographers on assignment: sitting in on shoots, riding along between locations, and interviewing them directly about what problems an app could solve.</li>
-<li><b>Requirements.</b> An iterating <a href="prd.html">PRD</a> where every UX call was logged with a date and rationale.</li>
+<li><b>Requirements.</b> An iterating <a href="prd.html" target="_blank" rel="noopener">PRD<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a> where every UX call was logged with a date and rationale.</li>
 <li><b>Design.</b> Click-through Figma flows in Light and Dark. The UI is built on a copy of the iOS 27 Builder kit with VIP&#x27;s brand colours and fonts, which kept the screens inside Apple&#x27;s guidelines.</li>
 <li><b>Demo.</b> A working HTML prototype of the same flows.</li>
 <li><b>Evaluation.</b> A heuristic evaluation of the demo and the Figma screens, then design changes with before and after screenshots, and a check that the demo and Figma still match.</li>
@@ -68,7 +68,7 @@ ul{padding-left:20px}li{margin:4px 0}
 <li><b>Small touch targets.</b> Chips at 36 pt, segmented controls at 28 pt and several buttons at 34–43 pt, against the 44 pt minimum.</li>
 <li><b>Contrast below AA.</b> Accent text on tinted buttons and green text in Dark mode, fixable in the colour tokens.</li>
 </ul>
-<p class="more"><a href="heuristic-evaluation.html#fix-first">See the fix-first list</a> · <a href="heuristic-evaluation.html#findings">All 21 findings with severity and fixes</a></p>
+<p class="more"><a href="heuristic-evaluation.html#fix-first" target="_blank" rel="noopener">See the fix-first list<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a> · <a href="heuristic-evaluation.html#findings" target="_blank" rel="noopener">All 21 findings with severity and fixes<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a></p>
 
 <h2>Four decisions</h2>
 
@@ -76,25 +76,25 @@ ul{padding-left:20px}li{margin:4px 0}
 <p>The pinned Assignment header was 350 pt tall, 40% of the screen, and would only grow with larger text. Can&#x27;t attend, Report issue and Timesheet moved into a More menu beside the green primary button, which brought the header to 256 pt. When there is no primary button, the actions show as buttons instead.</p>
 <p><b>Trade-off:</b> an urgent action now takes two taps, and the actions are shown differently from day to day. I chose coherence over consistency, because these actions are rarely used on the day of the assignment and should not take permanent space from the one action used every time. This is based on anecdotal feedback from stakeholders.</p>
 <div class="ba ph"><figure><img src="decisions/img/hdr-before-light.png" alt="Before: header pinned at 350 pt"><figcaption><b class="tag b">Before</b> 350 pt</figcaption></figure><figure><img src="decisions/img/hdr-menu-details-light.png" alt="After: header at 256 pt with a More button"><figcaption><b class="tag a">After</b> 256 pt</figcaption></figure></div>
-<p class="more"><a href="design-decisions.html#c1">Full rationale and options</a></p></div>
+<p class="more"><a href="design-decisions.html#c1" target="_blank" rel="noopener">Full rationale and options<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a></p></div>
 
 <div class="dec"><div class="k">Decision 2</div><h3>Collapse the header on scroll</h3>
 <p>The type and status row is not needed once the person scrolls, so it scrolls away. The primary row and the Details, Notes and Schedule tabs stay pinned (218 pt in Figma).</p>
 <p><b>Trade-off:</b> about a quarter of the screen stays pinned. I considered unpinning the tabs or the primary button; the tabs are the cheapest element to keep and the primary action must stay reachable.</p>
 <div class="ba ph"><figure><img src="decisions/img/hdr-menu-scrolled-light.png" alt="After: header collapsed when scrolled"><figcaption><b class="tag a">After</b> scrolled</figcaption></figure></div>
-<p class="more"><a href="design-decisions.html#c2">Full rationale and options</a></p></div>
+<p class="more"><a href="design-decisions.html#c2" target="_blank" rel="noopener">Full rationale and options<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a></p></div>
 
 <div class="dec"><div class="k">Decision 3</div><h3>Fix contrast where it starts</h3>
 <p>The tinted bordered buttons left green label text at about 4.2:1 on a card in Dark, below AA. Lowering the fill from 24% to 16% brings it to about 4.7:1. The primary button label is white on the green (4.60:1) in Dark as well as Light.</p>
 <p><b>Trade-off:</b> these are overrides on the design screens. The lasting fix is in the library tokens, which I logged as library change requests.</p>
 <div class="ba wide"><figure><img src="decisions/img/zoom-fill24.png" alt="Before: 24% fill"><figcaption><b class="tag b">Before</b> 24% fill, about 4.2:1 on a card</figcaption></figure><figure><img src="decisions/img/zoom-fill16.png" alt="After: 16% fill"><figcaption><b class="tag a">After</b> 16% fill, about 4.7:1 on a card</figcaption></figure></div>
-<p class="more"><a href="design-decisions.html#c7">Bordered buttons</a> · <a href="design-decisions.html#c8">White label on green</a></p></div>
+<p class="more"><a href="design-decisions.html#c7" target="_blank" rel="noopener">Bordered buttons<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a> · <a href="design-decisions.html#c8" target="_blank" rel="noopener">White label on green<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a></p></div>
 
 <div class="dec"><div class="k">Decision 4</div><h3>Plain nav buttons, with the accent colour as the cue</h3>
 <p>The back, previous and next buttons had a glass fill that was hard to make accessible and that native iOS would not render the same way. They are now plain glyphs in the accent colour, which the app uses for everything tappable. The More button keeps its circle.</p>
 <p><b>Trade-off:</b> plain glyphs look less like buttons, so they dim at the first and last assignment to show they are controls.</p>
 <div class="ba wide"><figure><img src="decisions/img/zoom-circle-before.png" alt="Before: glass circle buttons"><figcaption><b class="tag b">Before</b> glass fill</figcaption></figure><figure><img src="decisions/img/zoom-circle-after.png" alt="After: plain accent glyphs"><figcaption><b class="tag a">After</b> plain accent glyphs</figcaption></figure></div>
-<p class="more"><a href="design-decisions.html#c9">Full rationale</a></p></div>
+<p class="more"><a href="design-decisions.html#c9" target="_blank" rel="noopener">Full rationale<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a></p></div>
 
 <h2>What&#x27;s next</h2>
 <ul>
@@ -102,5 +102,5 @@ ul{padding-left:20px}li{margin:4px 0}
 <li>Move the colour and button fixes into the library so the overrides can be removed.</li>
 <li>Field-test the QR photo upload against real venue conditions before making it the default.</li>
 </ul>
-<p class="fn">Nine design changes are documented in <a href="design-decisions.html">Design decisions</a>; this page shows four. The evaluation is dated November 5, 2026.</p>
+<p class="fn">Nine design changes are documented in <a href="design-decisions.html" target="_blank" rel="noopener">Design decisions<svg class="ext" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M9 2h5v5M14 2 7.5 8.5M12 9.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr"> (opens in a new window)</span></a>; this page shows four. The evaluation is dated November 5, 2026.</p>
 </main></body></html>
