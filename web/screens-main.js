@@ -70,18 +70,18 @@ SCREENS.assignment = (c) => {
     // Matches Figma: name as title, "Role · number" as subtitle, phone symbol trailing; the whole row is one tel: link.
     const tel = (n, p, role) => `<a class="row telrow" href="tel:${p.replace(/\D/g, '')}" aria-label="Call ${esc(n)}, ${esc(role)}, ${p}"><div class="grow"><div class="ttl">${esc(n)}</div><div class="sub">${role} · ${p}</div></div><div class="trail">${I.phone}</div></a>`;
     let h = '';
-    if (a.qr) h += `<div class="sectionhead" style="margin-top:6px">QR code</div>` + card(`<button class="row" data-act="qrSheet"><span style="width:56px;height:56px;background:#fff;border-radius:8px;padding:4px;flex:none">${S.qrFail ? '' : qrSvg(a.id)}</span><span class="grow"><span class="ttl" style="display:block">Assignment QR code</span><span class="sub" style="display:block">Tap to enlarge and scan with the tablet</span></span></button>`);
-    h += `<div class="sectionhead">When and where</div>` + card(row({ title: esc(a.org), sub: 'Client' }), row({ title: fmtLong(a.date), sub: 'Date' }), row({ title: timeRange(a), sub: 'Times' }),
+    if (a.qr) h += '<div style="height:8px"></div>' + card(`<button class="row" data-act="qrSheet"><span style="width:56px;height:56px;background:#fff;border-radius:8px;padding:4px;flex:none">${S.qrFail ? '' : qrSvg(a.id)}</span><span class="grow"><span class="ttl" style="display:block">Assignment QR code</span><span class="sub" style="display:block">Tap to enlarge and scan with the tablet</span></span></button>`);
+    h += '<div style="height:16px"></div>' + card(row({ title: esc(a.org), sub: 'Client' }), row({ title: fmtLong(a.date), sub: 'Date' }), row({ title: timeRange(a), sub: 'Times' }),
       row({ title: esc(a.address), sub: 'Location', trail: I.chev, act: 'mapPick' }), row({ title: a.meet, sub: 'Meeting location' }));
     h += '<div style="height:16px"></div>' + card(tel(PEOPLE.leadName, PEOPLE.leadPhone, 'Lead photographer'), ...PEOPLE.others.map(([n, p]) => tel(n, p, 'Photographer'))) + '<div style="height:16px"></div>' + card(tel(PEOPLE.client[0], PEOPLE.client[1], 'Client contact'), tel(PEOPLE.manager[0], PEOPLE.manager[1], 'Account manager'));
     const L = a.log || {}; const logs = [];
     if (L.travelStart != null) logs.push(['Start Travel', clock(L.travelStart)]); if (L.arrived != null) logs.push(['Arrived', clock(L.arrived)]);
     if (L.startAsg != null) logs.push(['Start Assignment', clock(L.startAsg)]); if (L.endAsg != null) logs.push(['End Assignment', clock(L.endAsg)]);
-    if (logs.length) h += `<div class="sectionhead">Logged times</div>` + card(...logs.map(([k, v]) => row({ title: k, trail: v })));
+    if (logs.length) h += '<div style="height:16px"></div>' + card(...logs.map(([k, v]) => row({ title: k, trail: v })));
     return h;
   };
-  const notes = () => (a.lead ? `<div class="pillrow" style="margin:8px 0 4px"><button data-act="noteSheet">Add note</button></div>` : '') + `<div class="sectionhead" style="margin-top:6px">Notes</div>` + ((a.notes || [{ who: PEOPLE.leadName, when: fmtShort(rel(-1)), text: 'Park behind the building. Check in at the front office and ask for the gym door key.' }]).map((n) => card(row({ title: esc(n.text), sub: `${esc(n.who)} · ${esc(n.when)}` })) + '<div style="height:8px"></div>').join(''));
-  const sched = () => `<div class="sectionhead" style="margin-top:6px">Shoot schedule</div>` + card(...a.schedule.map(([t, team, n]) => row({ title: `${t} · ${esc(team)}`, sub: esc(n) })));
+  const notes = () => (a.lead ? `<div class="pillrow" style="margin:8px 0 4px"><button data-act="noteSheet">Add note</button></div>` : '') + '<div style="height:8px"></div>' + ((a.notes || [{ who: PEOPLE.leadName, when: fmtShort(rel(-1)), text: 'Park behind the building. Check in at the front office and ask for the gym door key.' }]).map((n) => card(row({ title: esc(n.text), sub: `${esc(n.who)} · ${esc(n.when)}` })) + '<div style="height:8px"></div>').join(''));
+  const sched = () => '<div style="height:8px"></div>' + card(...a.schedule.map(([t, team, n]) => row({ title: `${t} · ${esc(team)}`, sub: esc(n) })));
   const body = S.detailSeg === 'Details' ? detailRows() : S.detailSeg === 'Notes' ? notes() : sched();
   const failNote = a.upFailed ? `<p class="note" style="color:var(--color-destructive)">Upload didn’t finish. Check your connection and try again. Your timesheet isn’t affected.</p>` : '';
   const remind = isEnded(a) && a.photos !== 'done' && a.photos !== 'uploading' ? '<p class="note">Reminder: upload your photos within 5 days of the assignment.</p>' : '';
