@@ -309,3 +309,12 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .phone .toolbar .circle-btn { background: none; box-shadow: none; color: var(--accent-text); }
 .phone .toolbar .circle-btn svg { stroke-width: 2.6; }
 .phone .toolbar .circle-btn:disabled { opacity: .4; }
+
+/* "Jump to" selector sits on the left, directly above the section heading in the side panel */
+.jumpwrap { position: fixed; left: max(24px, calc(50% - 201px - 336px)); top: 52px; width: 300px; z-index: 5; }
+.jumpwrap select { font: 500 13px/1 var(--stack); padding: 8px 12px; border-radius: 8px; border: 1px solid #3a3d44; background: #1B1D22; color: #E6E6E6; cursor: pointer; max-width: 100%; }
+body.full .side { top: 92px; }
+body.full .jumpwrap { top: 48px; left: max(24px, calc(50% - 215px - 336px)); }
+@media (max-width: 1099px) { .jumpwrap { top: 16px; left: 16px; width: auto; } }
+@media (max-width: 1139px) { body.full .jumpwrap { display: none; } }
+@media (max-width: 440px) { .jumpwrap { display: none; } }
