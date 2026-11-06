@@ -43,7 +43,7 @@ SCREENS.schedule = () => {
 function actionsFor(a) {
   const sec = [], todayDay = a.date === TODAY; let primary = null;
   const cant = { label: 'Can’t attend', act: 'cantAttend' }, rep = { label: 'Report issue', act: 'report' }, tsb = { label: 'Timesheet', act: 'tsSheet', arg: a.id };
-  const note = a.lead ? { label: 'Add note', act: 'noteSheet' } : null;
+  const note = null; // Add note now lives at the top of the Notes tab (lead only)
   if (a.step === 'scheduled') { if (todayDay) primary = { label: 'Start Travel', act: 'startTravel' }; sec.push(cant, rep, note); }
   else if (a.step === 'traveling') { primary = { label: 'Arrived', act: 'arrived' }; sec.push(cant, rep, tsb, note); }
   else if (a.step === 'arrived') { primary = { label: 'Start Assignment', act: 'startAsg' }; sec.push(cant, rep, tsb, note); }
@@ -80,7 +80,7 @@ SCREENS.assignment = (c) => {
     if (logs.length) h += `<div class="sectionhead">Logged times</div>` + card(...logs.map(([k, v]) => row({ title: k, trail: v })));
     return h;
   };
-  const notes = () => `<div class="sectionhead" style="margin-top:6px">Notes</div>` + ((a.notes || [{ who: PEOPLE.leadName, when: fmtShort(rel(-1)), text: 'Park behind the building. Check in at the front office and ask for the gym door key.' }]).map((n) => card(row({ title: esc(n.text), sub: `${esc(n.who)} · ${esc(n.when)}` })) + '<div style="height:8px"></div>').join('')) + (a.lead ? '' : '<p class="note">Only lead photographers can add notes.</p>');
+  const notes = () => (a.lead ? `<div class="pillrow" style="margin:8px 0 4px"><button data-act="noteSheet">Add note</button></div>` : '') + `<div class="sectionhead" style="margin-top:6px">Notes</div>` + ((a.notes || [{ who: PEOPLE.leadName, when: fmtShort(rel(-1)), text: 'Park behind the building. Check in at the front office and ask for the gym door key.' }]).map((n) => card(row({ title: esc(n.text), sub: `${esc(n.who)} · ${esc(n.when)}` })) + '<div style="height:8px"></div>').join('')) + (a.lead ? '' : '<p class="note">Only lead photographers can add notes.</p>');
   const sched = () => `<div class="sectionhead" style="margin-top:6px">Shoot schedule</div>` + card(...a.schedule.map(([t, team, n]) => row({ title: `${t} · ${esc(team)}`, sub: esc(n) })));
   const body = S.detailSeg === 'Details' ? detailRows() : S.detailSeg === 'Notes' ? notes() : sched();
   const failNote = a.upFailed ? `<p class="note" style="color:var(--color-destructive)">Upload didn’t finish. Check your connection and try again. Your timesheet isn’t affected.</p>` : '';

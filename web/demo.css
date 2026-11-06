@@ -173,7 +173,7 @@ button.row, .row[data-act] { cursor: pointer; }
 .cal button.on { background: var(--color-accent); color: var(--color-on-accent); border-radius: 20px; }
 .cal .dow { font-size: 12px; color: var(--color-text-secondary); height: 24px; display: grid; place-items: center; }
 .pillrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; }
-.pillrow button { padding: 8px 14px; border-radius: 18px; border: 1px solid var(--color-separator); background: var(--color-surface-raised); font-size: 15px; cursor: pointer; }
+.pillrow button { padding: 8px 14px; min-height: 44px; border-radius: 18px; border: 1px solid var(--color-separator); background: var(--color-surface-raised); font-size: 15px; cursor: pointer; }
 .pillrow button[aria-pressed="true"] { background: var(--color-accent); color: var(--color-on-accent); border-color: transparent; }
 .filters { display: flex; gap: 8px; padding: 4px 16px 0; flex-wrap: wrap; }
 .dim { opacity: .45; pointer-events: none; }
