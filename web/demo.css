@@ -304,3 +304,8 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 
 /* Dark: round icon buttons (back, prev/next, More) use the same darker fill as Figma proposal: white glyph >=5.4:1, fill vs page ~3:1 */
 .phone[data-mode="dark"] .circle-btn { background: #656875; color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+
+/* Nav buttons (back, previous, next) are plain accent glyphs with no fill; the More button keeps its circle. Hit area stays 44/40pt. */
+.phone .toolbar .circle-btn { background: none; box-shadow: none; color: var(--accent-text); }
+.phone .toolbar .circle-btn svg { stroke-width: 2.6; }
+.phone .toolbar .circle-btn:disabled { opacity: .4; }
