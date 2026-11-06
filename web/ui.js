@@ -1,6 +1,7 @@
 /* UI helpers: icons, small components, state and rendering. */
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const I = {
+  map: '<svg class="mapic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 3.5 6.5v13L9 17.5l6 2 5.5-2v-13L15 6.5zM9 4.5v13M15 6.5v13"/></svg>',
   calMinus: '<svg viewBox="0 0 24 24"><defs><mask id="cmk"><rect width="24" height="24" fill="#fff"/><circle cx="17.5" cy="17.5" r="6.2" fill="#000"/></mask></defs><g mask="url(#cmk)"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g><circle cx="17.5" cy="17.5" r="4.6"/><path d="M15.2 17.5h4.6"/></svg>',
   stopBang: '<svg viewBox="0 0 24 24"><path d="M8.4 3h7.2L21 8.4v7.2L15.6 21H8.4L3 15.6V8.4z"/><path d="M12 7.5v5.5"/><circle cx="12" cy="16.3" r=".6" style="fill:currentColor"/></svg>',
   more: '<svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></svg>',

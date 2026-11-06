@@ -72,7 +72,7 @@ SCREENS.assignment = (c) => {
     let h = '';
     if (a.qr) h += '<div style="height:8px"></div>' + card(`<button class="row" data-act="qrSheet"><span style="width:56px;height:56px;background:#fff;border-radius:8px;padding:4px;flex:none">${S.qrFail ? '' : qrSvg(a.id)}</span><span class="grow"><span class="ttl" style="display:block">Assignment QR code</span><span class="sub" style="display:block">Tap to enlarge and scan with the tablet</span></span></button>`);
     h += '<div style="height:16px"></div>' + card(row({ title: esc(a.org), sub: 'Client' }), row({ title: fmtLong(a.date), sub: 'Date' }), row({ title: timeRange(a), sub: 'Times' }),
-      row({ title: esc(a.address), sub: 'Location', trail: I.chev, act: 'mapPick' }), row({ title: a.meet, sub: 'Meeting location' }));
+      row({ title: esc(a.address), sub: 'Location · opens Maps', trail: I.map, act: 'mapPick' }), row({ title: a.meet, sub: 'Meeting location' }));
     h += '<div style="height:16px"></div>' + card(tel(PEOPLE.leadName, PEOPLE.leadPhone, 'Lead photographer'), ...PEOPLE.others.map(([n, p]) => tel(n, p, 'Photographer'))) + '<div style="height:16px"></div>' + card(tel(PEOPLE.client[0], PEOPLE.client[1], 'Client contact'), tel(PEOPLE.manager[0], PEOPLE.manager[1], 'Account manager'));
     const L = a.log || {}; const logs = [];
     if (L.travelStart != null) logs.push(['Start Travel', clock(L.travelStart)]); if (L.arrived != null) logs.push(['Arrived', clock(L.arrived)]);
