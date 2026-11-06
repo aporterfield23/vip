@@ -10,7 +10,7 @@ Design tokens for a branded iOS app built on the iOS 27 Builder Figma kit.
 | `sd.config.mjs` | Style Dictionary build. Sets with "Dark" in the name become the dark theme. |
 | `ios/` | Generated SwiftUI design system, asset catalog and brand font files for the developer. |
 | `ios-system-map.json` | Which tokens iOS owns (emitted as system references, never hex) and which text styles map to Dynamic Type. VIP uses its own neutrals, so no colours are listed and every colour is brand-owned. |
-| `web/` | The Vercel demo: `index.html` is the functional VIP Photographer App prototype (vanilla HTML, CSS and JS: `demo.css`, `data.js`, `ui.js`, `screens-*.js`, `overlays.js`, `app.js`), `heuristic-evaluation.html` is the usability and HIG evaluation of the demo and the Figma screens (prints landscape; screenshots in `web/evaluation/img/`), and `tokens-preview.html` is the original token preview. Also web styling a developer can reuse: CSS variables with system dark mode, `fonts.css` and a Tailwind preset (`web/tailwind.preset.js`). |
+| `web/` | The Vercel demo: `index.html` is the functional VIP Photographer App prototype (vanilla HTML, CSS and JS: `demo.css`, `data.js`, `ui.js`, `screens-*.js`, `overlays.js`, `app.js`), `heuristic-evaluation.html` is the usability and HIG evaluation (the master copy; edit it here) of the demo and the Figma screens (prints landscape; screenshots in `web/evaluation/img/`), and `tokens-preview.html` is the original token preview. Also web styling a developer can reuse: CSS variables with system dark mode, `fonts.css` and a Tailwind preset (`web/tailwind.preset.js`). |
 | `HANDOFF.md` | Developer instructions. |
 
 Rebuild locally: `npm install && npm run tokens`.
