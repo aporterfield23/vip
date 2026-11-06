@@ -53,6 +53,8 @@ The same tokens style a website. Everything is in `web/`:
 ## Screens in scope
 1. Launch 2. Home 3. Detail 4. Settings
 
+SwiftUI notes for the Assignment Details screen and the nine design decisions, with open checks, are in `ios/IMPLEMENTATION-NOTES.md`.
+
 ## Accessibility
 - WCAG AA contrast checked in the Brand Token Spec
 - Increase Contrast supported: brand colours switch to stronger variants (at least 7:1) automatically, in the app and on the web (prefers-contrast: more)
