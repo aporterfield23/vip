@@ -61,6 +61,7 @@ const ACT = {
     S.ts.push({ id: 'n' + a.id, org: a.org, sub: `${a.type} · ${fmtShortDate(a)}`, place: a.city, date: a.date, photo: d.assign, miles: d.miles, drive: d.trav, tolls: d.tolls.reduce((t, x) => t + x, 0), status: 'Pending' }); closeOverlay(); },
   qrSheet: () => open('qr', { id: curAsgId() }), noteSheet: () => { F.noteText = ''; open('note', { id: curAsgId() }); },
   addNote: (id) => { const a = asgOf(id); (a.notes = a.notes || [{ who: PEOPLE.leadName, when: fmtShort(rel(-1)), text: 'Park behind the building. Check in at the front office and ask for the gym door key.' }]).unshift({ who: S.profile.name + ' (you)', when: 'Today', text: F.noteText.trim() }); S.detailSeg = 'Notes'; closeOverlay(); },
+  toggleMore: () => { S.moreOpen = !S.moreOpen; render(); },
   report: () => open('report'), cantAttend: () => open('cantAttend'), mapPick: () => open('mapPick'),
   call: (n) => { S.overlay = null; render(); location.href = phoneLink(n); },
   openMap: (w) => { const a = asgOf(curAsgId()); const q = encodeURIComponent(a.address); window.open(w === 'apple' ? `https://maps.apple.com/?q=${q}` : `https://www.google.com/maps/search/?api=1&query=${q}`, '_blank', 'noopener'); closeOverlay(); },
@@ -116,7 +117,9 @@ function jump(v) {
 }
 
 document.addEventListener('click', (e) => {
-  const t = e.target.closest('[data-act]'); if (!t || t.disabled) return; const act = t.dataset.act; if (!act) return;
+  const t = e.target.closest('[data-act]');
+  if (S.moreOpen && !(t && t.dataset.act === 'toggleMore')) { S.moreOpen = false; if (!t || t.disabled || !t.dataset.act) { render(); return; } } // any other tap closes the menu
+  if (!t || t.disabled) return; const act = t.dataset.act; if (!act) return;
   if (!t.closest('#phone') && !t.closest('.controls')) return; const fn = ACT[act]; if (fn) { e.preventDefault(); fn(t.dataset.arg); }
 });
 const NUMERIC_BINDS = ['tlHrs', 'tlMiles', 'toll', 'tsxTrav', 'tsxMiles', 'tsxTolls', 'tsPhoto', 'tsMiles', 'tsDrive', 'tsTolls']; // amounts: digits and one decimal point only
@@ -132,6 +135,7 @@ document.addEventListener('input', (e) => {
   F[b] = t.value; render();
 });
 document.addEventListener('change', (e) => { const t = e.target; if (t.id === 'eqFile') { F.photoCount = (F.photoCount || 0) + t.files.length; F.photoMB = (F.photoMB || 0) + [...t.files].reduce((s, f) => s + f.size, 0) / 1048576; render(); } });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && S.moreOpen) { S.moreOpen = false; render(); } });
 document.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && /^c\d$/.test(e.target.dataset?.bind || '') && !e.target.value) { const i = +e.target.dataset.bind[1]; if (i > 0) { S.focusNext = 'c' + (i - 1); render(); } } });
 
 const fitPhone = () => { const p = phone(); if (!p) return; const z = document.body.classList.contains('full') || innerWidth <= 440 ? 1 : Math.max(0.6, Math.min(1, (innerHeight - 88) / 872)); p.style.zoom = z; };

@@ -278,3 +278,13 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .telrow { text-decoration: none; color: inherit; }
 .telrow .trail { color: var(--accent-text); }
 .telrow .phic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; display: block; }
+
+/* Assignment header: primary button and one More button in a row; the rarely used actions live in the menu. */
+.page.hdr { position: relative; }
+.primaryrow { display: flex; gap: 8px; align-items: center; }
+.primaryrow .btn { flex: 1; width: auto; }
+.primaryrow .grow { flex: 1; }
+.moremenu { position: absolute; right: 16px; top: 100%; margin-top: 4px; width: 230px; z-index: 6; background: var(--color-surface-raised); border: .5px solid var(--color-separator); border-radius: 14px; box-shadow: 0 8px 28px rgba(0,0,0,.28); overflow: hidden; }
+.moremenu button { display: block; width: 100%; min-height: 48px; padding: 0 16px; border: 0; background: none; text-align: left; font: inherit; font-size: 17px; color: var(--color-text-primary); cursor: pointer; }
+.moremenu button + button { border-top: .5px solid var(--color-separator); }
+.moremenu button:active { background: color-mix(in srgb, var(--color-text-primary) 8%, transparent); }

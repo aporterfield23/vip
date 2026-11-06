@@ -1,6 +1,7 @@
 /* UI helpers: icons, small components, state and rendering. */
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const I = {
+  more: '<svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></svg>',
   back: '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',
   up: '<svg viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/></svg>',
   down: '<svg viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></svg>',
