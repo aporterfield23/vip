@@ -280,7 +280,11 @@ body.full .side { top: 40px; left: max(24px, calc(50% - 215px - 336px)); }
 .telrow .phic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; display: block; }
 
 /* Assignment header: primary button and one More button in a row; the rarely used actions live in the menu. */
-.page.hdr { position: relative; }
+/* Collapse on scroll: type and status scroll away; the primary row and the tabs stay pinned under the toolbar. */
+.pinbar { position: sticky; top: 54px; z-index: 5; background: var(--color-background-secondary); padding: 0 16px; }
+.pinbar .seg.pinned { margin: 0 -16px; }
+.prow { position: relative; padding-bottom: 2px; }
+.moremenu { right: 0 !important; }
 .primaryrow { display: flex; gap: 8px; align-items: center; }
 .primaryrow .btn { flex: 1; width: auto; }
 .primaryrow .grow { flex: 1; }

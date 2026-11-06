@@ -86,11 +86,11 @@ SCREENS.assignment = (c) => {
   const failNote = a.upFailed ? `<p class="note" style="color:var(--color-destructive)">Upload didn’t finish. Check your connection and try again. Your timesheet isn’t affected.</p>` : '';
   const remind = isEnded(a) && a.photos !== 'done' && a.photos !== 'uploading' ? '<p class="note">Reminder: upload your photos within 5 days of the assignment.</p>' : '';
   return `${toolbar({ back: true, title: a.org, sub: fmtShortDate(a) + ' · ' + timeRange(a), trail: pair('prevAsg', 'nextAsg', i <= 0, i >= q.length - 1) })}
-  <div class="page hdr"><div style="display:flex;gap:8px;align-items:center;margin:8px 0 12px;flex-wrap:wrap"><span class="typeline">${glyph(a.kind)}${esc(a.type)}</span>${chip(statusLabel(a), statusLabel(a) === 'Completed' ? 'green' : 'accent')}</div>
-  <div class="primaryrow">${primary ? btn(primary.label, { act: primary.act, arg: primary.arg, disabled: primary.disabled }) : '<span class="grow"></span>'}${sec.length ? `<button class="circle-btn" data-act="toggleMore" aria-label="More actions" aria-haspopup="menu" aria-expanded="${!!S.moreOpen}">${I.more}</button>` : ''}</div>
-  ${S.moreOpen && sec.length ? `<div class="moremenu" role="menu" aria-label="More actions">${sec.map((s) => `<button role="menuitem" data-act="${s.act}" data-arg="${s.arg || ''}">${s.label}</button>`).join('')}</div>` : ''}
-  ${a.photos === 'uploading' ? `<div class="progress"><i style="width:${S.upload ? S.upload.pct : 0}%"></i></div>` : ''}${failNote}${remind}</div>
-  ${seg('detailSeg', ['Details', 'Notes', 'Schedule'], S.detailSeg)}<div class="page">${body}</div>`;
+  <div class="page hdr"><div style="display:flex;gap:8px;align-items:center;margin:8px 0 12px;flex-wrap:wrap"><span class="typeline">${glyph(a.kind)}${esc(a.type)}</span>${chip(statusLabel(a), statusLabel(a) === 'Completed' ? 'green' : 'accent')}</div></div>
+  <div class="pinbar"><div class="prow"><div class="primaryrow">${primary ? btn(primary.label, { act: primary.act, arg: primary.arg, disabled: primary.disabled }) : '<span class="grow"></span>'}${sec.length ? `<button class="circle-btn" data-act="toggleMore" aria-label="More actions" aria-haspopup="menu" aria-expanded="${!!S.moreOpen}">${I.more}</button>` : ''}</div>
+  ${S.moreOpen && sec.length ? `<div class="moremenu" role="menu" aria-label="More actions">${sec.map((s) => `<button role="menuitem" data-act="${s.act}" data-arg="${s.arg || ''}">${s.label}</button>`).join('')}</div>` : ''}</div>
+  ${seg('detailSeg', ['Details', 'Notes', 'Schedule'], S.detailSeg, 'pinned')}</div>
+  <div class="page">${a.photos === 'uploading' ? `<div class="progress"><i style="width:${S.upload ? S.upload.pct : 0}%"></i></div>` : ''}${failNote}${remind}${body}</div>`;
 };
 const fmtShortDate = (a) => WD[dt(a.date).getUTCDay()] + ', ' + fmtShort(a.date);
 
