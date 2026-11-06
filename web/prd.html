@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VIP Photographer App – Product Requirements</title>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#1c1f26;--mut:#5b6270;--line:#d9dce3;--head:#f0f1f4;--link:#0a6b48}
+@media (prefers-color-scheme:dark){:root{--bg:#111521;--fg:#e8eaf0;--mut:#a3a9b8;--line:#2e3448;--head:#1b2132;--link:#4cc596}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+a{color:var(--link)}
+.wrap{display:grid;grid-template-columns:270px minmax(0,1fr);gap:32px;max-width:1280px;margin:0 auto;padding:24px 16px 64px}
+nav.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13px;border-right:1px solid var(--line);padding-right:12px}
+nav.toc ul{list-style:none;margin:0;padding:0}nav.toc li{margin:2px 0}nav.toc .l3{padding-left:14px;color:var(--mut)}nav.toc a{text-decoration:none}nav.toc a:hover{text-decoration:underline}
+.toc h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin:0 0 6px;border:0;padding:0}
+.links{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.links a{border:1px solid var(--line);background:var(--head);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;text-decoration:none}
+main{min-width:0;max-width:900px}
+h1{font-size:28px;line-height:1.2;margin:0 0 8px}
+h2{font-size:21px;margin:40px 0 8px;padding-top:12px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:17px;margin:28px 0 6px;scroll-margin-top:12px}
+h2+p,p,li{max-width:84ch}
+li{margin:3px 0}
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:7px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--head);font-weight:600}tr:last-child td{border-bottom:0}
+code{font-size:.92em;background:var(--head);padding:1px 4px;border-radius:4px}
+hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+del{color:var(--mut)}
+.note{color:var(--mut);font-size:13px;margin:0 0 16px}
+.top{position:fixed;right:16px;bottom:16px;border:1px solid var(--line);background:var(--head);border-radius:999px;padding:6px 12px;font-size:13px;text-decoration:none}
+@media(max-width:900px){.wrap{display:block}nav.toc{position:static;max-height:none;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:16px}}
+@media print{.wrap{display:block;padding:0}nav.toc,.top,.links{display:none}body{font-size:11px}h2{break-after:avoid}tr{break-inside:avoid}@page{size:letter;margin:14mm}}
+</style>
+</head>
+<body><div class="wrap">
+<nav class="toc" aria-label="Contents"><h2>Contents</h2><div class="links"><a href="case-study.html">Case study</a><a href="design-decisions.html">Design decisions</a><a href="heuristic-evaluation.html">Evaluation</a><a href="index.html">Demo</a></div><ul><li class="l2"><a href="#1-overview">1. Overview</a></li><li class="l2"><a href="#2-problem-statement">2. Problem Statement</a></li><li class="l2"><a href="#3-goals">3. Goals</a></li><li class="l2"><a href="#4-non-goals-v1">4. Non-Goals (v1)</a></li><li class="l2"><a href="#5-personas">5. Personas</a></li><li class="l2"><a href="#6-assignment-status-lifecycle">6. Assignment Status Lifecycle</a></li><li class="l2"><a href="#7-user-stories">7. User Stories</a></li><li class="l3"><a href="#as-a-field-photographer">As a Field Photographer</a></li><li class="l3"><a href="#as-a-lead-photographer-in-addition-to-the-above">As a Lead Photographer (in addition to the above)</a></li><li class="l3"><a href="#as-a-scheduler-account-manager-coordinator-consumers-not-app-users">As a Scheduler / Account Manager / Coordinator (consumers, not app users)</a></li><li class="l2"><a href="#8-functional-requirements">8. Functional Requirements</a></li><li class="l3"><a href="#81-authentication-access-p0">8.1 Authentication &amp; Access — P0</a></li><li class="l3"><a href="#82-weekly-schedule-view-p0">8.2 Weekly Schedule View — P0</a></li><li class="l3"><a href="#83-assignment-details-screen-p0">8.3 Assignment Details Screen — P0</a></li><li class="l3"><a href="#84-assignment-time-travel-tracking-p0">8.4 Assignment Time &amp; Travel Tracking — P0</a></li><li class="l3"><a href="#85-timesheet-time-distance-tolls-parking-receipts-p0">8.5 Timesheet (Time, Distance, Tolls &amp; Parking Receipts) — P0</a></li><li class="l3"><a href="#86-earnings-calculation-timesheet-p0">8.6 Earnings Calculation &amp; Timesheet — P0</a></li><li class="l3"><a href="#87-qr-code-for-tablet-handoff-sports-assignments-p1">8.7 QR Code for Tablet Handoff (Sports assignments) — P1</a></li><li class="l3"><a href="#88-photo-upload-via-sdk-chip-adapter-p0">8.8 Photo Upload via SDK Chip Adapter — P0</a></li><li class="l3"><a href="#89-issue-reporting-cant-attend-p0">8.9 Issue Reporting &amp; Can't Attend — P0</a></li><li class="l3"><a href="#810-lead-photographer-notes-p1">8.10 Lead Photographer Notes — P1</a></li><li class="l3"><a href="#811-notifications-p1">8.11 Notifications — P1</a></li><li class="l3"><a href="#812-offer-assignment-p2">8.12 Offer Assignment — P2</a></li><li class="l3"><a href="#813-time-off-requests-p1">8.13 Time-Off Requests — P1</a></li><li class="l3"><a href="#815-account-p2">8.15 Account — P2</a></li><li class="l3"><a href="#814-upload-status-bar-p2">8.14 Upload Status Bar — P2</a></li><li class="l2"><a href="#9-key-data-captured-per-assignment">9. Key Data Captured Per Assignment</a></li><li class="l2"><a href="#10-success-metrics">10. Success Metrics</a></li><li class="l2"><a href="#11-open-questions">11. Open Questions</a></li><li class="l2"><a href="#12-timeline-considerations">12. Timeline Considerations</a></li><li class="l2"><a href="#13-future-milestones">13. Future Milestones</a></li></ul></nav>
+<main id="top"><p class="note">A copy of the PRD as last updated November 2, 2026. It is the written spec behind the <a href="index.html">demo</a>; see the <a href="design-decisions.html">design decisions</a> and the <a href="heuristic-evaluation.html">heuristic evaluation</a> for what changed since.</p>
+<h1>VIP Photographer App Product Requirements Draft</h1>
+<p>Visual Image Photography (VIP) — Photographer Mobile App</p>
+<p><strong>Author:</strong> Alan Porterfield — drafted with Claude<br />
+<strong>Status:</strong> Draft v1<br />
+<strong>Last updated:</strong> November 2, 2026<details><summary>Show change history</summary>updated: Report an issue is a single-line action sheet and the Time period selector is an anchored menu; the Paid period selector defaults to the Current pay period and offers Current pay period, Previous pay period, Last month, Year to date, Last year and a date range; Last 7 days and Last 30 days were removed (8.6); earlier October 11: distance edits also require a reason, typed in a free-form text field, for every trip; timesheets with edits are flagged for payroll review; Start Travel and Submit Timesheet are separate actions (8.4, 9); the distance comes from a distance-only API with a manual fallback; editing travel time requires a reason, and the scheduler sees both the system-recorded and the photographer-entered values (8.4); Start Travel opens a confirmation sheet (start address editable, defaulting to home or the current assignment; assignment address and approximate miles read-only; no drive-time estimate); Arrived opens a Travel log sheet (time rounded up to the next 15 minutes and miles, both editable, Save log information); Start Travel is also a secondary action while photos upload; the same flow applies to travel after an assignment, and a new Skip upload for now action lets a photographer go to their next Start Travel without uploading (8.3, 8.4, 8.5, 11, 13); earlier October 8: Timesheets scroll behavior matches Schedule: the large title collapses and the Open / Approved / Paid control pins under the navigation bar (8.6); Schedule scroll behavior: the large title collapses to an inline title and the Upcoming / Past 5 days control pins under the navigation bar (8.2); Report issue now opens an action sheet with Call scheduler, Call account coordinator and Equipment issue, shown to every photographer, and every Call tap is logged; Equipment issue is an in-app report with a form (equipment type, description, up to 4 photos, 20 MB in total, chosen with the system photo picker) that notifies the equipment coordinator, shows a "Report sent" confirmation and can be queued when there is no connection (8.9); Add note no longer has issue tags (8.10); "Account representative" is now "Account manager"; Time Off tab now has a Cancelled group and a Pending detail with Withdraw request; an approved request, single day or multi-day, is cancelled whole through one Cancel Time Off action sheet, with no partial-day or time-band cancel (8.13); dates on detail screens use a short month, for example "Wednesday, Oct 14" (8.3); Time Off detail screen and cancel / withdraw rules (8.13); Assignment Details toolbar now uses up and down chevrons to move through the Past 5 days and Upcoming entries, including approved Time Off and skipping days with no assignments (8.3); Schedule line items show the time as the title with the assignment type below (8.2); earlier October 5 changes: the journey ends with End Assignment (no travel-home buttons): after End Assignment the primary is Upload Photos, then Submit Timesheet, and travel after the assignment is entered in the Timesheet sheet; "Tolls and receipts" replaced by "Timesheet" (time, distance, tolls and receipts in one sheet) and the timesheet no longer waits for photo upload; "Drive" renamed to "Travel" throughout so the same buttons work when the photographer goes home or to another assignment; "Past 5 days" segment shows a dot only when there are incomplete assignments (photos not uploaded or timesheet not submitted); Past 5 days list and segmented control, upload status bar only, "In progress" row indicator, combined End Assignment/Start Travel (after assignment), tolls from the travel to the assignment, push upload reminder rule, QR code in every status for Sports, leave-by note as a v2 placeholder, placeholder Central-time scheduler number</details><br />
+<strong>Platforms:</strong> iOS and Android (native or cross-platform, TBD — see Open Questions)</p>
+<hr />
+<h2 id="1-overview">1. Overview</h2>
+<p>VIP employs field and lead photographers to cover photography assignments (sports portraits, school portraits, and similar jobs) on behalf of client organizations. Today, assignment dispatch, time tracking, mileage/toll capture, and issue reporting happen through disconnected or manual channels, which creates payroll errors, slow reassignment when a photographer can't make an assignment, and no single source of truth for an assignment's status.</p>
+<p>This PRD defines a mobile app that gives invite-only, MFA-authenticated photographers a weekly schedule of their assigned assignments, lets them run the full lifecycle of an assignment (travel to → arrive → shoot → end assignment → upload photos and submit the timesheet), captures the data needed to calculate what they're owed, lets them upload assignment photos from a memory card via an SDK-connected adapter, and gives them fast paths to report problems or hand off an assignment.</p>
+<h2 id="2-problem-statement">2. Problem Statement</h2>
+<p>Photographers currently have no single mobile tool that tells them where to be, tracks the time and mileage they're owed for, and lets them flag a problem before it becomes a problem. Schedulers and payroll, in turn, lack a reliable, time-stamped record of travel time, assignment time, tolls, and parking costs, which slows down timesheet approval and creates disputes. When equipment fails or a photographer runs into a problem on-site, there's no fast, mobile-first way to get it to the right person. Problems that need a person (running late, a no-show, a client issue, not being able to attend) are handled by phone, so the app puts the right number one tap away and logs the call; equipment failures are reported in the app so the equipment coordinator can follow up (see 8.9).</p>
+<h2 id="3-goals">3. Goals</h2>
+<ol>
+<li><strong>Single source of truth for photography assignments</strong> — photographers can see every assignment assigned to them for the week ahead, with the status of each, without calling or emailing a scheduler.</li>
+<li><strong>Accurate, self-service time &amp; expense capture</strong> — assignment time, travel time, mileage, tolls, and parking receipts are captured directly by the photographer in the field, timestamped, and flow into a timesheet without manual re-entry.</li>
+<li><strong>Faster reassignment when plans change</strong> — a photographer who is running late, cannot attend, or has a problem reaches the right person (scheduler, account coordinator or equipment coordinator) in one or two taps from the assignment, cutting the resolution time for at-risk assignments.</li>
+<li><strong>Faster turnaround from shoot to delivery</strong> — photo upload via the SDK chip adapter moves an assignment from Processing to Uploaded without the photographer needing a separate workflow or desktop step.</li>
+<li><strong>Controlled flexibility</strong> — photographers who are authorized to offer their assignments to others can do so without waiting on a scheduler to manually reassign, while schedulers retain control over who has that permission.</li>
+</ol>
+<h2 id="4-non-goals-v1">4. Non-Goals (v1)</h2>
+<ul>
+<li><strong>Scheduler/dispatcher admin tooling.</strong> This PRD covers the photographer-facing app only. Creating assignments, assigning photographers, approving timesheets, and granting offer-assignment permissions happen in a separate scheduler-facing system that this app reads from and writes status/time/notes back to.</li>
+<li><strong>The tablet application.</strong> The app only generates and displays the assignment QR code; building or specifying the separate tablet app that consumes it is out of scope here.</li>
+<li><strong>Full payroll processing.</strong> The app feeds a timesheet once a scheduler approves it; running payroll itself is a separate system.</li>
+<li><strong>In-app chat.</strong> Explicitly a future milestone (see Section 13).</li>
+<li><strong>Photo editing, culling, or delivery to clients.</strong> The app uploads raw assignment photos off the memory card; any editing/delivery pipeline is downstream and out of scope.</li>
+<li><strong>Reviewing and deciding time-off requests.</strong> The app lets a photographer submit a time-off request, see its status, and cancel or withdraw it (see 8.13); approving or denying it happens in the scheduler-facing system described above.</li>
+<li><strong>Reporting "can't attend" through the app.</strong> The photographer must phone the scheduler. The app only provides the scheduler's phone number to tap (see 8.9); it does not notify the scheduler or change the assignment's status.</li>
+</ul>
+<h2 id="5-personas">5. Personas</h2>
+<ul>
+<li><strong>Field Photographer</strong> — the primary user. Receives assigned assignments, runs the shoot-day workflow, tracks time/mileage/tolls, uploads photos, reports issues.</li>
+<li><strong>Lead Photographer</strong> — a field photographer with one additional capability: appending notes to an assignment that schedulers and account managers can see.</li>
+<li><strong>Scheduler/Dispatcher</strong> — not a user of this app, but the counterpart who creates assignments (in "Draft"), assigns them, grants/revokes offer-assignment permission, approves timesheets, and approves/denies time-off requests. Referenced throughout as the recipient of status changes, call-ins, notes, and time-off requests.</li>
+<li><strong>Account Manager</strong> — not a user of this app; consumes assignment notes and status for client-facing visibility.</li>
+<li><strong>Account Coordinator</strong> — not a user of this app; takes the call when a photographer has a client issue (Report issue → Call account coordinator).</li>
+<li><strong>Equipment Coordinator</strong> — not a user of this app; is notified when an Equipment issue report is created and follows up with the photographer.</li>
+<li><strong>Payroll Admin</strong> — not a user of this app; consumes the approved timesheet.</li>
+</ul>
+<h2 id="6-assignment-status-lifecycle">6. Assignment Status Lifecycle</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Visible to a photographer?</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft</td>
+<td>No (scheduler-only)</td>
+<td>Assignment created but not yet finalized/assigned</td>
+</tr>
+<tr>
+<td>Scheduled</td>
+<td>Yes</td>
+<td>Assigned to a photographer, upcoming</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>Yes</td>
+<td>Photographer has started the journey (traveling to → arrived → shooting → assignment ended — see 8.4) and has not yet submitted the timesheet</td>
+</tr>
+<tr>
+<td>Processing</td>
+<td>Yes</td>
+<td>Journey complete and timesheet submitted; photos not yet confirmed uploaded</td>
+</tr>
+<tr>
+<td>Uploaded</td>
+<td>Yes</td>
+<td>Journey complete and photos confirmed uploaded via SDK chip adapter</td>
+</tr>
+<tr>
+<td>Completed</td>
+<td>Yes</td>
+<td>Assignment fully closed out (e.g., timesheet approved)</td>
+</tr>
+<tr>
+<td>Cancelled</td>
+<td>Yes</td>
+<td>Assignment will not occur / was called off</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notes:</p>
+<ul>
+<li>Draft is a system status set by schedulers and is filtered out of anything the photographer sees; it exists so schedulers can build assignments before they're ready to publish.</li>
+<li>Cancelled is reachable from Scheduled or Active (e.g., client cancels, or a scheduler cancels the assignment after a photographer calls in directly to say they cannot attend).</li>
+<li>Photographers can start uploading photos as soon as they log End Assignment (see 8.8). An upload that finishes while the assignment is still Active does not change the status; the assignment moves to Uploaded when the timesheet is submitted. The timesheet does not wait for photos: if a photographer submits the timesheet first, the assignment is Processing until the upload is confirmed, then moves to Uploaded. (Engineering to verify the Processing/Uploaded transition.)</li>
+<li>Time-off requests (see 8.13) are a separate concept from assignment status — they track photographer availability, not the state of any single assignment.</li>
+</ul>
+<h2 id="7-user-stories">7. User Stories</h2>
+<h3 id="as-a-field-photographer">As a Field Photographer</h3>
+<ul>
+<li>I want to see my assigned assignments for the week ahead grouped by date so I know where I need to be and when.</li>
+<li>I want each assignment line item to show the start/end time, assignment type, client name, and city so I can scan my week at a glance.</li>
+<li>I want to tap an assignment to open a full details screen with the actions available to me for the step I'm at in the assignment.</li>
+<li>I want to step to the previous or next entry from the details screen, including back through the previous 5 days, without returning to the list, so I can quickly find an assignment I'm asked to re-upload photos for.</li>
+<li>I want the Start Travel button to appear at midnight on the day of the assignment, with a note telling me when to leave to be on time given traffic.</li>
+<li>I want to log when I start traveling to an assignment, arrive, start the assignment, and end the assignment, so my time is captured accurately without manual timesheets, and then add my travel home when I fill in my timesheet.</li>
+<li>I want to open one Timesheet that already shows my logged times and distance, add any tolls and parking receipts, and submit it, without waiting for my photos to upload, so I'm reimbursed correctly.</li>
+<li>I want to see my calculated earnings for an assignment (assignment time, travel time, distance, tolls) once it's complete, so I can verify it before it goes to payroll.</li>
+<li>I want my photography assignment time and my travel time shown and paid as separate categories, since they have different pay rates, so I can trust that my earnings were calculated correctly.</li>
+<li>I want to view my approved timesheet in the app once a scheduler signs off on it.</li>
+<li>I want to see the QR code for my Sports assignment on the assignment screen, and tap it to enlarge it, so it can load my tablet with the names of the athletes I will be photographing.</li>
+<li>I want to upload assignment photos from my memory card using a connected SDK chip adapter as soon as I end the assignment — before I fill in my timesheet — so the assignment moves to Uploaded without a separate desktop step.</li>
+<li>I want to be reminded to upload my photos so I don't forget.</li>
+<li>I want to see my assignments from the previous 5 days so I can come back a day later to upload or re-upload photos if there was a problem.</li>
+<li>I want to see a persistent "Uploading photos" bar while an upload runs so I can see progress and get back to my assignment from anywhere in the app.</li>
+<li>If I'm running late or the lead photographer doesn't show up, I want to call my scheduler in one tap from the assignment (Report issue → Call scheduler).</li>
+<li>If I have a problem with the client, I want to call the account coordinator in one tap from the assignment.</li>
+<li>If my equipment fails, I want to report it in the app, with up to 4 photos if useful, so the equipment coordinator is notified and can follow up with me, even if I have no connection at the moment.</li>
+<li>If I can't attend an assignment at all, I want a "Can't attend" action before I start the assignment that shows the scheduler's phone number so I can tap it and call. The call itself is not something I do in the app.</li>
+<li>If I have permission, I want to offer my assignment to another eligible photographer before the day of the assignment, so coverage isn't blocked on the scheduler.</li>
+<li>I want to log in with an invite code and multi-factor authentication, since this app is not publicly available.</li>
+<li>I want to request time off for specific upcoming dates so the scheduler knows when I'm unavailable before assigning me.</li>
+<li>I want to see the status of my time-off requests (pending, approved, denied, or cancelled) so I know whether I can still be scheduled on those dates.</li>
+<li>I want to withdraw a pending time-off request, or cancel an approved one at least a day ahead, myself, so my availability is right when my plans change.</li>
+<li>I want my approved time off to show on my weekly schedule so I have one place that reflects my full availability, not just my assignments.</li>
+<li>I want to be notified if a time-off request is denied so I know I may still be scheduled on those dates.</li>
+</ul>
+<h3 id="as-a-lead-photographer-in-addition-to-the-above">As a Lead Photographer (in addition to the above)</h3>
+<p>As a lead photographer, I want to append notes to this assignment so schedulers and account managers have the most current information without needing to call me. This information should also allow for photos to be added and reused for future assignments at the location.</p>
+<h3 id="as-a-scheduler-account-manager-coordinator-consumers-not-app-users">As a Scheduler / Account Manager / Coordinator (consumers, not app users)</h3>
+<ul>
+<li>As a scheduler, I want photographers to call me directly when they are running late, can't attend or a lead doesn't show, and I want the system to log that they tapped the call button, so I can reassign the assignment with minimal delay.</li>
+<li>As an equipment coordinator, I want to be notified when a photographer reports an equipment issue, with the equipment type, a description and photos, so I know what to do and can follow up with them.</li>
+<li>As an account coordinator, I want photographers to call me directly about client issues, and I want the call tap logged.</li>
+<li>As a scheduler, I want to control which photographers are permitted to offer their assignments to others.</li>
+<li>As a scheduler, I want to review and approve or deny photographer time-off requests so I can plan coverage around their availability, and to be told when a photographer cancels approved time off.</li>
+<li>As a scheduler, I want approved time-off to be clearly flagged when I'm assigning a photographer, so I know not to schedule them on those dates even though the system won't stop me if I need to anyway.</li>
+<li>As an account manager, I want to see the latest lead-photographer notes on an assignment so I have accurate, current information for the next assignment at this location.</li>
+</ul>
+<h2 id="8-functional-requirements">8. Functional Requirements</h2>
+<p>Prioritized using MoSCoW:</p>
+<ul>
+<li>P0 (Must-Have)</li>
+<li>P1 (Nice-to-Have)</li>
+<li>P2 (Future Consideration)</li>
+</ul>
+<h3 id="81-authentication-access-p0">8.1 Authentication &amp; Access — P0</h3>
+<ul>
+<li>App is invite-only: a photographer must receive an invite (code or link) from a scheduler to create an account.</li>
+<li>Login requires multi-factor authentication (MFA) on every new device or sign-in, per whatever re-authentication policy is defined (see Open Questions). The second factor is a verification code sent by text message (SMS) to the photographer's mobile phone; there is no authenticator app option.</li>
+<li>Supported platforms: iOS and Android.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ A user without a valid invite cannot create an account.</li>
+<li>☐ Login fails without completing a second MFA factor.</li>
+<li>☐ The only MFA method offered is a text message code to the mobile phone on the account.</li>
+<li>☐ A revoked photographer's access is disabled centrally (from the scheduler system) and takes effect on next app auth check.</li>
+</ul>
+</li>
+</ul>
+<h3 id="82-weekly-schedule-view-p0">8.2 Weekly Schedule View — P0</h3>
+<ul>
+<li>The Schedule is the app's default tab. It shows the week ahead, assignments grouped under date headings (Calendar "Schedule" list view pattern).</li>
+<li>Each line item shows: the start and end time as the title, then the assignment type (e.g., "Sports Portraits," "School Portraits"), organization name, and location city below it.</li>
+<li>Multiple assignments on the same date stack under one date heading.</li>
+<li>Approved time-off (see 8.13) appears on the date(s) it covers as a "Time Off" entry, styled consistently with assignment entries. Tapping it opens the Time Off detail screen (see 8.13).</li>
+<li>A segmented control under the title switches between two lists: <strong>Upcoming</strong> (default; the week ahead) and <strong>Past 5 days</strong> (the previous five days, newest first). Only one list shows at a time.</li>
+<li>The Past 5 days list uses the same line items. A past assignment whose photos are not confirmed uploaded shows "Upload photos" (a separate chip appears if the timesheet is also not submitted), or "Upload failed" (red dot) if its last upload failed; one with photos uploaded but the timesheet not submitted shows "Submit timesheet"; one with both done shows "Complete". Tapping a line item opens Assignment Details, where the photographer can upload or re-upload photos.</li>
+<li><strong>Scroll behavior:</strong> the title starts as a large "Schedule" title. As the list scrolls, the large title collapses into the standard inline title in the navigation bar and the segmented control stays pinned directly beneath the bar, so the photographer can switch between Upcoming and Past 5 days from anywhere in the list (the Past 5 days dot stays visible). The control sits on the page background with the system scroll-edge effect behind the bar. Engineering builds this with the standard collapsing large-title navigation bar; it is not a custom layout. The design shows the collapsed state as a separate Scrolled screen because a prototype cannot animate scrolling.</li>
+<li>Tapping a line item pushes the Assignment Details screen (see 8.3).</li>
+<li>An assignment whose journey is in progress (from Start Travel until the timesheet is submitted) shows a small "In progress" indicator on its line item, so the photographer can find it quickly. There is no persistent "On assignment" bar.</li>
+<li>An assignment whose journey is complete but whose photos are not yet uploaded shows a small "Upload photos" reminder on its line item (see 8.8).</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Assignments are grouped and sorted by date, then start time.</li>
+<li>☐ A day with zero assigned assignments shows an empty state.</li>
+<li>☐ The segmented control defaults to Upcoming and shows only one list at a time.</li>
+<li>☐ When the list scrolls, the large title collapses to an inline "Schedule" title and the segmented control remains pinned directly under the navigation bar, in Light and Dark.</li>
+<li>☐ A dot appears on the "Past 5 days" segment only when one or more past assignments are incomplete: photos need to be uploaded or re-uploaded, or the timesheet has not been submitted. The dot disappears when none are incomplete.</li>
+<li>☐ Past 5 days shows the five days before today, newest first, including days with no assignments (empty state).</li>
+<li>☐ A past assignment can be opened and photos uploaded or re-uploaded for 5 days after the assignment date.</li>
+<li>☐ The "In progress" indicator appears on the line item from Start Travel until the timesheet is submitted, then clears.</li>
+<li>☐ List updates when an assignment is added, completed, reassigned, or cancelled without requiring app restart.</li>
+<li>☐ Show a notification in the app when the list is updates. Also show the notification outside of the app using standard iOS notifications.</li>
+<li>☐ A date with approved time off shows a "Time Off" entry without requiring app restart once the approval is recorded, and the entry disappears once the photographer cancels the request.</li>
+</ul>
+</li>
+</ul>
+<h3 id="83-assignment-details-screen-p0">8.3 Assignment Details Screen — P0</h3>
+<ul>
+<li>Tapping a line item on the Schedule pushes a full Assignment Details screen onto the Schedule tab's navigation stack (it is not a sheet). Smaller tasks launched from it (timesheet, report an issue, QR code, notes, offer assignment) are sheets.</li>
+<li><strong>Date format:</strong> dates on detail screens use a short month with the weekday spelled out, for example "Wednesday, Oct 14" (with the year where needed, "Monday, Oct 5, 2026"). Calendar headings keep the full month and year ("October 2026").</li>
+<li><strong>Toolbar:</strong> a back arrow with no label (returns to the Schedule list); a two-line title (client name, then abbreviated date and times, for example "Mon, Oct 5 · 7:30 – 11:00 AM"); and, at the trailing edge, a pair of chevron buttons for moving between entries, following the iOS Mail pattern: an up chevron (<code>chevron.up</code>) opens the previous entry (earlier in time) and a down chevron (<code>chevron.down</code>) opens the next one (later in time).<ul>
+<li><strong>Sequence:</strong> the chevrons move through one continuous timeline made of the Past 5 days list followed by the Upcoming list, in the same order as the Schedule screen. A photographer can therefore tap back through the previous 5 days, for example when asked to re-upload images.</li>
+<li><strong>Time Off entries are stops in the sequence.</strong> They are not skipped, because they come from approved requests and appear on the Schedule screen.</li>
+<li><strong>Days with no assignments are skipped,</strong> because they are empty states and not active entries on the Schedule screen.</li>
+<li>At the oldest entry in the Past 5 days window the up chevron is dimmed and disabled; at the last upcoming entry the down chevron is dimmed and disabled. Neither is hidden, so the toolbar does not shift between screens.</li>
+<li>Moving to another entry replaces the Details content in place. Back still returns to the Schedule list; it does not step back through the entries visited.</li>
+<li>There is no horizontal swipe between entries, because it would conflict with the system edge-swipe back gesture.</li>
+<li>Each chevron is at least 44 × 44 pt and has a VoiceOver label ("Previous assignment", "Next assignment").</li>
+<li>The tab bar stays visible on Details.</li>
+</ul>
+</li>
+<li><strong>Fixed top section (no labels, stays pinned while content scrolls):</strong> assignment type (Sports or School), status, and the contextual actions for the current journey step (at most one green primary button), followed by a segmented control: <strong>Details | Notes | Schedule</strong>. Details is the default segment.</li>
+<li><strong>Details segment:</strong><ul>
+<li>At the top: a small, tappable, real QR code (Sports assignments only; shown in every status; tapping opens a larger sheet).</li>
+<li>Client name (first row, labeled Client).</li>
+<li>Date and times.</li>
+<li>Location, with an icon showing it is tappable. Tapping opens a dialog asking which app to use (Apple Maps or Google Maps, plus Cancel). The chosen app opens with the address; if it is not installed, its App Store page opens.</li>
+<li>Meeting location (for example, Main Entrance).</li>
+<li>Lead photographer name and tappable phone number.</li>
+<li>Other photographers' names and tappable phone numbers.</li>
+<li>Client contact name and tappable phone number.</li>
+<li>Account manager name and tappable phone number.</li>
+<li>Phone numbers open the Phone app with <code>tel:</code>.</li>
+</ul>
+</li>
+<li><strong>Notes segment:</strong> free-form text and images added by schedulers and lead photographers for information unique to the assignment (for example, a detailed property map showing where the meeting location sits). Images need alt text. Only lead photographers can add notes; other photographers see notes read-only.</li>
+<li><strong>Schedule segment:</strong> the shoot schedule as a list broken down by time, team name, and number of athletes (Sports) or students (School).</li>
+<li>The screen also shows the timestamps the photographer has already logged.</li>
+<li>Actions are contextual to the step the photographer is at in the assignment journey. An action is not shown before it applies and is removed once it no longer applies. There is at most one primary (VIP Green) button per screen.</li>
+<li>Draft never appears.</li>
+<li>Design shows the full-milestone experience so the app feels cohesive. Each element is annotated with its phase (see Section 12) so engineering can separate v1 from later work.</li>
+</ul>
+<p><strong>Actions by journey step</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Primary button</th>
+<th>Secondary actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scheduled, before the assignment day</td>
+<td>None</td>
+<td>Can't attend; Report issue; Offer assignment (if permitted, P2); Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Scheduled, from midnight on the assignment day</td>
+<td>Start Travel (opens the Start travel sheet), with a leave-by note</td>
+<td>Can't attend; Report issue; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Traveling to the assignment</td>
+<td>Arrived (opens the Travel log sheet)</td>
+<td>Can't attend; Report issue; Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Arrived</td>
+<td>Start Assignment</td>
+<td>Can't attend; Report issue; Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Assignment in progress</td>
+<td>End Assignment</td>
+<td>Report issue; Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Assignment ended, photos not uploaded</td>
+<td>Upload Photos (with reminder)</td>
+<td>Skip upload for now; Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Upload skipped, photos still to upload</td>
+<td>Start Travel (to the next assignment or home)</td>
+<td>Upload Photos; Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Traveling after the assignment</td>
+<td>Arrived</td>
+<td>Upload Photos; Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Uploading</td>
+<td>None (Upload Photos shows progress and is disabled)</td>
+<td>Start Travel (to the next assignment or home); Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Traveling while uploading</td>
+<td>Arrived (the upload continues)</td>
+<td>Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Upload failed (interrupted or error)</td>
+<td>Upload again (with a failure notice)</td>
+<td>Timesheet; Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Photos uploaded, timesheet not submitted</td>
+<td>Submit Timesheet (opens the Timesheet sheet)</td>
+<td>Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Processing (timesheet submitted, photos not uploaded)</td>
+<td>Upload Photos (with reminder)</td>
+<td>Timesheet (view); Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Uploaded</td>
+<td>None (earnings shown as pending)</td>
+<td>Add note (lead); QR code (Sports)</td>
+</tr>
+<tr>
+<td>Completed</td>
+<td>None (final earnings)</td>
+<td>QR code (Sports)</td>
+</tr>
+<tr>
+<td>Cancelled</td>
+<td>None (read-only)</td>
+<td>QR code (Sports)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Report issue</strong> is shown to every photographer (lead or field) at every step from Scheduled through Assignment in progress and is removed after End Assignment. It opens an action sheet with Call scheduler, Call account coordinator and Equipment issue (see 8.9).</li>
+<li><strong>v2 placeholder:</strong> the leave-by note shown with Start Travel advises when the photographer should leave to arrive on time given traffic conditions. Design includes it as a placeholder labeled v2; v1 does not ship it because it needs a traffic/mapping API (see Open Questions and Section 13).</li>
+<li>Start Travel replaces Offer assignment at midnight on the assignment day: offering an assignment is only available before that day.</li>
+<li>Can't attend is available only until Start Assignment has been logged.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Detail screen always reflects the authoritative current status from the backend.</li>
+<li>☐ Available actions are determined by journey step + photographer role + assignment type (e.g., Offer assignment only if permitted; Add note only for leads; QR code only for Sports).</li>
+<li>☐ No action is shown before it applies (e.g., Submit Timesheet is not the primary action until photos are uploaded or the photographer chooses Timesheet from the secondary actions; the Timesheet action is not shown before Start Travel).</li>
+<li>☐ Start Travel is not available before midnight on the assignment day.</li>
+<li>☐ Dates on detail screens use the short month format ("Wednesday, Oct 14").</li>
+<li>☐ The toolbar shows Back, the title, and up and down chevrons; the down chevron opens the next entry in Schedule order and the up chevron opens the previous one.</li>
+<li>☐ The chevrons continue from the Upcoming list back into the Past 5 days list, so a photographer can reach any assignment from the previous 5 days.</li>
+<li>☐ Approved Time Off entries are included in the previous / next sequence; days with no assignments are skipped.</li>
+<li>☐ On the oldest entry in the Past 5 days window the up chevron is dimmed and disabled; on the last upcoming entry the down chevron is dimmed and disabled; neither is hidden.</li>
+<li>☐ Moving between entries with the chevrons does not change what Back does: Back returns to the Schedule list.</li>
+<li>☐ Both chevrons are at least 44 × 44 pt and announce "Previous assignment" and "Next assignment" to VoiceOver.</li>
+</ul>
+</li>
+</ul>
+<h3 id="84-assignment-time-travel-tracking-p0">8.4 Assignment Time &amp; Travel Tracking — P0</h3>
+<ul>
+<li>Photographers log, in sequence, per assignment: Start Travel (to assignment), Arrived, Start Assignment, End Assignment, and then Start Travel and Arrived again for the trip after the assignment (to their next assignment or home). Each Start Travel and each Arrived opens a sheet that confirms or records the trip (see below), so the logging is a deliberate two-step action, not a single tap.</li>
+<li><strong>Start travel sheet (before every trip):</strong> tapping Start Travel opens a sheet (Cancel at the top left, title "Start travel") with three rows, all read-only except the start address:<ul>
+<li><strong>Start address</strong> (editable, pen icon). It defaults to the photographer's home address. If the photographer is already at an assignment (they are leaving one), it defaults to that assignment's address. Tapping it opens a Start address sheet to type a new address (with suggestions for Home and the last assignment location and a Use this address button); saving recalculates the figures below.</li>
+<li><strong>Assignment address</strong> (the destination: the assignment being travelled to, or for the trip after an assignment, the next assignment that day or home when there is none).</li>
+<li><strong>Approximate miles</strong> (an estimate from a distance-only API; read-only). There is no drive-time estimate, because there is no mapping API for time. <strong>Manual fallback:</strong> if the distance cannot be calculated, the row becomes an editable Miles field ("Enter miles") so the photographer is never blocked.</li>
+<li>A green <strong>Start Travel</strong> button (the single primary on the sheet) logs the Start Travel timestamp.</li>
+</ul>
+</li>
+<li><strong>Travel log sheet (after every trip):</strong> tapping Arrived opens a sheet titled "Travel log" (no Cancel; the log must be saved) with the <strong>travel time</strong> from Start Travel to Arrived <strong>rounded up to the next 15-minute interval</strong> (the actual times are shown in the detail line) and the <strong>miles</strong> between the two addresses. A note says the information is added to the photographer's timesheet for this assignment automatically. A green <strong>Save log information</strong> button (the single primary) saves it and logs Arrived. <strong>Travel time and miles share one Edit button</strong> (sheet header) in case a tap was late or the distance is wrong. <strong>Editing requires a reason:</strong> Edit opens an Edit travel log sheet with open Travel time and Distance fields pre-filled with the current values and a required Reason; Save changes is disabled until a reason is entered. A second state of the sheet shows the new values and the reason; Save changes returns to the read-only log, which shows the edited time and miles with the recorded values and the reason. The system keeps the system-provided and the photographer-provided values and the reason, and the scheduler can see both (and the reason) when reviewing the timesheet.</li>
+<li><strong>Start Travel while uploading:</strong> while photos upload, the primary stays disabled with progress and a secondary <strong>Start Travel</strong> button lets the photographer leave without waiting. The upload continues in the background (the upload status bar stays visible). Start Travel then follows the same Start travel sheet, Arrived and Travel log sequence, and the log is added to the timesheet of the assignment just finished.</li>
+<li><strong>Skip upload for now:</strong> after End Assignment the primary is Upload Photos and a secondary <strong>Skip upload for now</strong> appears. Photographers may skip the upload when there is not enough time between assignments, and upload later from Past 5 days (up to 5 days after the assignment). Skipping makes Start Travel the primary so the photographer can go to the next assignment or home; the upload reminder stays. The travel log for that trip is added to the timesheet of the assignment just finished.</li>
+<li>Each event is timestamped when logged.</li>
+<li>These events transition the assignment into/through the Active status and, once travel time and distance are submitted, into Processing or Uploaded (see Section 6).</li>
+<li>These events fall into two distinct, separately-tracked categories because they carry different pay rates:<ul>
+<li><strong>Photography assignment time</strong> — from Start Assignment to End Assignment. Duration is derived automatically from the Start Assignment / End Assignment timestamps.</li>
+<li><strong>Travel time</strong> — from Start Travel to Arrived for each trip (to the assignment and after it), rounded up to the next 15 minutes. The Travel log sheet records it automatically.</li>
+</ul>
+</li>
+<li><strong>Travel distance and travel time (updated October 11):</strong> the Start travel sheet shows an approximate distance (no drive-time estimate), and the Travel log sheet records the travel time from the Start and Arrived taps (rounded up to the next 15 minutes) and the miles between the two addresses for each trip. Both are editable. These feed the Timesheet automatically. This replaces the earlier v1 plan of manual entry; the distance estimate needs a distance source (Section 11), and there is still no mapping API for time. GPS tracking while travelling is still deferred (Section 13).</li>
+<li>System calculates and stores assignment time and travel time as two separate totals (never combined into a single "hours worked" figure), plus total distance traveled as manually entered by the photographer.</li>
+<li>The assignment details screen and any in-progress/summary view must always label and display assignment time and travel time as distinct line items, not a single blended duration.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Each of the four events can only be logged once and in the correct order (no logging "End Assignment" before "Start Assignment").</li>
+<li>☐ A photographer can see the timestamps they've already logged for an assignment.</li>
+<li>☐ Start Travel opens the Start travel sheet; only the start address is editable; it defaults to home, or to the current assignment's address when the photographer is already at an assignment.</li>
+<li>☐ The Start travel sheet shows the assignment address and approximate miles as read-only, and Start Travel logs the timestamp only when tapped on the sheet.</li>
+<li>☐ Arrived opens the Travel log sheet with travel time rounded up to the next 15-minute interval and the miles between addresses, both editable, a note that they are added to the timesheet automatically, and Save log information.</li>
+<li>☐ If the distance cannot be calculated, the Start travel sheet shows an editable Miles row and Start Travel still works.</li>
+<li>☐ The Travel log has a single Edit button for both travel time and distance. It opens one sheet with pre-filled open fields for time and distance and a required reason typed into a free-form text field; Save changes is disabled until the field has text, and saving returns to the read-only Travel log with the new values. This applies to every trip: to the assignment, after an assignment and while photos upload.</li>
+<li>☐ When a photographer edited a time or distance, the timesheet is flagged for payroll review. The photographer sees "Flagged for payroll review" on the Timesheet sheet; payroll sees the flag, the system values, the photographer's values and the reasons, and decides what to do.</li>
+<li>☐ Start Travel and Submit Timesheet are separate actions: after photos upload, Submit Timesheet is the one primary and Start Travel is a secondary button.</li>
+<li>☐ The system stores the system-provided and the photographer-provided travel time (and distance) and the reason, and the scheduler can see both values and the reason on review.</li>
+<li>☐ While an upload runs, a secondary Start Travel button is shown with the primary disabled; the upload continues during travel and the Travel log is saved to the assignment just finished.</li>
+<li>☐ Skip upload for now appears after End Assignment and makes Start Travel the primary; the photographer can still upload within 5 days.</li>
+<li>☐ The Timesheet sheet shows logged times and travel logs pre-populated before submitting.</li>
+<li>☐ A photographer can submit the timesheet whether or not photos are uploaded. Photo upload never blocks timesheet submission.</li>
+<li>☐ A photographer can come back to a past assignment (within 5 days) to submit the timesheet and to upload or re-upload photos, in either order.</li>
+<li>☐ Assignment time is computed server-side from timestamps; travel time and distance are stored server-side from the photographer's manual entry — both as separate values, not just displayed client-side.</li>
+<li>☐ The UI never merges assignment time and travel time into one number anywhere a photographer can see duration or pay.</li>
+</ul>
+</li>
+</ul>
+<h3 id="85-timesheet-time-distance-tolls-parking-receipts-p0">8.5 Timesheet (Time, Distance, Tolls &amp; Parking Receipts) — P0</h3>
+<ul>
+<li>"Timesheet" is a secondary action on Assignment Details from Start Travel (to the assignment) onward, including after End Assignment. It replaces the earlier "Tolls and receipts" action. After End Assignment the primary action is <strong>Upload Photos</strong>; once photos are uploaded the primary becomes <strong>Submit Timesheet</strong>, which opens the same sheet (the Timesheet secondary action is hidden at that step so the screen does not show two buttons for one task).</li>
+<li>Selecting Timesheet opens a sheet (Cancel at the top left, title "Timesheet"). It shows, already populated from what the app captured:<ul>
+<li>Travel to the assignment (logged start – end, duration rounded up to the next 15 minutes, from the Travel log; editable).</li>
+<li>Assignment time (start – end, duration).</li>
+<li>Travel after the assignment (from the Travel log for the trip after the assignment; editable; pen icon).</li>
+<li>Total travel distance (editable).</li>
+<li>Tolls entered so far, with an "Add toll or receipt" row: enter one or more toll amounts and attach one or more photos of parking receipts.</li>
+<li>A note that photos upload separately and do not block submission.</li>
+<li>The Timesheet sheet has a single Edit button in its header (no pen icons on the rows). Edit opens an Edit timesheet sheet with open, pre-filled fields (travel to the assignment, travel after the assignment, total travel distance, tolls) and a required reason for time and distance changes; Save changes is disabled until a reason is entered, and saving returns to the read-only sheet with the edited rows marked "edited", the system values, the reason and the payroll flag. The assignment time is captured by the app and is not editable. "Add toll or receipt" shows a plus icon.</li>
+<li>A <strong>Submit Timesheet</strong> button (the single green primary on the sheet).</li>
+</ul>
+</li>
+<li>Times are displayed as separate line items (assignment time and travel time are never combined).</li>
+<li>The photographer can add tolls and receipts before submitting, and can open the sheet earlier in the journey (from Start Travel) to add a toll as it happens.</li>
+<li>Submitting the timesheet does not depend on photo upload. The status moves per Section 6.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ The Timesheet action is available from Start Travel onward and opens a sheet showing all captured times pre-populated, with travel after the assignment and distance editable.</li>
+<li>☐ Toll entries and receipt photos are attributed to the specific assignment and persist with it.</li>
+<li>☐ Entered tolls and attached receipts are included in what feeds the timesheet for reimbursement.</li>
+<li>☐ Submit Timesheet is enabled whether or not photos have been uploaded.</li>
+<li>☐ After End Assignment the primary is Upload Photos; once photos are uploaded it becomes Submit Timesheet. Timesheet remains available as a secondary action throughout.</li>
+<li>☐ Assignment time and travel time are shown as separate line items in the sheet.</li>
+<li>☐ Each editable field shows a pen icon; logged (non-editable) times do not.</li>
+</ul>
+</li>
+</ul>
+<h3 id="86-earnings-calculation-timesheet-p0">8.6 Earnings Calculation &amp; Timesheet — P0</h3>
+<ul>
+<li>Assignment time and travel time are each paid at their own configured rate (rates may vary by photographer and/or organization — see Open Questions); the backend applies the correct rate to each category independently rather than a single blended rate.</li>
+<li>Using assignment time, travel time, distance/mileage, tolls, and any other configured pay rules, the app (or its backend) calculates what the photographer earned for a completed assignment, itemized by category.</li>
+<li>Calculated assignments feed a timesheet, which becomes visible to the photographer once a scheduler has reviewed and approved it and it has been sent to payroll.</li>
+<li>Photographers can view historical approved timesheets in-app.</li>
+<li><strong>Timesheets tab (main screen):</strong> a list of the photographer's timesheet entries (assignments and other paid work such as meetings or vacation) from the last two years, based on the existing VIP Staff web Timesheet page. A segmented control separates <strong>Open</strong> (New and Pending), <strong>Approved</strong> and <strong>Paid</strong>. Entries are grouped by date. Each row shows the client or description, the department and location, hours and miles entered, and a status chip. A "Current pay rates" button sits under the segmented control, and a short rule note explains what can be changed.<ul>
+<li><strong>New</strong> — no hours entered yet; can be edited (pen icon).</li>
+<li><strong>Pending</strong> — hours entered; can still be updated (pen icon).</li>
+<li><strong>Approved</strong> — in the process of being paid; cannot be updated (lock icon, view only).</li>
+<li><strong>Paid</strong> — shows the paid-on date; cannot be updated (lock icon, view only).</li>
+<li><strong>Disabled</strong> — does not allow hours to be entered.</li>
+<li><strong>Paid period selector:</strong> on the Paid segment, a selector under the segmented control shows the chosen period. It defaults to the <strong>Current pay period</strong> and shows that period's dates (for example "Oct 19 – Oct 25"). Tapping it opens a "Time period" menu anchored directly below the selector (a native pull-down menu, not a bottom sheet; tapping outside dismisses it) with six choices in three groups: <strong>Current pay period</strong> and <strong>Previous pay period</strong> (each with its dates underneath), <strong>Last month</strong>, <strong>Year to date</strong>, <strong>Last year</strong> and <strong>Select a date range</strong>. The checked choice is the active one. Pay periods are assumed to be weekly (confirm the real length). "Last 7 days" and "Last 30 days" were removed because a rolling window does not match payment statements. Last month, Year to date and Last year filter by work date, so a pay period that straddles a boundary can appear in both. Year to date and Last year show a summary row with totals (paid entries, photography time, driving time, driving miles, tolls and total paid, paid entries only). <strong>Select a date range</strong> opens a "Date range" sheet (Cancel at the top left): Start date and End date rows, a month calendar with previous and next month arrows, and a green <strong>Show timesheets</strong> button (the single primary on the sheet). The first tap sets the start date, the second sets the end date, and the days between are shaded. Future dates are dimmed and cannot be selected, and the range is limited to the last two years of data shown on the Timesheets tab. Choosing a period applies immediately and closes the sheet; the selector then shows the chosen period. The selector is shown on Paid only.</li>
+<li><strong>Scroll behavior (same as Schedule):</strong> the title starts as a large "Timesheets" title. As the list scrolls, it collapses into the standard inline title in the navigation bar and the Open / Approved / Paid segmented control stays pinned directly beneath the bar, on the page background with the system scroll-edge effect behind it. Only the segmented control pins; the rule note, the Current pay rates button and the Paid period selector scroll away with the list. Engineering builds this with the standard collapsing large-title navigation bar. The design shows the collapsed state as a separate Scrolled screen (on the Paid segment, which has enough entries to scroll) because a prototype cannot animate scrolling.</li>
+<li><strong>Timesheets can only be adjusted before they are paid.</strong> Tapping an editable row opens the Timesheet sheet (8.5); tapping an Approved or Paid row opens it read-only.</li>
+</ul>
+</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ An assignment's earnings are not shown to the photographer as final until scheduler approval (pending vs. approved states should be visually distinct — see Open Questions on whether photographers see a pre-approval estimate).</li>
+<li>☐ Timesheet view lists assignments with their component breakdown, itemized by pay category: assignment pay, travel pay, mileage reimbursement, and tolls — each shown separately, never combined into one lump sum.</li>
+<li>☐ The Timesheets tab lists entries from the last two years grouped by date, with status chips New, Pending, Approved, Paid or Disabled, and hours and miles per entry.</li>
+<li>☐ When the Timesheets list scrolls, the large title collapses to an inline "Timesheets" title and the Open / Approved / Paid control remains pinned directly under the navigation bar, in Light and Dark.</li>
+<li>☐ Select a date range opens a calendar sheet with start and end date rows; the photographer picks a start and end date (not in the future), then taps Show timesheets to apply the range, and the selector then shows the range.</li>
+<li>☐ On the Paid segment, a selector defaults to the Current pay period; tapping it opens a sheet with Current pay period, Previous pay period, Last month, Year to date, Last year and Select a date range, and the list updates to the chosen period.</li>
+<li>☐ Year to date and Last year each show a summary row that opens a totals screen for that period (paid entries only).</li>
+<li>☐ New and Pending entries show a pen icon and can be edited; Approved and Paid entries show a lock icon and open read-only. No entry can be changed after it is paid.</li>
+<li>☐ Changing the assignment-time rate or the travel-time rate independently (e.g., a rate update from finance) does not require re-deriving the other category.</li>
+</ul>
+</li>
+</ul>
+<h3 id="87-qr-code-for-tablet-handoff-sports-assignments-p1">8.7 QR Code for Tablet Handoff (Sports assignments) — P1</h3>
+<ul>
+<li>Applies to Sports assignments only. The QR code never appears on other assignment types (e.g., School Portraits).</li>
+<li>The Assignment Details screen displays the assignment's actual QR code inline as its own separate action, in every status, for as long as the assignment is a Sports assignment. It is not hidden behind a button.</li>
+<li>Tapping the inline QR code opens a sheet with a larger version. The sheet has a grabber, a "QR code" title, a Done button, a large QR code on a white tile (always white with a black code, in light and dark mode, so tablet cameras can scan it), the client name and a line reading "Contains 188 total records" (the number is the count of records for that sports organization or school and is dynamic), and a hint to hold the phone steady and raise screen brightness if it won't scan.</li>
+<li><strong>No QR code for this client (manual team log):</strong> some clients do not have a QR code. For those Sports assignments the QR card is replaced by a "Log teams manually" card ("This client has no QR code. Tap to enter image numbers for each team."). Tapping opens a <strong>Team log</strong> sheet (Done at the top): a list of the teams logged so far, each with its range of image numbers from the camera (for example, Varsity Football, Images 0001 – 0042) and a pen icon to edit it, followed by an "Add the next team" form with Choose team (from the shoot schedule), First image number and Last image number, and a green <strong>Save team</strong> button (the single primary on the sheet). The next first image number is suggested from the last logged range. A "Where do I find image numbers?" action under the instructions opens an <strong>Image numbers</strong> help sheet: an illustration of the camera's review screen with the image number highlighted, and three steps (find the first photo, find the last photo, enter the range). The team log is saved with the assignment.</li>
+<li><strong>QR code unavailable state:</strong> if the code can't be loaded (for example, no connection or the code hasn't been generated yet), the card shows a warning icon in place of the code, the title "QR code unavailable", and "We couldn't load it. Try again, or log each team manually." Two buttons sit under the text: <strong>Try again</strong> (reloads the code) and <strong>Log manually</strong> (opens the Team log sheet described above, so the photographer is never blocked when the code can't load). The larger sheet does not open until the code has loaded.</li>
+<li>Scanning the code loads the assignment's data — including the names of the athletes to be photographed — into a separate, existing tablet application (out of scope here beyond code generation/display).</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ QR code is scoped to a single assignment and does not expose more data than the tablet app is meant to receive.</li>
+<li>☐ QR code is shown on Sports assignments only.</li>
+<li>☐ Tapping the inline QR code opens a sheet with a larger version of the same code, on a white tile in both light and dark mode.</li>
+<li>☐ A Sports assignment whose client has no QR code shows the "Log teams manually" card instead of the QR code; the Team log sheet lets the photographer add and view teams with first and last image numbers, and a single Edit button in its header opens one Edit team log sheet to change a team's name and its image range together, with one Save changes.</li>
+<li>☐ The Team log sheet has a "Where do I find image numbers?" action that opens a help sheet showing where the image number appears on the camera.</li>
+<li>☐ A team's last image number cannot be lower than its first, and ranges for one assignment cannot overlap.</li>
+<li>☐ If the code can't be loaded, the card reads "QR code unavailable" with a warning icon and two options: Try again, which reloads the code, and Log manually, which opens the Team log sheet. The enlarge sheet is not available until the code loads.</li>
+<li>☐ The QR code is shown in every status (Scheduled through Cancelled) as a separate action.</li>
+</ul>
+</li>
+</ul>
+<h3 id="88-photo-upload-via-sdk-chip-adapter-p0">8.8 Photo Upload via SDK Chip Adapter — P0</h3>
+<ul>
+<li>App integrates with an SDK for a hardware memory-card adapter that connects to the phone, allowing the photographer to upload assignment photos directly from the card used during the shoot.</li>
+<li>Photo upload is independent of the timesheet. A photographer can submit the timesheet before, during, or after uploading photos. Upload never blocks timesheet submission.</li>
+<li>Upload Photos stays available on an assignment for 5 days after the assignment date (reached from the Past 5 days list on Schedule, or by stepping back with the chevrons on Assignment Details), so photos can be uploaded or re-uploaded the next day if there was an issue.</li>
+<li>The Upload Photos action becomes available as soon as the photographer logs End Assignment. Upload Photos is the primary action immediately after End Assignment.</li>
+<li>Until photos are confirmed uploaded, the app reminds the photographer to upload them: a reminder on the Assignment Details screen, a small reminder on the assignment's Schedule line item once the journey is complete, and a push notification (see 8.11). The push fires only if the photographer has not started an upload on their own after End Assignment is logged.</li>
+<li>A successful upload moves the assignment toward Uploaded (see Section 6).</li>
+<li>While an upload runs, the upload status bar reads "Uploading photos" (see 8.14).</li>
+<li><strong>Upload failed state:</strong> if an upload is interrupted or errors (for example, connectivity loss or the adapter disconnects), Assignment Details shows a failure notice ("Upload didn’t finish. Check your connection and try again. Your timesheet isn’t affected.") and the primary action becomes <strong>Upload again</strong>. The upload status bar reads "Upload failed · tap to try again" and opens the assignment. Upload again resumes without duplicating files already uploaded. The Timesheet secondary action stays available, and the Schedule line item and the Past 5 days chip show "Upload failed" (red dot) until a retry succeeds, then "Upload photos" clears.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Upload Photos is not shown before End Assignment has been logged.</li>
+<li>☐ Upload can be resumed with Upload again if interrupted (e.g., connectivity loss) without duplicating files.</li>
+<li>☐ A failed upload shows a failure notice and Upload again as the primary action; the timesheet can still be submitted.</li>
+<li>☐ A failed upload shows an "Upload failed" chip on the Schedule line item and in Past 5 days, replacing "Upload photos", and the chip clears when the upload is confirmed.</li>
+<li>☐ Status only advances to Uploaded once the upload is confirmed complete, not merely started.</li>
+<li>☐ Photographer sees upload progress and confirmation.</li>
+<li>☐ The reminder disappears once the upload is confirmed.</li>
+<li>☐ The push reminder is sent only if End Assignment is logged and no upload has been started; it is not sent if the photographer has already started uploading.</li>
+</ul>
+</li>
+</ul>
+<h3 id="89-issue-reporting-cant-attend-p0">8.9 Issue Reporting &amp; Can't Attend — P0</h3>
+<p><strong>Report issue</strong></p>
+<ul>
+<li>"Report issue" is a secondary action on Assignment Details, shown to every photographer (lead or field) at every step from Scheduled through Assignment in progress. It is removed after End Assignment.</li>
+<li>Tapping it opens a native iOS action sheet titled "Report an issue" with a short message ("Running late or a no-show: call your scheduler. A client issue: call the account coordinator. A gear problem: report it here."), three single-line options and Cancel. Options carry no sub-lines, in line with the iOS HIG; the guidance lives in the message and the numbers are shown by the Phone app when the call starts:<ul>
+<li><strong>Call scheduler</strong> — (888) 555-0142 (placeholder). For delays and no-shows. If the lead photographer does not show up, any field photographer uses this option. The call is enough: there is no in-app no-show report and no field to name the missing person.</li>
+<li><strong>Call account coordinator</strong> — (888) 555-0178 (placeholder). For problems with the client.</li>
+<li><strong>Equipment issue</strong> — Opens the Equipment issue form (below).</li>
+</ul>
+</li>
+<li>The two call options use link styling (blue), never the destructive red or the green primary. Tapping one opens the Phone app with the number already entered (<code>tel:</code>); the photographer places the call. Both numbers are placeholders until real numbers are supplied.</li>
+<li>Running late and no-show are handled by phone. There is no in-app "running late" report.</li>
+</ul>
+<p><strong>Equipment issue form</strong></p>
+<ul>
+<li>A standard sheet (Cancel at the top left, title "Equipment issue"), opened by the Equipment issue option. Caption: "Describe the problem. Your equipment coordinator is notified as soon as you send it."</li>
+<li><strong>What equipment?</strong> chips: Camera, Lens, Lighting, Other (one selected).</li>
+<li><strong>Description:</strong> free-text field (placeholder "Describe what failed and what you need").</li>
+<li><strong>Photos (optional):</strong> an "Add photos" row ("Optional · up to 4 photos, 20 MB total"). Tapping it opens the iOS system photo picker (camera or photo library); there is no custom picker. With photos attached the row reads "1 of 4 photos attached" with the total size (for example "2.1 MB of 20 MB"), and tapping it opens a review of the attached photos.<ul>
+<li><strong>Compression:</strong> the app compresses the selected photos on the phone to fit the 20 MB total, so the photographer does not have to resize anything.</li>
+<li><strong>Over the limit:</strong> if more than 4 photos are selected, or the photos are still over 20 MB in total after compression, the photographer sees an error on the row (for example "These photos are over the 20 MB limit. Remove a photo to continue.") and Send report stays disabled until the selection fits. The error appears at selection time, not after the photographer taps Send report.</li>
+<li><strong>Delete before sending:</strong> the review lists each attached photo with a delete control, and the photographer can remove any or all of them (or add others, up to 4) before tapping Send report. Once the report is sent, photos cannot be changed.</li>
+</ul>
+</li>
+<li>A green <strong>Send report</strong> button (the single primary on the sheet), disabled until an equipment type and a description are entered. Photos are never required.</li>
+<li>On send, the app creates the report (assignment, photographer, equipment type, description, photos, timestamp) and notifies the equipment coordinator. The sheet closes and a native iOS alert shows "Report sent" / "Your equipment coordinator has been notified." with one OK button.</li>
+<li>Equipment issues are not treated as emergencies: the lead photographer carries backup equipment, so there is no urgent or "blocking" option on the form and no scheduler alert or assignment flag. If the problem puts the assignment at risk, the photographer uses Call scheduler.</li>
+<li>The equipment coordinator follows up with the photographer directly, and is expected to respond the same day. The app shows no follow-up in v1 (see Section 11 for the channel).</li>
+<li><strong>No connection:</strong> Send report still works. The report and its photos are saved on the phone and sent automatically when the connection returns, and the alert says it will send when the photographer is back online (there is no separate screen for this state in the designs; engineering decides how the queued state is shown). Call options need the phone network, not a data connection.</li>
+<li>Reporting an issue does not change the assignment's status; that remains a scheduler decision.</li>
+</ul>
+<p><strong>Call logging</strong></p>
+<ul>
+<li>The system logs an entry each time a photographer taps a Call action: Can't attend, Report issue → Call scheduler, and Report issue → Call account coordinator. The entry records photographer, assignment, which action, journey step and timestamp.</li>
+<li>
+<p>The log records the tap, not whether the call connected, because the call happens in the Phone app. It goes to the scheduler-facing system so schedulers and coordinators can see that the photographer tried to reach them. The app shows no extra confirmation.</p>
+</li>
+<li>
+<p><strong>Acceptance criteria:</strong></p>
+<ul>
+<li>☐ Report issue is shown to every photographer from Scheduled through Assignment in progress and not after End Assignment.</li>
+<li>☐ The Report issue sheet shows Call scheduler, Call account coordinator, Equipment issue and Cancel to every photographer (lead or field), at every step where it is shown.</li>
+<li>☐ Each Call option opens the Phone app with the number populated and writes a call-log entry (photographer, assignment, action, step, timestamp).</li>
+<li>☐ Send report is disabled until an equipment type and a description are entered; photos are optional (maximum 4 photos, 20 MB in total) and chosen with the iOS system photo picker.</li>
+<li>☐ Selected photos are compressed on the device to fit the 20 MB total.</li>
+<li>☐ If more than 4 photos are selected, or the total is still over 20 MB after compression, an error is shown on the Photos row and Send report is disabled until the selection fits.</li>
+<li>☐ The photographer can delete any attached photo (and add others, up to 4) before sending; photos cannot be changed after the report is sent.</li>
+<li>☐ Sending creates the report, notifies the equipment coordinator, shows the "Report sent" alert and does not change the assignment's status.</li>
+<li>☐ With no connection, the report and photos are queued on the device and sent automatically when the connection returns.</li>
+<li>☐ Add note has no Equipment issue or Location issue tags; equipment problems are reported only through Report issue.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Can't attend (call the scheduler)</strong></p>
+<ul>
+<li>"Can't attend" is a secondary action on the Assignment Details screen. It is available only before the photographer has started the assignment (until Start Assignment is logged).</li>
+<li>Tapping it opens a native action sheet with a message telling the photographer to call the scheduler so the assignment can be reassigned, the scheduler's phone number, and Cancel. Designs use a placeholder central-time scheduling line, (888) 555-0142, until the real number is supplied.</li>
+<li>Tapping the phone number opens the Phone app with the number already entered; the photographer places the call.</li>
+<li>The app does not create a report, send a push notification or change the assignment's status; it only logs that the number was tapped (see Call logging). The scheduler cancels or reassigns in the scheduler-facing system.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Can't attend is shown on Scheduled and Active assignments only until Start Assignment is logged, and is not shown after.</li>
+<li>☐ The action sheet shows a call-the-scheduler message and a tappable scheduler phone number.</li>
+<li>☐ Tapping the number opens the Phone app with the number populated.</li>
+<li>☐ The app creates no in-app "cannot attend" report type and changes no status; the tap on the number is logged.</li>
+</ul>
+</li>
+</ul>
+<h3 id="810-lead-photographer-notes-p1">8.10 Lead Photographer Notes — P1</h3>
+<ul>
+<li>Lead photographers can append a note to an assignment.</li>
+<li>Notes are visible to schedulers and account managers.</li>
+<li>Notes are free text. There are no issue tags (the earlier Equipment issue and Location issue tags were removed); equipment problems are reported through Report issue (see 8.9).</li>
+<li>Photos attached to notes so they can be reused for future assignments at the location are not yet specified (see Open Questions).</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Notes are timestamped and attributed to the lead photographer who wrote them.</li>
+<li>☐ Only users with the lead photographer role see the ability to add a note (regular field photographers do not).</li>
+</ul>
+</li>
+</ul>
+<h3 id="811-notifications-p1">8.11 Notifications — P1</h3>
+<ul>
+<li>Push notifications for: new/changed assignments, approaching assignment start, a reminder to upload photos, sent only if the photographer has logged End Assignment and has not started an upload (see 8.8), confirmation once a timesheet is approved, and a decision on a time-off request (see 8.13).</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Notifications are configurable (at minimum, on/off) by the photographer.</li>
+</ul>
+</li>
+</ul>
+<h3 id="812-offer-assignment-p2">8.12 Offer Assignment — P2</h3>
+<ul>
+<li>Photographers who have been granted permission (a scheduler-controlled setting) can indicate they would like to give up the assignment to another eligible photographer or trade assignments with one.</li>
+<li>Offer assignment is available only before the day of the assignment. It is removed at midnight on the assignment day, when Start Travel appears.</li>
+<li>Photographers without that permission do not see the Offer assignment action.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Offer assignment is hidden entirely (not just disabled) for photographers without permission.</li>
+<li>☐ Offer assignment is not shown from midnight on the assignment day onward.</li>
+<li>☐ An assignment is removed from the photographer's list once it has been accepted by the receiving photographer and is reflected in the schedule for both photographers and the scheduler.</li>
+<li>☐ Scheduler is notified when a new photographer has taken the assignment.</li>
+</ul>
+</li>
+</ul>
+<h3 id="813-time-off-requests-p1">8.13 Time-Off Requests — P1</h3>
+<ul>
+<li>Time Off is designed as its own tab in the app from the start. It is a Phase 2 feature, so engineering omits the tab until it enters a sprint; design marks it "Phase 2, not in sprint."</li>
+<li>Photographers can request time off for specific dates directly from the app.</li>
+<li><strong>Time Off screen:</strong> the title "Time Off" (tab selected), a green <strong>Request Time Off</strong> button (the single primary), then the photographer's record grouped under <strong>Pending</strong>, <strong>Approved</strong>, <strong>Denied</strong> and <strong>Cancelled</strong> headings. Each entry shows the date or date range, the hours (for example "16 hours"), when it was requested, approved, denied or cancelled, and a status chip (Pending, Approved, Denied, Cancelled). The Cancelled chip has a red dot and the row reads "Cancelled <date>".</li>
+<li><strong>Request Time Off sheet:</strong> opened by the Request Time Off button (Cancel at the top left). It has Start date and End date rows, a read-only <strong>Total time off</strong> row (8 hours a day; a single date set to Before Noon or Afternoon is 4 hours), a month calendar like the Timesheets date range picker (only dates within the next 14 days can be selected; past dates, today and later dates are dimmed), a <strong>time-of-day selector below the calendar</strong> (segmented control: <strong>All Day</strong> default, <strong>Before Noon</strong>, <strong>Afternoon</strong>), shown when a single date is selected (when a date range is selected, every day is All Day and the selector is not used), a note ("You can request time off up to 14 days ahead. Your scheduler will approve or deny your request.") and a green <strong>Submit Request</strong> button (the single primary on the sheet). Submitting closes the sheet and adds the request to Pending.</li>
+<li>A request can only be submitted for a date within the next two weeks (14 days) of the current date; the app does not allow requesting time off further out than that window.</li>
+<li>A submitted request goes to the scheduler for review. The approve/deny decision itself is made in the scheduler-facing system (see Non-Goals, Section 4) — this app's role is to let the photographer submit the request, reflect its current status, and cancel or withdraw it, not to provide a review/decision UI.</li>
+<li>A request has four states: <strong>Pending</strong> (submitted, not yet decided), <strong>Approved</strong>, <strong>Denied</strong>, and <strong>Cancelled</strong> (withdrawn or cancelled by the photographer).</li>
+<li>Once a request is approved, the date(s) it covers show a "Time Off" entry on the photographer's weekly schedule (see 8.2), styled consistently with how assignment entries are shown. The entry is also a stop when stepping with the previous / next chevrons on Assignment Details (see 8.3).</li>
+<li><strong>Time Off detail screen:</strong> tapping an approved Time Off entry opens a pushed detail screen. The toolbar matches Assignment Details (Back, a title of "Time Off" with the date or date range, and the previous / next chevrons). The header shows the type "Time Off" and an Approved status chip; there is no Details | Notes | Schedule control and no journey actions. A request card lists Date (a single day or a range), Time of day, Total time off, Requested and Approved, followed by a note ("Approved by your scheduler. You can cancel until the day before. Your scheduler will be notified.").</li>
+<li><strong>Cancelling approved time off (single day or multi-day):</strong> a <strong>Cancel Time Off</strong> button (secondary styling with a red label; never the green primary) sits under the request card whenever the first day of the request is at least a day away. Tapping it opens an iOS action sheet: "Cancel this Time Off?" with the message "Your scheduler will be notified. You can cancel up to a day before.", a destructive <strong>Cancel Time Off</strong> action and <strong>Keep Time Off</strong>. Confirming cancels the whole request immediately, without scheduler approval, and notifies the scheduler. The screen then shows a Cancelled status chip and a Cancelled row, every Time Off entry for the request is removed from the Schedule, and the request moves to the Cancelled group on the Time Off screen. Within a day of the first day (or once it has passed) the button is not shown, and the photographer calls the scheduler to change it.</li>
+<li><strong>A request is cancelled whole, never in part.</strong> There is no way to cancel one day, or one time band (Before Noon, Afternoon), of a multi-day request. To shorten approved time off, the photographer cancels the request and submits a new one for the dates still needed, if they are inside the 14-day request window. Time bands apply only when a single date is requested.</li>
+<li><strong>Withdrawing a pending request:</strong> tapping a Pending entry opens a detail screen like the approved one (Pending chip; request card with Date, Time of day, Total time off and Requested). A secondary <strong>Withdraw request</strong> button (red label) opens an iOS action sheet: "Withdraw this request?", message "Your scheduler will no longer see it.", destructive <strong>Withdraw request</strong> and <strong>Keep request</strong>. A Pending request can be withdrawn at any time. It is withdrawn immediately with no approval, the screen shows a Cancelled chip and row, and it moves to Cancelled; the scheduler-facing system no longer shows it for review.</li>
+<li>A pending request is visible to the photographer with its status, but does not yet show as a "Time Off" entry on the schedule — only an approved request does.</li>
+<li>If a request is denied, the photographer receives a notification informing them of the decision (see 8.11) so they know they may still be scheduled on those dates.</li>
+<li><strong>Enforcement is a flag, not a hard block.</strong> Once approved, the scheduler-facing system surfaces the time-off to the scheduler so they know not to assign that photographer on those dates — but it does not technically prevent the scheduler from doing so anyway (e.g., for an urgent coverage need). This app does not enforce it either, since assignment creation happens in the scheduler-facing system (see Non-Goals). A cancelled approval removes the flag.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ The Time Off screen lists requests under Pending, Approved, Denied and Cancelled with dates, hours and a status chip, and has a Request Time Off button.</li>
+<li>☐ The Request Time Off sheet's calendar only allows dates from tomorrow through 14 days ahead; the total hours update as the range or time-of-day selection changes (All Day = 8 hours a day, Before Noon / Afternoon = 4); Submit Request is enabled once a start and end date are chosen.</li>
+<li>☐ A photographer cannot submit a time-off request for a date more than two weeks from the current date.</li>
+<li>☐ A submitted request is visible to the photographer with a clear status: Pending, Approved, Denied or Cancelled.</li>
+<li>☐ A "Time Off" entry appears on the weekly schedule (8.2) only once the request has been approved; a Pending, Denied or Cancelled request never shows as a schedule entry.</li>
+<li>☐ A "Time Off" entry is visually distinguished from, but styled consistently with, a scheduled assignment entry.</li>
+<li>☐ Tapping an approved Time Off entry opens the Time Off detail screen, and the previous / next chevrons keep working from it.</li>
+<li>☐ Cancel Time Off is shown on single-day and multi-day Approved requests only when the first day is at least a day away, is styled as a secondary (red label) action, and opens a confirmation action sheet before anything changes.</li>
+<li>☐ Confirming the cancellation takes effect immediately without scheduler approval, notifies the scheduler, removes every Schedule entry for the request, and shows the request as Cancelled.</li>
+<li>☐ There is no way to cancel part of a request (a single day or time band) in the app.</li>
+<li>☐ A Pending request can be withdrawn at any time from its detail screen and moves to Cancelled without scheduler action.</li>
+<li>☐ A denied request triggers a push notification to the photographer.</li>
+<li>☐ Approving or denying a request happens in the scheduler-facing system, not this app (see Non-Goals).</li>
+<li>☐ An approved time-off date is surfaced to the scheduler as a visible flag/warning when they attempt to assign that photographer — it does not block the assignment from being created.</li>
+</ul>
+</li>
+</ul>
+<h3 id="815-account-p2">8.15 Account — P2</h3>
+<ul>
+<li><strong>Profile:</strong> name, job title, phone number, email and address as rows (value with a small label), each with the same pen icon used on Timesheets.</li>
+<li><strong>Profile Image:</strong> the photographer's photo with a secondary <strong>Update photo</strong> button.</li>
+<li><strong>Password:</strong> shown as masked dots with a pen icon to change it.</li>
+<li><strong>Appearance:</strong> three choices, <strong>System default</strong> (selected by default), <strong>Light</strong> and <strong>Dark</strong>, shown as a checked list. The choice applies to the whole app immediately.</li>
+<li><strong>Sign out:</strong> a separate row at the bottom of the screen with a red label. It signs the photographer out of the app.</li>
+<li>There is no green primary button on this screen.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ Appearance defaults to System default and follows the iPhone's Light or Dark setting until the photographer picks Light or Dark.</li>
+<li>☐ The password is never shown in plain text.</li>
+<li>☐ Pen icons, the photo and the Update photo button have VoiceOver labels (for example "Edit phone number").</li>
+</ul>
+</li>
+</ul>
+<h3 id="814-upload-status-bar-p2">8.14 Upload Status Bar — P2</h3>
+<ul>
+<li>A persistent bar sits above the tab bar and is visible from every tab while a photo upload runs, so the photographer can see progress and return to the assignment.</li>
+<li><strong>"Uploading photos"</strong> appears while a photo upload is running, with progress, and clears when the upload finishes. If the upload fails, the bar reads "Upload failed · tap to try again" and opens Assignment Details, where the primary action is Upload again.</li>
+<li>There is no "On assignment" bar. The journey state is shown on Assignment Details, not in a persistent bar.</li>
+<li>Tapping the bar opens that assignment's Details screen.</li>
+<li><strong>Acceptance criteria:</strong><ul>
+<li>☐ The bar is shown only while an upload is running.</li>
+<li>☐ The label is "Uploading photos" with progress.</li>
+<li>☐ The bar is hidden on every tab when no upload is running.</li>
+<li>☐ Tapping the bar opens the correct assignment.</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-key-data-captured-per-assignment">9. Key Data Captured Per Assignment</h2>
+<ul>
+<li>Assignment type (including whether it is a Sports assignment, which determines whether the QR code is shown), organization, location (city + address), scheduled start/end, assigned photographer(s), status.</li>
+<li>Event timestamps: travel-to start, arrival, assignment start, assignment end.</li>
+<li>Travel edits: for each trip, the system-provided travel time and distance, the photographer-provided values (if edited) and the reason for each edit, all visible to the scheduler and to payroll. A timesheet with any edit carries a flag for payroll review.</li>
+<li>Derived/captured: total assignment time (derived from timestamps) and total travel time (v1: entered on the Timesheet sheet) — tracked as two distinct pay categories, never blended — plus total distance (v1: manually entered).</li>
+<li>Expenses: toll amount(s), parking receipt image(s).</li>
+<li>Photos: upload status, file count/confirmation from SDK adapter.</li>
+<li>Notes: lead-photographer entries (author, timestamp, text).</li>
+<li>Issue reports: Equipment issues only (equipment type, description, up to 4 photos, timestamp, assignment, photographer). Call log: each tap on a Call action (Can't attend, Call scheduler, Call account coordinator) records photographer, assignment, action, journey step and timestamp. ("Can't attend", running late and no-show are not in-app report types — see 8.9.)</li>
+<li>Key data captured per time-off request: photographer, requested date(s), time of day (All Day, Before Noon or Afternoon; Before Noon and Afternoon only for a single date), submission timestamp; status (Pending, Approved, Denied, or Cancelled); decision timestamp (once decided); cancellation or withdrawal timestamp (once cancelled). The decision itself is made and recorded in the scheduler-facing system (see 8.13 and Non-Goals); this app reads and displays the resulting status and records the photographer's own cancellation.</li>
+</ul>
+<h2 id="10-success-metrics">10. Success Metrics</h2>
+<p><strong>Leading indicators (days–weeks post-launch):</strong></p>
+<ul>
+<li>% of eligible photographers who complete onboarding (invite → MFA → first login) within 7 days of invite.</li>
+<li>% of assignments where all four time-tracking events are logged (vs. incomplete/manual follow-up needed).</li>
+<li>Median time from a call-in (Can't attend or Call scheduler) to assignment reassignment, and from an Equipment issue report to the equipment coordinator's follow-up (target: same day).</li>
+<li>% of assignments reaching Uploaded via the SDK adapter without a support ticket.</li>
+</ul>
+<p><strong>Lagging indicators (weeks–months post-launch):</strong></p>
+<ul>
+<li>Reduction in timesheet disputes/corrections requiring manual payroll intervention.</li>
+<li>Reduction in missed/uncovered assignments due to late reassignment.</li>
+<li>Photographer satisfaction with the app (survey/NPS-style).</li>
+</ul>
+<p><em>(Specific numeric targets to be set once baseline data from current manual processes is available — see Open Questions.)</em></p>
+<h2 id="11-open-questions">11. Open Questions</h2>
+<ul>
+<li><strong>Assignment Details content:</strong> where are note images stored and what size limits apply? Should the app remember the chosen map app or ask every time (current design asks every time)?</li>
+<li>
+<p><del><strong>Previous / next order:</strong></del> <strong>Resolved:</strong> the chevrons move through the Past 5 days list followed by the Upcoming list in Schedule order, include approved Time Off entries, and skip days with no assignments (see 8.3). The Time Off detail screen is designed (see 8.13).</p>
+</li>
+<li>
+<p><del><strong>Distance capture method (Engineering):</strong> Is travel distance calculated from GPS tracking during the travel events, photographer self-entry, or a mapping API estimate between two addresses?</del> <strong>Resolved:</strong> v1 uses photographer self-entry (manual travel time + distance entry in the Timesheet — see 8.4/8.5). GPS-tracking or mapping-API (e.g., Google Maps/Directions) based capture is deferred to a future milestone (see Section 13).</p>
+</li>
+<li><del><strong>Leave-by note:</strong></del> <strong>Resolved for scope:</strong> shown in designs as a v2 placeholder; not in v1. Engineering to decide the traffic API and the trip start point when it is scoped (see Section 13).</li>
+<li><del><strong>Status model with early upload:</strong></del> <strong>Resolved:</strong> status stays Active until travel time and distance are submitted (see Section 6). Engineering to confirm the Processing/Uploaded transition after that point.</li>
+<li><strong>Start / Arrived travel sheets (Engineering/Product, October 11):</strong> the distance source is a distance-only API with a manual fallback (confirm the provider and cost); confirm how the app knows the photographer is at an assignment (to default the start address), how the destination after an assignment is chosen (next assignment that day, otherwise home) and whether it can be changed; whether the rounded-up (15-minute) time is what is paid; whether a distance edit also needs a reason (assumed no); whether the scheduler is alerted to an edit or only sees both values at review; and whether Start Travel after an assignment also appears once photos are uploaded and the timesheet is not yet submitted.</li>
+<li><strong>Upload reminder repeat (Product):</strong> The push fires only when End Assignment is logged and no upload has started. Still open: how long after End Assignment it fires and whether it repeats.</li>
+<li><strong>Scheduler phone number (Product):</strong> Designs use a placeholder central-time line, (888) 555-0142. Confirm the real number, whether there is one line per time zone, or whether the assigned scheduler's number is shown.</li>
+<li><strong>Timesheet visibility before approval (Product):</strong> Should photographers see an <em>estimated</em> earnings figure immediately after an assignment, clearly marked as pending, or only after scheduler approval?</li>
+<li><del><strong>Issue report and status coupling (Product):</strong></del> <strong>Resolved:</strong> neither an Equipment issue report nor a Call action changes the assignment status; status stays under scheduler control (see 8.9).</li>
+<li><del><strong>Urgent (blocking) Equipment issues (Product):</strong></del> <strong>Resolved:</strong> Equipment issues are not emergencies because the lead photographer carries backup equipment, so there is no urgent switch, and the equipment coordinator is expected to respond the same day, with no minute-level target (see 8.9).</li>
+<li><strong>Equipment issue follow-up (Product):</strong> The equipment coordinator follows up with the photographer directly. Still open: the channel (phone call, text or in-app message), and whether the report becomes a ticket.</li>
+<li><del><strong>Equipment issue photos (Engineering):</strong></del> <strong>Resolved:</strong> up to 4 photos, 20 MB in total, chosen with the iOS system photo picker; the app compresses photos to fit, shows an error if the selection is still over the limit, and lets the photographer delete photos before sending (see 8.9). Still open: the compression quality floor and the exact error copy.</li>
+<li><strong>Queued Equipment issue reports (Engineering):</strong> reports and photos are queued when there is no connection. Confirm the retry policy, how long a queued report may wait, and how the photographer can see that a report is still waiting.</li>
+<li><strong>Coordinator phone numbers (Product):</strong> placeholders are (888) 555-0142 (scheduler, central time) and (888) 555-0178 (account coordinator). Confirm real numbers, one line per time zone, or the assigned person's number.</li>
+<li><strong>Offer assignment mechanics (Product):</strong> Is it a direct 1:1 swap, a "give away to anyone eligible" offer, or both? Does the receiving photographer need to accept, or can the offering photographer assign it directly to another eligible photographer?</li>
+<li><strong>QR code scope and expiry (Engineering/Security):</strong> What exact data does the tablet app need from the QR code (including athlete names), and should the code expire or rotate for security? (Status gating is resolved: always shown for Sports assignments.)</li>
+<li><strong>Lead notes with photos (Product):</strong> What are the requirements for adding photos to notes and reusing them for future assignments at the same location?</li>
+<li><strong>SDK chip adapter (Engineering):</strong> Which specific hardware/SDK is VIP standardizing on for iOS and Android? Does it differ by platform?</li>
+<li><del><strong>MFA method (Engineering/Security):</strong></del> <strong>Resolved:</strong> SMS (text message) only; there is no authenticator app option (see 8.1). Still open: the sign-in-length and re-authentication policy.</li>
+<li><strong>Offline behavior (Engineering):</strong> Photographers are often on location with poor connectivity — do time-tracking events, notes, and photo uploads need to queue and sync when connectivity returns? Decided for Equipment issue reports: they are queued and sent when the connection returns (see 8.9).</li>
+<li><strong>Pay rate rules (Finance):</strong> Confirmed that assignment time and travel time are paid at different rates and must be tracked/displayed separately (see 8.4/8.6). Still open: what are the actual rate values, is mileage reimbursed as its own rate on top of travel-time pay, and are any of these rates configurable per photographer or per client organization?</li>
+<li><del><strong>Empty-day display (Design):</strong> Does the weekly schedule show every day of the week (with empty states for days with no assignments) or only days with assigned assignments?</del> <strong>Resolved:</strong> a day with no assignments shows an empty state (see 8.2).</li>
+<li><del><strong>Time-off enforcement (Product):</strong> Once a time-off request is approved, does the scheduler-facing system hard-block assigning that photographer on those dates, or is it a soft flag the scheduler can still override for urgent coverage needs?</del> <strong>Resolved:</strong> It's a flag, not a hard block — the scheduler-facing system surfaces approved time-off so the scheduler knows not to assign that photographer, but scheduling over it is still technically possible (see 8.13).</li>
+<li><strong>Time-off and existing assignments (Product):</strong> If a photographer already has a Scheduled assignment on a date they then request off, is that flagged as a conflict, blocked outright, or left for the scheduler to resolve manually?</li>
+<li><strong>Time-off decision turnaround (Product):</strong> Is there a maximum response time for a scheduler to approve or deny a request, given the two-week request window leaves limited lead time either way?</li>
+<li>
+<p><del><strong>Time-off cancel / withdraw (Product):</strong></del> <strong>Resolved:</strong> a Pending request can be withdrawn at any time; an Approved one (single day or multi-day) can be cancelled whole by the photographer when its first day is at least a day away, with no approval, and the scheduler is notified (see 8.13). Partial cancel (one day or time band of a range) was considered and dropped as too complicated. The Cancelled group and the Pending Withdraw request screen are designed. Still open: can a photographer have more than one pending or approved request at a time, and can a cancelled request be re-submitted for dates still inside the 14-day window (assumed yes, as a new request)?</p>
+</li>
+<li>
+<p><del><strong>Timesheet after submission (Product):</strong></del> <strong>Resolved:</strong> a timesheet can be edited until it is paid (New and Pending); once Approved or Paid it is locked. Still open: is the scheduler told when photos are still outstanding at approval time, and should a photographer be able to unlock an Approved entry by contacting payroll?</p>
+</li>
+<li><strong>Re-upload rules (Product/Engineering):</strong> After an assignment is Uploaded, can the photographer replace or add photos for 5 days, and does re-upload change the status back to Processing? Does anything block re-upload once the timesheet is approved?</li>
+</ul>
+<h2 id="12-timeline-considerations">12. Timeline Considerations</h2>
+<ul>
+<li>No hard external deadline specified yet; recommend confirming target launch quarter with stakeholders.</li>
+<li>Dependency: the separate tablet application must support the QR handoff format before 8.7 can be considered complete end-to-end.</li>
+<li>Dependency: SDK/hardware adapter selection (Open Question above) blocks 8.8 design and estimation.</li>
+<li>Dependency: the leave-by note (8.3, v2 placeholder) depends on the mapping/traffic API decision.</li>
+<li>Suggested phasing:<ul>
+<li><strong>Phase 1 (v1 core):</strong> Auth/MFA/invite-only, weekly schedule view, assignment details, full time/travel tracking, timesheet (time, distance, tolls and receipts), earnings calc feeding timesheet, Report issue (Call scheduler, Call account coordinator and Equipment issue with offline queueing), call logging, and the Can't attend call action.</li>
+<li><strong>Phase 2:</strong> QR code handoff (Sports), SDK photo upload (with the "Uploading photos" status bar and upload reminders), offer assignment, lead photographer notes, notifications, time-off requests, including cancel and withdraw (designed as its own tab; not in sprint until Phase 2).</li>
+<li><strong>Phase 3 (future milestone):</strong> In-app chat.</li>
+</ul>
+</li>
+</ul>
+<h2 id="13-future-milestones">13. Future Milestones</h2>
+<ul>
+<li><strong>Leave-by note (v2).</strong> A note with Start Travel that tells the photographer when to leave to arrive on time given traffic. Needs a traffic-aware mapping API and a trip start point.</li>
+<li><strong>In-app chat</strong> between photographers and schedulers/account managers, reducing reliance on phone/email for day-of coordination.</li>
+<li><strong>Automated travel distance/time capture (Google integration).</strong> Distance estimates and per-trip logs are now captured in the Start travel and Travel log sheets (see 8.4); this milestone adds GPS tracking during the travel events and/or a mapping API (e.g., Google Maps/Directions API) estimate between the photographer's locations, reducing self-report error and photographer data-entry burden. Engineering to weigh battery and location-privacy implications when scoped.</li>
+</ul>
+</main></div><a class="top" href="#top">&uarr; Top</a></body></html>
