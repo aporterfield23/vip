@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Photographer's Journey – Case Study</title>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#1c1f26;--mut:#5b6270;--line:#d9dce3;--head:#f0f1f4;--link:#0a6b48}
+@media (prefers-color-scheme:dark){:root{--bg:#111521;--fg:#e8eaf0;--mut:#a3a9b8;--line:#2e3448;--head:#1b2132;--link:#4cc596}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+a{color:var(--link)}
+h1{font-size:30px;line-height:1.15;margin:8px 0 4px}
+h2{font-size:21px;margin:36px 0 8px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:0 0 4px}
+.by{color:var(--mut);margin:0 0 12px}
+.lede{font-size:18px;line-height:1.5}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.links a{border:1px solid var(--line);background:var(--head);border-radius:999px;padding:6px 14px;text-decoration:none;font-size:14px;font-weight:600}
+ul{padding-left:20px}li{margin:4px 0}
+.dec{margin:20px 0 0;padding:16px;border:1px solid var(--line);border-radius:12px}
+.dec p{margin:6px 0}
+.dec .k{color:var(--mut);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.ba{display:flex;flex-wrap:wrap;gap:16px;margin:12px 0 4px}
+.ba figure{margin:0}
+.ba img{display:block;height:auto;border:1px solid var(--line);border-radius:10px;max-width:100%}
+.ba.ph img{width:200px}.ba.wide img{width:380px}
+.ba figcaption{margin-top:6px;font-size:13px;color:var(--mut)}
+.tag{display:inline-block;padding:1px 7px;border-radius:999px;font-size:.85em;font-weight:700;margin-right:2px;border:1px solid currentColor}
+.tag.b{color:#8a3b12;background:#fdeee3}.tag.a{color:#0b5c3f;background:#e3f6ee}
+@media(prefers-color-scheme:dark){.tag.b{color:#ffc9a3;background:#3a2314}.tag.a{color:#a6e8cf;background:#10382b}}
+@media screen and (min-width:780px),print{.dec{display:grid;grid-template-columns:1fr auto;column-gap:20px;align-items:start}.dec>*{grid-column:1}.dec>.k,.dec>h3{grid-column:1/-1}.dec>.ba{grid-column:2;grid-row:3/span 3;margin:0}.ba.wide{flex-direction:column}.ba.wide img{width:300px}}
+.more{font-size:14px}
+.fn{color:var(--mut);font-size:13px}
+@media print{@page{size:letter portrait;margin:14mm}body{font-size:11.5px}main{max-width:none;padding:0}h1{font-size:24px}h2{font-size:16px;margin-top:20px;break-after:avoid}.lede{font-size:13px}.dec{break-inside:avoid;padding:10px;margin-top:12px}.ba.ph img{width:105px}.ba.wide img{width:210px}.links a{padding:3px 10px;font-size:11px}.ba{gap:10px;margin:8px 0 2px}}
+</style>
+</head>
+<body><main>
+<h1>The Photographer&#x27;s Journey</h1>
+<p class="by">Designing an iOS app for VIP photographers · Alan Porterfield</p>
+<p class="lede">Photographers had a desktop website for work that happens in the field. I designed a phone app around their day: the schedule, time and travel, reporting a problem, and delivering photos. This page covers the process, what the evaluation found, and four design decisions, with links to the full evaluation and the full decision log.</p>
+<div class="links"><a href="heuristic-evaluation.html">Heuristic evaluation</a><a href="design-decisions.html">Design decisions</a><a href="index.html">Interactive demo</a></div>
+
+<h2>Process</h2>
+<ul>
+<li><b>Research.</b> Two months shadowing VIP photographers on assignment: sitting in on shoots, riding along between locations, and interviewing them directly about what problems an app could solve.</li>
+<li><b>Requirements.</b> An iterating PRD where every UX call was logged with a date and rationale (70+ decisions).</li>
+<li><b>Design.</b> Click-through Figma flows in Light and Dark. The UI is built on a copy of the iOS 27 Builder kit with VIP&#x27;s brand colours and fonts, which kept the screens inside Apple&#x27;s guidelines.</li>
+<li><b>Demo.</b> A working HTML prototype of the same flows.</li>
+<li><b>Evaluation.</b> A heuristic evaluation of the demo and the Figma screens, then design changes with before and after screenshots, and a check that the demo and Figma still match.</li>
+</ul>
+
+<h2>The problem</h2>
+<p>Schedule details were scattered across texts, emails and calls, so changes landed after the drive was made. Time entry happened once, from memory, at the end of the day, which is where drive time, tolls and parking got lost. There was no fast way to flag a problem on site. Photo delivery meant copying files to a computer and then logging into the website to upload them.</p>
+
+<h2>Key findings</h2>
+<p>The evaluation found 21 problems in the demo and Figma screens: 4 major, 13 minor and 4 cosmetic. Read from the evaluation, the ones to fix first were:</p>
+<ul>
+<li><b>Accessibility gaps.</b> Seven switches with no accessible name, and type fixed in pixels so Dynamic Type could not be tested.</li>
+<li><b>No way back in.</b> No &quot;Forgot password?&quot; and no alternate route if the text message doesn&#x27;t arrive.</li>
+<li><b>Silent loss of typed text.</b> Tapping outside a sheet closes it and discards what was typed.</li>
+<li><b>Small touch targets.</b> Chips at 36 pt, segmented controls at 28 pt and several buttons at 34–43 pt, against the 44 pt minimum.</li>
+<li><b>Contrast below AA.</b> Accent text on tinted buttons and green text in Dark mode, fixable in the colour tokens.</li>
+</ul>
+<p class="more"><a href="heuristic-evaluation.html#fix-first">See the fix-first list</a> · <a href="heuristic-evaluation.html#findings">All 21 findings with severity and fixes</a></p>
+
+<h2>Four decisions</h2>
+
+<div class="dec"><div class="k">Decision 1</div><h3>Put the secondary actions behind a menu, next to the primary button</h3>
+<p>The pinned Assignment header was 350 pt tall, 40% of the screen, and would only grow with larger text. Can&#x27;t attend, Report issue and Timesheet moved into a More menu beside the green primary button, which brought the header to 256 pt. When there is no primary button, the actions show as buttons instead.</p>
+<p><b>Trade-off:</b> an urgent action now takes two taps, and the actions are shown differently from day to day. I chose coherence over consistency, because these actions are rarely used on the day of the assignment and should not take permanent space from the one action used every time. This is based on anecdotal feedback from stakeholders.</p>
+<div class="ba ph"><figure><img src="decisions/img/hdr-before-light.png" alt="Before: header pinned at 350 pt"><figcaption><b class="tag b">Before</b> 350 pt</figcaption></figure><figure><img src="decisions/img/hdr-menu-details-light.png" alt="After: header at 256 pt with a More button"><figcaption><b class="tag a">After</b> 256 pt</figcaption></figure></div>
+<p class="more"><a href="design-decisions.html#c1">Full rationale and options</a></p></div>
+
+<div class="dec"><div class="k">Decision 2</div><h3>Collapse the header on scroll</h3>
+<p>The type and status row is not needed once the person scrolls, so it scrolls away. The primary row and the Details, Notes and Schedule tabs stay pinned (218 pt in Figma).</p>
+<p><b>Trade-off:</b> about a quarter of the screen stays pinned. I considered unpinning the tabs or the primary button; the tabs are the cheapest element to keep and the primary action must stay reachable.</p>
+<div class="ba ph"><figure><img src="decisions/img/hdr-menu-scrolled-light.png" alt="After: header collapsed when scrolled"><figcaption><b class="tag a">After</b> scrolled</figcaption></figure></div>
+<p class="more"><a href="design-decisions.html#c2">Full rationale and options</a></p></div>
+
+<div class="dec"><div class="k">Decision 3</div><h3>Fix contrast where it starts</h3>
+<p>The tinted bordered buttons left green label text at about 4.2:1 on a card in Dark, below AA. Lowering the fill from 24% to 16% brings it to about 4.7:1. The primary button label is white on the green (4.60:1) in Dark as well as Light.</p>
+<p><b>Trade-off:</b> these are overrides on the design screens. The lasting fix is in the library tokens, which I logged as library change requests.</p>
+<div class="ba wide"><figure><img src="decisions/img/zoom-fill24.png" alt="Before: 24% fill"><figcaption><b class="tag b">Before</b> 24% fill, about 4.2:1 on a card</figcaption></figure><figure><img src="decisions/img/zoom-fill16.png" alt="After: 16% fill"><figcaption><b class="tag a">After</b> 16% fill, about 4.7:1 on a card</figcaption></figure></div>
+<p class="more"><a href="design-decisions.html#c7">Bordered buttons</a> · <a href="design-decisions.html#c8">White label on green</a></p></div>
+
+<div class="dec"><div class="k">Decision 4</div><h3>Plain nav buttons, with the accent colour as the cue</h3>
+<p>The back, previous and next buttons had a glass fill that was hard to make accessible and that native iOS would not render the same way. They are now plain glyphs in the accent colour, which the app uses for everything tappable. The More button keeps its circle.</p>
+<p><b>Trade-off:</b> plain glyphs look less like buttons, so they dim at the first and last assignment to show they are controls.</p>
+<div class="ba wide"><figure><img src="decisions/img/zoom-circle-before.png" alt="Before: glass circle buttons"><figcaption><b class="tag b">Before</b> glass fill</figcaption></figure><figure><img src="decisions/img/zoom-circle-after.png" alt="After: plain accent glyphs"><figcaption><b class="tag a">After</b> plain accent glyphs</figcaption></figure></div>
+<p class="more"><a href="design-decisions.html#c9">Full rationale</a></p></div>
+
+<h2>What&#x27;s next</h2>
+<ul>
+<li>Fix the four major findings, then test Dynamic Type and VoiceOver, neither of which has been tested yet.</li>
+<li>Move the colour and button fixes into the library so the overrides can be removed.</li>
+<li>Field-test the QR photo upload against real venue conditions before making it the default.</li>
+</ul>
+<p class="fn">Nine design changes are documented in <a href="design-decisions.html">Design decisions</a>; this page shows four. The evaluation is dated November 5, 2026.</p>
+</main></body></html>
