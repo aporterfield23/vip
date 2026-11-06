@@ -1,6 +1,8 @@
 /* UI helpers: icons, small components, state and rendering. */
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const I = {
+  calMinus: '<svg viewBox="0 0 24 24"><defs><mask id="cmk"><rect width="24" height="24" fill="#fff"/><circle cx="17.5" cy="17.5" r="6.2" fill="#000"/></mask></defs><g mask="url(#cmk)"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g><circle cx="17.5" cy="17.5" r="4.6"/><path d="M15.2 17.5h4.6"/></svg>',
+  stopBang: '<svg viewBox="0 0 24 24"><path d="M8.4 3h7.2L21 8.4v7.2L15.6 21H8.4L3 15.6V8.4z"/><path d="M12 7.5v5.5"/><circle cx="12" cy="16.3" r=".6" style="fill:currentColor"/></svg>',
   more: '<svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></svg>',
   back: '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',
   up: '<svg viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/></svg>',
@@ -32,7 +34,7 @@ const docTile = '<span style="width:44px;height:44px;border-radius:22px;backgrou
 
 const chip = (label, kind = '') => `<span class="chip ${kind}"><i></i>${esc(label)}</span>`;
 const statusChip = (s) => chip(s, { Pending: 'orange', Approved: 'green', Paid: 'green', Denied: 'red', Cancelled: 'red', New: 'accent', Complete: 'green' }[s] || '');
-const btn = (label, o = {}) => `<button class="btn ${o.kind || 'primary'} ${o.small ? 'small' : ''}" ${o.act ? `data-act="${o.act}"` : ''} ${o.arg != null ? `data-arg="${esc(o.arg)}"` : ''} ${o.disabled ? 'disabled' : ''}>${esc(label)}</button>`;
+const btn = (label, o = {}) => `<button class="btn ${o.kind || 'primary'} ${o.small ? 'small' : ''}" ${o.act ? `data-act="${o.act}"` : ''} ${o.arg != null ? `data-arg="${esc(o.arg)}"` : ''} ${o.disabled ? 'disabled' : ''}>${o.icon ? `<i class="bi" aria-hidden="true">${I[o.icon]}</i>` : ''}${esc(label)}</button>`;
 const row = (o) => {
   const tag = o.act ? 'button' : 'div';
   return `<${tag} class="row" ${o.act ? `data-act="${o.act}" data-arg="${esc(o.arg ?? '')}"` : ''}><div class="grow"><div class="ttl ${o.cls || ''}">${o.title}</div>${o.sub != null ? `<div class="sub">${o.sub}</div>` : ''}</div>${o.trail != null ? `<div class="trail">${o.trail}</div>` : ''}</${tag}>`;

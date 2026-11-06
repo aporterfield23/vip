@@ -52,7 +52,7 @@ code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace}
 <div class="ba">
 <figure><img src="evaluation/img/hdr-before-light.png" alt="Before, Light" loading="lazy"><figcaption>Before (Light): 350 pt header, Timesheet wraps to a second row</figcaption></figure>
 <figure><img src="evaluation/img/hdr-menu-details-light.png" alt="With menu, Light" loading="lazy"><figcaption>With menu (Light): 256 pt, primary button plus More</figcaption></figure>
-<figure><img src="evaluation/img/hdr-menu-open-light.png" alt="Menu open, Light" loading="lazy"><figcaption>Menu open (Light): three rows, 48 pt each</figcaption></figure>
+<figure><img src="evaluation/img/hdr-menu-open-light.png" alt="Menu open, Light" loading="lazy"><figcaption>Menu open (Light): three rows, 48 pt each, with trailing symbols</figcaption></figure>
 </div>
 <div class="ba">
 <figure><img src="evaluation/img/hdr-before-dark.png" alt="Before, Dark" loading="lazy"><figcaption>Before (Dark)</figcaption></figure>
@@ -63,10 +63,12 @@ code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace}
 <figure><img src="evaluation/img/hdr-menu-scrolled-light.png" alt="Scrolled, Light" loading="lazy"><figcaption>With menu, scrolled (Light): 218 pt</figcaption></figure>
 <figure><img src="evaluation/img/hdr-menu-scrolled-dark.png" alt="Scrolled, Dark" loading="lazy"><figcaption>With menu, scrolled (Dark)</figcaption></figure>
 </div>
+<h3>Icons on the secondary actions</h3>
+<p>Each action carries the same SF Symbol in the menu and on the buttons, so it looks the same in both states: Can&#x27;t attend is <code>calendar.badge.minus</code>, Report issue is <code>exclamationmark.octagon</code> (an exclamation inside a stop sign), and Timesheet is <code>clock</code>, matching the Timesheets tab. In the menu the symbol sits at the trailing edge, as in iOS menus, in the text color; on the buttons it leads the label, in the label color. The labels stay, so the symbols are decoration for VoiceOver (hidden), not the only cue. The demo draws look-alike SVGs; the native build should use the real symbols.</p>
 <h3>No primary button: show the actions</h3>
 <p>On a future-dated assignment there is no primary button, because Start Travel only appears on the day. The row would hold only the More button, so the two remaining actions, Can&#x27;t attend and Report issue, show as two 44 pt buttons instead. There is no primary button for them to compete with, and a future assignment is when cancelling matters most. The cost is that the actions change from menu to visible between states. Once an assignment is fully done, with photos and timesheet submitted, no secondary actions remain and neither the menu nor the buttons appear.</p>
 <div class="ba">
-<figure><img src="evaluation/img/hdr-nopri-light.png" alt="No primary button, Light" loading="lazy"><figcaption>Future assignment (Light): two 44 pt buttons</figcaption></figure><figure><img src="evaluation/img/hdr-nopri-dark.png" alt="No primary button, Dark" loading="lazy"><figcaption>Future assignment (Dark). The green label on grey is finding #20&#x27;s contrast problem; fix the token, not this layout.</figcaption></figure>
+<figure><img src="evaluation/img/hdr-nopri-light.png" alt="No primary button, Light" loading="lazy"><figcaption>Future assignment (Light): two 44 pt buttons with leading symbols</figcaption></figure><figure><img src="evaluation/img/hdr-nopri-dark.png" alt="No primary button, Dark" loading="lazy"><figcaption>Future assignment (Dark). The green label on grey is finding #20&#x27;s contrast problem; fix the token, not this layout.</figcaption></figure>
 </div>
 <h3>Notes tab: Add note above the notes</h3>
 <div class="ba">
