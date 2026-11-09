@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Photographer's Day: journey and empathy map</title>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#1c1f26;--mut:#5b6270;--line:#d9dce3;--head:#f0f1f4;--link:#0a6b48;--acc:#007e52;--low:#a8480f;--lowbg:#fdf0e6}
+@media (prefers-color-scheme:dark){:root{--bg:#111521;--fg:#e8eaf0;--mut:#a3a9b8;--line:#2e3448;--head:#1b2132;--link:#4cc596;--acc:#80ccb1;--low:#f0a56d;--lowbg:#2b2118}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
+a{color:var(--link)}
+h1{font-size:26px;line-height:1.2;margin:0 0 6px}
+h2{font-size:20px;margin:40px 0 8px;padding-top:24px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:0 0 6px}
+p{margin:0 0 12px}
+.by{color:var(--mut);margin:0 0 16px}
+.titlerow{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pdfbtn{flex:none;display:inline-flex;align-items:center;gap:6px;font:600 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;color:var(--link);background:var(--head);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.pdfbtn:hover{border-color:var(--link)}.pdfbtn:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.note{background:var(--head);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--mut);font-size:14px;margin:0 0 8px}
+.note b{color:var(--fg)}
+.hyp{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--low);border:1px solid var(--low);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.persona{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0}
+.avatar{flex:none;width:44px;height:44px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:700}
+.persona p{margin:0 0 4px;font-size:15px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.scroll:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.grid{display:grid;grid-template-columns:132px repeat(6,minmax(158px,1fr));min-width:1080px;font-size:14px}
+.grid>div{padding:10px 12px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.grid>div:nth-child(7n){border-right:0}
+.rl{background:var(--head);font-weight:700;font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--mut)}
+.st{background:var(--head);font-weight:700}
+.st small{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.st .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;margin-bottom:4px}
+.low{background:var(--lowbg)}
+.ref{color:var(--mut);font-size:12px}
+.curve{position:relative;grid-column:2 / -1;height:150px;padding:0!important;border-right:0!important}
+.curve svg{position:absolute;inset:0;width:100%;height:100%}
+.dot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--acc);border:2px solid var(--bg)}
+.dot.l{background:var(--low)}
+.dl{position:absolute;transform:translateX(-50%);font-size:12px;font-weight:600;white-space:nowrap}
+.mid{position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}
+.mk{position:absolute;left:8px;font-size:11px;color:var(--mut)}
+.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:12px 0}
+.card{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card p{margin:0;font-size:14px}
+.emp{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.emp .card ul{margin:6px 0 0;padding-left:18px;font-size:14px}
+.emp .card li{margin:3px 0}
+.gap{border-style:dashed}
+.src{font-size:14px;color:var(--mut)}
+.links a{margin-right:14px}
+@media print{@page{size:landscape;margin:12mm}.pdfbtn{display:none}.scroll{overflow:visible;border:0}.grid{min-width:0;font-size:11px}h2{break-after:avoid}.card,.persona{break-inside:avoid}.grid>div{padding:6px 8px}}
+</style>
+</head>
+<body>
+<main>
+<div class="titlerow">
+<div>
+<h1>The Photographer's Day: journey and empathy map</h1>
+<p class="by">VIP Photographer App · Work in progress · Alan Porterfield</p>
+</div>
+<button type="button" class="pdfbtn" onclick="window.print()" title="Opens the print dialog. Choose Save as PDF.">Save as PDF</button>
+</div>
+
+<p class="note"><b>How this was made.</b> It is a synthesis of the project's own documents: the problem statement, personas and user stories in the <a href="prd.html">PRD</a>, and the two months of shadowing described in <a href="case-study.html">The Photographer's Journey</a>. Actions, needs and pain points come from those sources, with the PRD section shown. The feeling at each stage is a <b>hypothesis</b>, marked as such, because no interview quotes or emotion ratings were recorded. The validation study is where to test it.</p>
+
+<div class="persona">
+<div class="avatar" aria-hidden="true">FP</div>
+<div>
+<p><b>Field photographer</b> (primary user). Works assignments for schools, sports and events across a metro area, mostly alone, often back to back. A lead photographer is a field photographer who can also add notes for schedulers and account managers.</p>
+<p class="ref">Source: PRD sections 5 and 7.</p>
+</div>
+</div>
+
+<h2 id="journey">Journey map: one assignment, from schedule to paycheck</h2>
+<p>Six stages follow the assignment lifecycle. The two lowest points come after the shoot, when the work is paperwork.</p>
+
+<div class="scroll" tabindex="0" role="region" aria-label="Journey map table. Scrolls sideways on narrow screens.">
+<div class="grid">
+<div class="rl">Stage</div>
+<div class="st"><span class="n">1</span><br>Plan the week<small>Schedule</small></div>
+<div class="st"><span class="n">2</span><br>Get there<small>Day of, travelling</small></div>
+<div class="st"><span class="n">3</span><br>Shoot<small>On site</small></div>
+<div class="st low"><span class="n">4</span><br>Deliver photos<small>After End Assignment</small></div>
+<div class="st low"><span class="n">5</span><br>Timesheet<small>Time, miles, tolls</small></div>
+<div class="st"><span class="n">6</span><br>Get paid<small>And plan time off</small></div>
+
+<div class="rl">Doing</div>
+<div>Checks the week: where, when, which client. Notes days off.</div>
+<div>Heads out. Logs the start of travel and arrival. Keeps track of tolls and parking.</div>
+<div>Starts the assignment and shoots. On a sports assignment, scans a QR code to load the tablet. A lead adds notes.</div>
+<div class="low">Ends the assignment. Moves photos off the memory card.</div>
+<div class="low">Adds travel home, distance, tolls and parking receipts. Submits.</div>
+<div>Reviews earnings and the approved timesheet. Requests time off for upcoming dates.</div>
+
+<div class="rl">Needs to know</div>
+<div>Where do I need to be, and has anything changed?</div>
+<div>Am I on time? Will my drive be counted?</div>
+<div>Who is the contact? Where do I meet them? What do I do if something goes wrong?</div>
+<div class="low">Did the photos go through? Did I forget anything?</div>
+<div class="low">Is everything recorded so I am paid correctly?</div>
+<div>Are my earnings right? Can I still be scheduled on those dates?</div>
+
+<div class="rl">Feeling <span class="hyp">Hypothesis</span></div>
+<div>Uncertain</div>
+<div>Under time pressure</div>
+<div>Focused and confident</div>
+<div class="low">Tired, frustrated by an extra step</div>
+<div class="low">Annoyed by paperwork, worried about disputes</div>
+<div>Relieved if it is right, uneasy if unclear</div>
+
+<div class="rl">Emotion curve <span class="hyp">Hypothesis</span></div>
+<div class="curve" role="img" aria-label="Emotion curve, a hypothesis. Uncertain at stage 1, under pressure at stage 2, highest at stage 3 while shooting, lowest at stages 4 and 5 during upload and timesheet, recovering at stage 6.">
+<svg viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+<polyline fill="none" stroke="var(--acc)" stroke-width="3" stroke-dasharray="7 5" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round" points="50,82 150,98 250,30 350,108 450,120 550,68"/>
+</svg>
+<div class="mid"></div>
+<span class="mk" style="top:6px">Positive</span><span class="mk" style="bottom:6px">Negative</span>
+<span class="dot" style="left:8.33%;top:54.7%"></span><span class="dl" style="left:8.33%;top:66%">Uncertain</span>
+<span class="dot" style="left:25%;top:65.3%"></span><span class="dl" style="left:25%;top:76%">Pressured</span>
+<span class="dot" style="left:41.67%;top:20%"></span><span class="dl" style="left:41.67%;top:4%">Confident</span>
+<span class="dot l" style="left:58.33%;top:72%"></span><span class="dl" style="left:58.33%;top:83%;color:var(--low)">Frustrated</span>
+<span class="dot l" style="left:75%;top:80%"></span><span class="dl" style="left:75%;top:91%;color:var(--low)">Annoyed</span>
+<span class="dot" style="left:91.67%;top:45.3%"></span><span class="dl" style="left:91.67%;top:56%">Relieved</span>
+</div>
+
+<div class="rl">Pain points today</div>
+<div>No single mobile place that says where to be. The schedule lives on a desktop website.</div>
+<div>Travel time, miles and tolls are reconstructed later. There is no reliable record.</div>
+<div>When equipment fails, a client has an issue or a lead does not show, the only route is a phone call.</div>
+<div class="low">Manual photo transfers are slow and error-prone, and delay delivery to clients.</div>
+<div class="low">Slow approval and disputes, because drive time and costs are not recorded reliably.</div>
+<div>Assignment time and travel time are paid at different rates, so the total is hard to check.</div>
+
+<div class="rl">How the app responds</div>
+<div>Weekly Schedule grouped by date, with approved Time Off shown. Push for changes.<br><span class="ref">PRD 8.2, 8.11, 8.13</span></div>
+<div>Start Travel on the day. A two-step sheet confirms each trip and its distance. Leave-by note is a v2 idea.<br><span class="ref">PRD 8.4</span></div>
+<div>Assignment details with contacts and meeting point. QR for sports. Report issue: one-tap call or an equipment report. Lead notes.<br><span class="ref">PRD 8.3, 8.7, 8.9, 8.10</span></div>
+<div class="low">Upload from the memory card right after End Assignment. A reminder, a progress bar, and the Past 5 days list.<br><span class="ref">PRD 8.8, 8.14, 8.2</span></div>
+<div class="low">One Timesheet, already filled with logged times. Add tolls and receipts. Submit without waiting for upload.<br><span class="ref">PRD 8.5</span></div>
+<div>Earnings by category, the approved timesheet, and Time Off requests with status.<br><span class="ref">PRD 8.6, 8.13</span></div>
+
+<div class="rl">Who else is involved</div>
+<div>Scheduler</div>
+<div>Scheduler (late), maps</div>
+<div>Scheduler, account coordinator, equipment coordinator, tablet app</div>
+<div class="low">Scheduler, delivery to client</div>
+<div class="low">Scheduler approves, payroll admin</div>
+<div>Payroll admin, scheduler</div>
+</div>
+</div>
+
+<h2 id="insights">What the map says</h2>
+<div class="insights">
+<div class="card"><h3>1. The lowest points come after the shoot</h3><p>Uploading photos and filling in the timesheet are where the day turns into paperwork. This is why the app puts Upload photos first after End Assignment and pre-fills the Timesheet.</p></div>
+<div class="card"><h3>2. Trouble needs a fast path</h3><p>Equipment failures, late leads and client issues are handled by phone today. The app puts the right number one tap away and logs the call, and takes equipment reports in the app.</p></div>
+<div class="card"><h3>3. Trust in pay is the thread</h3><p>Reliable time, mileage and toll records, separate rates and a visible earnings breakdown all aim at one outcome: the photographer can check the number and believe it.</p></div>
+</div>
+
+<h2 id="empathy">Empathy map: the field photographer</h2>
+<div class="emp">
+<div class="card"><h3>Does</h3><ul><li>Checks the schedule and confirms details</li><li>Travels and logs start and arrival</li><li>Shoots, often alone</li><li>Uploads photos from a memory card</li><li>Fills in a timesheet with times, miles and tolls</li><li>Calls the scheduler when something goes wrong</li></ul><p class="ref">PRD 7, 8.3 to 8.9</p></div>
+<div class="card"><h3>Thinks and wants</h3><ul><li>Where do I need to be, and when?</li><li>Will my drive time and costs be counted?</li><li>Did my photos upload?</li><li>Can I be sure my pay is right?</li><li>Can I handle a problem without a long call chain?</li></ul><p class="ref">Rewritten from the PRD user stories</p></div>
+<div class="card"><h3>Feels <span class="hyp">Hypothesis</span></h3><ul><li>Pressure while travelling</li><li>Focus and pride while shooting</li><li>Tiredness and frustration with after-shoot admin</li><li>Uncertainty about pay and dispute risk</li></ul></div>
+<div class="card gap"><h3>Says <span class="hyp">Not captured yet</span></h3><p>No direct quotes were recorded in the project documents, so none are invented here. Capture these in the validation study:</p><ul><li>"Walk me through the end of your last shoot."</li><li>"What do you do when you are running late?"</li><li>"How do you check you were paid right?"</li></ul></div>
+<div class="card"><h3>Pains</h3><ul><li>No single mobile source for where to be</li><li>No reliable record of drive time and tolls</li><li>Problems on site go by phone</li><li>Slow, manual photo transfer</li></ul><p class="ref">PRD 2, problem statement</p></div>
+<div class="card"><h3>Gains</h3><ul><li>One place for the week, the day and the pay</li><li>Time and costs captured as they happen</li><li>A fast route when something goes wrong</li><li>Fewer timesheet disputes and missed assignments</li></ul><p class="ref">PRD 3 and 10</p></div>
+</div>
+
+<h2 id="next">What to do with this</h2>
+<p>Use the map as a script for the validation study: ask photographers to correct the stages, the feelings and the pain points, and to add their own words to the "Says" box. Then replace the hypotheses with what they tell you.</p>
+
+<h2 id="related">Related resources</h2>
+<p class="links"><a href="case-study.html">The Photographer's Journey</a><a href="prd.html">Product requirements</a><a href="design-decisions.html">Design decisions</a><a href="heuristic-evaluation.html">Heuristic evaluation</a><a href="https://vip-eta-six.vercel.app/">Interactive demo</a></p>
+<p class="src">Sources: PRD sections 2, 3, 5, 7, 8 and 10; the case study's process notes. Feelings and the emotion curve are hypotheses.</p>
+</main>
+</body>
+</html>
