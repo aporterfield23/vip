@@ -39,12 +39,12 @@ del{color:var(--mut)}
 <style>.titlerow h1{font-size:24px}</style></head>
 <body><div class="wrap">
 <nav class="toc" aria-label="Contents"><h2>Contents</h2><ul><li class="l2"><a href="#1-overview">1. Overview</a></li><li class="l2"><a href="#2-problem-statement">2. Problem Statement</a></li><li class="l2"><a href="#3-goals">3. Goals</a></li><li class="l2"><a href="#4-non-goals-v1">4. Non-Goals (v1)</a></li><li class="l2"><a href="#5-personas">5. Personas</a></li><li class="l2"><a href="#6-assignment-status-lifecycle">6. Assignment Status Lifecycle</a></li><li class="l2"><a href="#7-user-stories">7. User Stories</a></li><li class="l3"><a href="#as-a-field-photographer">As a Field Photographer</a></li><li class="l3"><a href="#as-a-lead-photographer-in-addition-to-the-above">As a Lead Photographer (in addition to the above)</a></li><li class="l3"><a href="#as-a-scheduler-account-manager-coordinator-consumers-not-app-users">As a Scheduler / Account Manager / Coordinator (consumers, not app users)</a></li><li class="l2"><a href="#8-functional-requirements">8. Functional Requirements</a></li><li class="l3"><a href="#81-authentication-access-p0">8.1 Authentication &amp; Access — P0</a></li><li class="l3"><a href="#82-weekly-schedule-view-p0">8.2 Weekly Schedule View — P0</a></li><li class="l3"><a href="#83-assignment-details-screen-p0">8.3 Assignment Details Screen — P0</a></li><li class="l3"><a href="#84-assignment-time-travel-tracking-p0">8.4 Assignment Time &amp; Travel Tracking — P0</a></li><li class="l3"><a href="#85-timesheet-time-distance-tolls-parking-receipts-p0">8.5 Timesheet (Time, Distance, Tolls &amp; Parking Receipts) — P0</a></li><li class="l3"><a href="#86-earnings-calculation-timesheet-p0">8.6 Earnings Calculation &amp; Timesheet — P0</a></li><li class="l3"><a href="#87-qr-code-for-tablet-handoff-sports-assignments-p1">8.7 QR Code for Tablet Handoff (Sports assignments) — P1</a></li><li class="l3"><a href="#88-photo-upload-via-sdk-chip-adapter-p0">8.8 Photo Upload via SDK Chip Adapter — P0</a></li><li class="l3"><a href="#89-issue-reporting-cant-attend-p0">8.9 Issue Reporting &amp; Can't Attend — P0</a></li><li class="l3"><a href="#810-lead-photographer-notes-p1">8.10 Lead Photographer Notes — P1</a></li><li class="l3"><a href="#811-notifications-p1">8.11 Notifications — P1</a></li><li class="l3"><a href="#812-offer-assignment-p2">8.12 Offer Assignment — P2</a></li><li class="l3"><a href="#813-time-off-requests-p1">8.13 Time-Off Requests — P1</a></li><li class="l3"><a href="#815-account-p2">8.15 Account — P2</a></li><li class="l3"><a href="#814-upload-status-bar-p2">8.14 Upload Status Bar — P2</a></li><li class="l2"><a href="#9-key-data-captured-per-assignment">9. Key Data Captured Per Assignment</a></li><li class="l2"><a href="#10-success-metrics">10. Success Metrics</a></li><li class="l2"><a href="#11-open-questions">11. Open Questions</a></li><li class="l2"><a href="#12-timeline-considerations">12. Timeline Considerations</a></li><li class="l2"><a href="#13-future-milestones">13. Future Milestones</a></li><li class="l2"><a href="#related-resources">Related resources</a></li></ul></nav>
-<main id="top"><p class="note">A copy of the PRD as last updated November 2, 2026. It is the written spec behind the <a href="https://vip-eta-six.vercel.app/">demo</a>; see the <a href="design-decisions.html">design decisions</a> and the <a href="heuristic-evaluation.html">heuristic evaluation</a> for what changed since.</p>
+<main id="top"><p class="note">A copy of the PRD, updated November 9, 2026 to match the decisions log through decision 105 (November 5). It is the written spec behind the <a href="https://vip-eta-six.vercel.app/">demo</a>; see the <a href="design-decisions.html">design decisions</a> and the <a href="heuristic-evaluation.html">heuristic evaluation</a> for what changed since.</p>
 <div class="titlerow"><h1>VIP Photographer App Product Requirements Draft</h1><button type="button" class="pdfbtn" onclick="window.print()" title="Opens the print dialog. Choose Save as PDF."><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 6V2h8v4M4 12H2.5A1.5 1.5 0 0 1 1 10.5v-3A1.5 1.5 0 0 1 2.5 6h11A1.5 1.5 0 0 1 15 7.5v3a1.5 1.5 0 0 1-1.5 1.5H12M4 9.5h8V14H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>Save as PDF</button></div>
 <p>Visual Image Photography (VIP) — Photographer Mobile App</p>
 <p><strong>Author:</strong> Alan Porterfield — drafted with Claude<br />
 <strong>Status:</strong> Draft v1<br />
-<strong>Last updated:</strong> November 2, 2026<details><summary>Show change history</summary>updated: Report an issue is a single-line action sheet and the Time period selector is an anchored menu; the Paid period selector defaults to the Current pay period and offers Current pay period, Previous pay period, Last month, Year to date, Last year and a date range; Last 7 days and Last 30 days were removed (8.6); earlier October 11: distance edits also require a reason, typed in a free-form text field, for every trip; timesheets with edits are flagged for payroll review; Start Travel and Submit Timesheet are separate actions (8.4, 9); the distance comes from a distance-only API with a manual fallback; editing travel time requires a reason, and the scheduler sees both the system-recorded and the photographer-entered values (8.4); Start Travel opens a confirmation sheet (start address editable, defaulting to home or the current assignment; assignment address and approximate miles read-only; no drive-time estimate); Arrived opens a Travel log sheet (time rounded up to the next 15 minutes and miles, both editable, Save log information); Start Travel is also a secondary action while photos upload; the same flow applies to travel after an assignment, and a new Skip upload for now action lets a photographer go to their next Start Travel without uploading (8.3, 8.4, 8.5, 11, 13); earlier October 8: Timesheets scroll behavior matches Schedule: the large title collapses and the Open / Approved / Paid control pins under the navigation bar (8.6); Schedule scroll behavior: the large title collapses to an inline title and the Upcoming / Past 5 days control pins under the navigation bar (8.2); Report issue now opens an action sheet with Call scheduler, Call account coordinator and Equipment issue, shown to every photographer, and every Call tap is logged; Equipment issue is an in-app report with a form (equipment type, description, up to 4 photos, 20 MB in total, chosen with the system photo picker) that notifies the equipment coordinator, shows a "Report sent" confirmation and can be queued when there is no connection (8.9); Add note no longer has issue tags (8.10); "Account representative" is now "Account manager"; Time Off tab now has a Cancelled group and a Pending detail with Withdraw request; an approved request, single day or multi-day, is cancelled whole through one Cancel Time Off action sheet, with no partial-day or time-band cancel (8.13); dates on detail screens use a short month, for example "Wednesday, Oct 14" (8.3); Time Off detail screen and cancel / withdraw rules (8.13); Assignment Details toolbar now uses up and down chevrons to move through the Past 5 days and Upcoming entries, including approved Time Off and skipping days with no assignments (8.3); Schedule line items show the time as the title with the assignment type below (8.2); earlier October 5 changes: the journey ends with End Assignment (no travel-home buttons): after End Assignment the primary is Upload Photos, then Submit Timesheet, and travel after the assignment is entered in the Timesheet sheet; "Tolls and receipts" replaced by "Timesheet" (time, distance, tolls and receipts in one sheet) and the timesheet no longer waits for photo upload; "Drive" renamed to "Travel" throughout so the same buttons work when the photographer goes home or to another assignment; "Past 5 days" segment shows a dot only when there are incomplete assignments (photos not uploaded or timesheet not submitted); Past 5 days list and segmented control, upload status bar only, "In progress" row indicator, combined End Assignment/Start Travel (after assignment), tolls from the travel to the assignment, push upload reminder rule, QR code in every status for Sports, leave-by note as a v2 placeholder, placeholder Central-time scheduler number</details><br />
+<strong>Last updated:</strong> November 9, 2026<details><summary>Show change history</summary>updated November 9 to match decisions 87 to 105: the QR code is an inline card on the Details tab, not a separate action (91; 8.3, 8.7); Account is restructured into Profile, App settings (Notifications, Appearance, Show assignment icons) and Sign out, with each Profile row a pushed screen, phone and email changes confirmed first, and show and hide password on every password field (93, 94, 97, 98; 8.15); the Timesheet sheet and Timesheets entries are read-only with one Edit button and an Edit form (102, 103; 8.5, 8.6); no Start now or Wait dialog after Arrived (105; 8.4). Also in the decisions log, not yet written into this PRD: Time Off detail header and title-bar dates (87, 88), assignment type glyphs (89), header spacing (90), phone number entry and the disabled-button pattern for short forms (100, 101) and Details people rows (104); earlier updated: Report an issue is a single-line action sheet and the Time period selector is an anchored menu; the Paid period selector defaults to the Current pay period and offers Current pay period, Previous pay period, Last month, Year to date, Last year and a date range; Last 7 days and Last 30 days were removed (8.6); earlier October 11: distance edits also require a reason, typed in a free-form text field, for every trip; timesheets with edits are flagged for payroll review; Start Travel and Submit Timesheet are separate actions (8.4, 9); the distance comes from a distance-only API with a manual fallback; editing travel time requires a reason, and the scheduler sees both the system-recorded and the photographer-entered values (8.4); Start Travel opens a confirmation sheet (start address editable, defaulting to home or the current assignment; assignment address and approximate miles read-only; no drive-time estimate); Arrived opens a Travel log sheet (time rounded up to the next 15 minutes and miles, both editable, Save log information); Start Travel is also a secondary action while photos upload; the same flow applies to travel after an assignment, and a new Skip upload for now action lets a photographer go to their next Start Travel without uploading (8.3, 8.4, 8.5, 11, 13); earlier October 8: Timesheets scroll behavior matches Schedule: the large title collapses and the Open / Approved / Paid control pins under the navigation bar (8.6); Schedule scroll behavior: the large title collapses to an inline title and the Upcoming / Past 5 days control pins under the navigation bar (8.2); Report issue now opens an action sheet with Call scheduler, Call account coordinator and Equipment issue, shown to every photographer, and every Call tap is logged; Equipment issue is an in-app report with a form (equipment type, description, up to 4 photos, 20 MB in total, chosen with the system photo picker) that notifies the equipment coordinator, shows a "Report sent" confirmation and can be queued when there is no connection (8.9); Add note no longer has issue tags (8.10); "Account representative" is now "Account manager"; Time Off tab now has a Cancelled group and a Pending detail with Withdraw request; an approved request, single day or multi-day, is cancelled whole through one Cancel Time Off action sheet, with no partial-day or time-band cancel (8.13); dates on detail screens use a short month, for example "Wednesday, Oct 14" (8.3); Time Off detail screen and cancel / withdraw rules (8.13); Assignment Details toolbar now uses up and down chevrons to move through the Past 5 days and Upcoming entries, including approved Time Off and skipping days with no assignments (8.3); Schedule line items show the time as the title with the assignment type below (8.2); earlier October 5 changes: the journey ends with End Assignment (no travel-home buttons): after End Assignment the primary is Upload Photos, then Submit Timesheet, and travel after the assignment is entered in the Timesheet sheet; "Tolls and receipts" replaced by "Timesheet" (time, distance, tolls and receipts in one sheet) and the timesheet no longer waits for photo upload; "Drive" renamed to "Travel" throughout so the same buttons work when the photographer goes home or to another assignment; "Past 5 days" segment shows a dot only when there are incomplete assignments (photos not uploaded or timesheet not submitted); Past 5 days list and segmented control, upload status bar only, "In progress" row indicator, combined End Assignment/Start Travel (after assignment), tolls from the travel to the assignment, push upload reminder rule, QR code in every status for Sports, leave-by note as a v2 placeholder, placeholder Central-time scheduler number</details><br />
 <strong>Platforms:</strong> iOS and Android (native or cross-platform, TBD — see Open Questions)</p>
 <hr />
 <h2 id="1-overview">1. Overview</h2>
@@ -272,82 +272,82 @@ del{color:var(--mut)}
 <tr>
 <td>Scheduled, before the assignment day</td>
 <td>None</td>
-<td>Can't attend; Report issue; Offer assignment (if permitted, P2); Add note (lead); QR code (Sports)</td>
+<td>Can't attend; Report issue; Offer assignment (if permitted, P2); Add note (lead)</td>
 </tr>
 <tr>
 <td>Scheduled, from midnight on the assignment day</td>
 <td>Start Travel (opens the Start travel sheet), with a leave-by note</td>
-<td>Can't attend; Report issue; Add note (lead); QR code (Sports)</td>
+<td>Can't attend; Report issue; Add note (lead)</td>
 </tr>
 <tr>
 <td>Traveling to the assignment</td>
 <td>Arrived (opens the Travel log sheet)</td>
-<td>Can't attend; Report issue; Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Can't attend; Report issue; Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Arrived</td>
 <td>Start Assignment</td>
-<td>Can't attend; Report issue; Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Can't attend; Report issue; Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Assignment in progress</td>
 <td>End Assignment</td>
-<td>Report issue; Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Report issue; Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Assignment ended, photos not uploaded</td>
 <td>Upload Photos (with reminder)</td>
-<td>Skip upload for now; Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Skip upload for now; Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Upload skipped, photos still to upload</td>
 <td>Start Travel (to the next assignment or home)</td>
-<td>Upload Photos; Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Upload Photos; Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Traveling after the assignment</td>
 <td>Arrived</td>
-<td>Upload Photos; Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Upload Photos; Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Uploading</td>
 <td>None (Upload Photos shows progress and is disabled)</td>
-<td>Start Travel (to the next assignment or home); Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Start Travel (to the next assignment or home); Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Traveling while uploading</td>
 <td>Arrived (the upload continues)</td>
-<td>Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Upload failed (interrupted or error)</td>
 <td>Upload again (with a failure notice)</td>
-<td>Timesheet; Add note (lead); QR code (Sports)</td>
+<td>Timesheet; Add note (lead)</td>
 </tr>
 <tr>
 <td>Photos uploaded, timesheet not submitted</td>
 <td>Submit Timesheet (opens the Timesheet sheet)</td>
-<td>Add note (lead); QR code (Sports)</td>
+<td>Add note (lead)</td>
 </tr>
 <tr>
 <td>Processing (timesheet submitted, photos not uploaded)</td>
 <td>Upload Photos (with reminder)</td>
-<td>Timesheet (view); Add note (lead); QR code (Sports)</td>
+<td>Timesheet (view); Add note (lead)</td>
 </tr>
 <tr>
 <td>Uploaded</td>
 <td>None (earnings shown as pending)</td>
-<td>Add note (lead); QR code (Sports)</td>
+<td>Add note (lead)</td>
 </tr>
 <tr>
 <td>Completed</td>
 <td>None (final earnings)</td>
-<td>QR code (Sports)</td>
+<td>None</td>
 </tr>
 <tr>
 <td>Cancelled</td>
 <td>None (read-only)</td>
-<td>QR code (Sports)</td>
+<td>None</td>
 </tr>
 </tbody>
 </table></div>
@@ -381,6 +381,7 @@ del{color:var(--mut)}
 <li>A green <strong>Start Travel</strong> button (the single primary on the sheet) logs the Start Travel timestamp.</li>
 </ul>
 </li>
+<li><strong>After Arrived (decision 105):</strong> saving the Travel log logs Arrived and Start Assignment becomes the primary; there is no "Start now or Wait" dialog. A banner says "Arrived at &lt;time&gt;" with "Tap Start Assignment when you're ready." If the assignment is still not started at its scheduled start, a local notification asks "Ready to start?". Tapping Start Assignment more than 10 minutes before the scheduled start asks "Start the assignment now?" with Not yet and Start now (the 10-minute threshold is a placeholder).</li>
 <li><strong>Travel log sheet (after every trip):</strong> tapping Arrived opens a sheet titled "Travel log" (no Cancel; the log must be saved) with the <strong>travel time</strong> from Start Travel to Arrived <strong>rounded up to the next 15-minute interval</strong> (the actual times are shown in the detail line) and the <strong>miles</strong> between the two addresses. A note says the information is added to the photographer's timesheet for this assignment automatically. A green <strong>Save log information</strong> button (the single primary) saves it and logs Arrived. <strong>Travel time and miles share one Edit button</strong> (sheet header) in case a tap was late or the distance is wrong. <strong>Editing requires a reason:</strong> Edit opens an Edit travel log sheet with open Travel time and Distance fields pre-filled with the current values and a required Reason; Save changes is disabled until a reason is entered. A second state of the sheet shows the new values and the reason; Save changes returns to the read-only log, which shows the edited time and miles with the recorded values and the reason. The system keeps the system-provided and the photographer-provided values and the reason, and the scheduler can see both (and the reason) when reviewing the timesheet.</li>
 <li><strong>Start Travel while uploading:</strong> while photos upload, the primary stays disabled with progress and a secondary <strong>Start Travel</strong> button lets the photographer leave without waiting. The upload continues in the background (the upload status bar stays visible). Start Travel then follows the same Start travel sheet, Arrived and Travel log sequence, and the log is added to the timesheet of the assignment just finished.</li>
 <li><strong>Skip upload for now:</strong> after End Assignment the primary is Upload Photos and a secondary <strong>Skip upload for now</strong> appears. Photographers may skip the upload when there is not enough time between assignments, and upload later from Past 5 days (up to 5 days after the assignment). Skipping makes Start Travel the primary so the photographer can go to the next assignment or home; the upload reminder stays. The travel log for that trip is added to the timesheet of the assignment just finished.</li>
@@ -425,7 +426,7 @@ del{color:var(--mut)}
 <li>Total travel distance (editable).</li>
 <li>Tolls entered so far, with an "Add toll or receipt" row: enter one or more toll amounts and attach one or more photos of parking receipts.</li>
 <li>A note that photos upload separately and do not block submission.</li>
-<li>The Timesheet sheet has a single Edit button in its header (no pen icons on the rows). Edit opens an Edit timesheet sheet with open, pre-filled fields (travel to the assignment, travel after the assignment, total travel distance, tolls) and a required reason for time and distance changes; Save changes is disabled until a reason is entered, and saving returns to the read-only sheet with the edited rows marked "edited", the system values, the reason and the payroll flag. The assignment time is captured by the app and is not editable. "Add toll or receipt" shows a plus icon.</li>
+<li>The Timesheet sheet has a single Edit button in its header (no pen icons on the rows). Edit switches the sheet to Edit timesheet (Cancel on the left, which returns without saving) with open, pre-filled fields (travel time, travel distance, tolls as one total) and a required reason for the change. The form is treated as a long form: Save changes stays enabled, and tapping it with a problem shows an inline error under each field that needs fixing and moves focus to the first ("Enter a number, 0 or more.", "Enter a reason for the change."; an unchanged form shows "Change at least one value to save."). Saving returns to the read-only sheet with the edited rows marked "edited", the system values, the reason and the payroll flag. The assignment time is captured by the app and is not editable. "Add toll or receipt" shows a plus icon.</li>
 <li>A <strong>Submit Timesheet</strong> button (the single green primary on the sheet).</li>
 </ul>
 </li>
@@ -439,7 +440,7 @@ del{color:var(--mut)}
 <li>☐ Submit Timesheet is enabled whether or not photos have been uploaded.</li>
 <li>☐ After End Assignment the primary is Upload Photos; once photos are uploaded it becomes Submit Timesheet. Timesheet remains available as a secondary action throughout.</li>
 <li>☐ Assignment time and travel time are shown as separate line items in the sheet.</li>
-<li>☐ Each editable field shows a pen icon; logged (non-editable) times do not.</li>
+<li>☐ Editable values are changed through one Edit button; there are no pen icons on the rows, and logged (non-editable) times cannot be edited. Once the timesheet is submitted the sheet is locked.</li>
 </ul>
 </li>
 </ul>
@@ -468,7 +469,7 @@ del{color:var(--mut)}
 <li>☐ Select a date range opens a calendar sheet with start and end date rows; the photographer picks a start and end date (not in the future), then taps Show timesheets to apply the range, and the selector then shows the range.</li>
 <li>☐ On the Paid segment, a selector defaults to the Current pay period; tapping it opens a sheet with Current pay period, Previous pay period, Last month, Year to date, Last year and Select a date range, and the list updates to the chosen period.</li>
 <li>☐ Year to date and Last year each show a summary row that opens a totals screen for that period (paid entries only).</li>
-<li>☐ New and Pending entries show a pen icon and can be edited; Approved and Paid entries show a lock icon and open read-only. No entry can be changed after it is paid.</li>
+<li>☐ New and Pending entries show their values read-only with one Edit button in the navigation bar; Edit pushes an Edit entry screen with photography time, driving miles, driving time, tolls and a required reason, and saving sends the entry for approval again (it stays Pending). Approved and Paid entries show a lock icon, have no Edit button and open read-only. No entry can be changed after it is paid.</li>
 <li>☐ Changing the assignment-time rate or the travel-time rate independently (e.g., a rate update from finance) does not require re-deriving the other category.</li>
 </ul>
 </li>
@@ -476,7 +477,7 @@ del{color:var(--mut)}
 <h3 id="87-qr-code-for-tablet-handoff-sports-assignments-p1">8.7 QR Code for Tablet Handoff (Sports assignments) — P1</h3>
 <ul>
 <li>Applies to Sports assignments only. The QR code never appears on other assignment types (e.g., School Portraits).</li>
-<li>The Assignment Details screen displays the assignment's actual QR code inline as its own separate action, in every status, for as long as the assignment is a Sports assignment. It is not hidden behind a button.</li>
+<li>The Assignment Details screen displays the assignment's actual QR code inline as a card at the top of the Details tab (there is no separate QR code button in the header), in every status, for as long as the assignment is a Sports assignment. It is not hidden behind a button.</li>
 <li>Tapping the inline QR code opens a sheet with a larger version. The sheet has a grabber, a "QR code" title, a Done button, a large QR code on a white tile (always white with a black code, in light and dark mode, so tablet cameras can scan it), the client name and a line reading "Contains 188 total records" (the number is the count of records for that sports organization or school and is dynamic), and a hint to hold the phone steady and raise screen brightness if it won't scan.</li>
 <li><strong>No QR code for this client (manual team log):</strong> some clients do not have a QR code. For those Sports assignments the QR card is replaced by a "Log teams manually" card ("This client has no QR code. Tap to enter image numbers for each team."). Tapping opens a <strong>Team log</strong> sheet (Done at the top): a list of the teams logged so far, each with its range of image numbers from the camera (for example, Varsity Football, Images 0001 – 0042) and a pen icon to edit it, followed by an "Add the next team" form with Choose team (from the shoot schedule), First image number and Last image number, and a green <strong>Save team</strong> button (the single primary on the sheet). The next first image number is suggested from the last logged range. A "Where do I find image numbers?" action under the instructions opens an <strong>Image numbers</strong> help sheet: an illustration of the camera's review screen with the image number highlighted, and three steps (find the first photo, find the last photo, enter the range). The team log is saved with the assignment.</li>
 <li><strong>QR code unavailable state:</strong> if the code can't be loaded (for example, no connection or the code hasn't been generated yet), the card shows a warning icon in place of the code, the title "QR code unavailable", and "We couldn't load it. Try again, or log each team manually." Two buttons sit under the text: <strong>Try again</strong> (reloads the code) and <strong>Log manually</strong> (opens the Team log sheet described above, so the photographer is never blocked when the code can't load). The larger sheet does not open until the code has loaded.</li>
@@ -489,7 +490,7 @@ del{color:var(--mut)}
 <li>☐ The Team log sheet has a "Where do I find image numbers?" action that opens a help sheet showing where the image number appears on the camera.</li>
 <li>☐ A team's last image number cannot be lower than its first, and ranges for one assignment cannot overlap.</li>
 <li>☐ If the code can't be loaded, the card reads "QR code unavailable" with a warning icon and two options: Try again, which reloads the code, and Log manually, which opens the Team log sheet. The enlarge sheet is not available until the code loads.</li>
-<li>☐ The QR code is shown in every status (Scheduled through Cancelled) as a separate action.</li>
+<li>☐ The QR code is shown in every status (Scheduled through Cancelled) as an inline card on the Details tab, not as a separate action.</li>
 </ul>
 </li>
 </ul>
@@ -652,16 +653,15 @@ del{color:var(--mut)}
 </ul>
 <h3 id="815-account-p2">8.15 Account — P2</h3>
 <ul>
-<li><strong>Profile:</strong> name, job title, phone number, email and address as rows (value with a small label), each with the same pen icon used on Timesheets.</li>
-<li><strong>Profile Image:</strong> the photographer's photo with a secondary <strong>Update photo</strong> button.</li>
-<li><strong>Password:</strong> shown as masked dots with a pen icon to change it.</li>
-<li><strong>Appearance:</strong> three choices, <strong>System default</strong> (selected by default), <strong>Light</strong> and <strong>Dark</strong>, shown as a checked list. The choice applies to the whole app immediately.</li>
+<li><strong>Profile photo:</strong> the photographer's photo at the top of the screen with a secondary <strong>Update photo</strong> button (opens a sheet of sources).</li>
+<li><strong>Profile:</strong> name, job title, phone number, email, address and password as rows in one card, each with a pen icon. Each row opens its own pushed screen (back button, the field name in the bar, one line of explanation, one prefilled field and a green Save button that is disabled while the field is empty), the same pattern as Change password. Changing a phone number or email does not take effect until it is confirmed: a phone number by a six-digit code sent by text message, an email by a link sent to the new address. The old value stays until then. Phone numbers are US only, formatted as typed, and need exactly 10 digits. Every password field has a Show / Hide password eye button.</li>
+<li><strong>App settings:</strong> one card with <strong>Notifications</strong> (opens the notification settings), <strong>Appearance</strong> (opens a pushed screen with <strong>System default</strong> (selected by default), <strong>Light</strong> and <strong>Dark</strong> as a checked list; the choice applies to the whole app immediately) and a <strong>Show assignment icons</strong> switch (on by default; turns off the school and sports type glyphs on Schedule entries and the Assignment Details header).</li>
 <li><strong>Sign out:</strong> a separate row at the bottom of the screen with a red label. It signs the photographer out of the app.</li>
 <li>There is no green primary button on this screen.</li>
 <li><strong>Acceptance criteria:</strong><ul>
 <li>☐ Appearance defaults to System default and follows the iPhone's Light or Dark setting until the photographer picks Light or Dark.</li>
-<li>☐ The password is never shown in plain text.</li>
-<li>☐ Pen icons, the photo and the Update photo button have VoiceOver labels (for example "Edit phone number").</li>
+<li>☐ The password is masked unless the photographer turns on Show password for that field.</li>
+<li>☐ Pen icons, the photo and the Update photo button have VoiceOver labels (for example "Edit phone number"). The Show / Hide password buttons are 44 × 44 pt and announce their state.</li>
 </ul>
 </li>
 </ul>
