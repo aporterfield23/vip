@@ -113,6 +113,7 @@ ol.take li{margin-bottom:8px}
 .pdfbtn{flex:none;display:inline-flex;align-items:center;gap:6px;font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--accent);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
 .pdfbtn:hover{border-color:var(--accent)}.pdfbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media print{@page{size:landscape;margin:12mm}.pdfbtn{display:none}.scroll,.chart{overflow:visible}table.j{min-width:0;font-size:10.5px}.lane{min-width:0}.chart svg{min-width:0}.card,.low{break-inside:avoid}h2{break-after:avoid}body{background:#fff}}
+.ref{color:var(--muted);font-size:.78rem}
 .changes{margin-top:48px}
 .changes ul{margin:8px 0 0 18px;padding:0;color:var(--muted);font-size:.92rem}
 .res ul{margin:8px 0 0;padding-left:18px;font-size:.92rem}
@@ -137,6 +138,7 @@ footer{margin-top:24px;color:var(--muted);font-size:.85rem}
     <div class="card"><h3>Lead photographer</h3>
       <p>A field photographer who can also add notes for schedulers and account managers.</p></div>
   </div>
+  <p class="ref" style="margin:8px 0 0">Source: PRD sections 5 and 7.</p>
 </header>
 
 <!-- 1. JOURNEY -->
@@ -191,13 +193,13 @@ footer{margin-top:24px;color:var(--muted);font-size:.85rem}
         <td class="pain par">Slow approval; no reliable record of drive time and tolls.</td>
         <td class="pain">Separate pay rates make totals hard to check.</td></tr>
       <tr><th scope="row">How the app responds</th>
-        <td>Weekly schedule with time off.</td>
-        <td>Start Travel and Arrived, each a two-step confirmation.</td>
-        <td>Assignment details, one-tap calling, equipment reports, lead notes.</td>
-        <td>End Assignment, with Upload Photos as the primary action and Skip upload for now.</td>
-        <td class="par">Upload reminder, progress bar on every tab, recent-uploads list.</td>
-        <td class="par">Pre-filled timesheet, submitted before, during or after upload.</td>
-        <td>Earnings by category; timesheet status.</td></tr>
+        <td>Weekly schedule with time off.<br><span class="ref">PRD 8.2, 8.11, 8.13</span></td>
+        <td>Start Travel and Arrived, each a two-step confirmation.<br><span class="ref">PRD 8.4</span></td>
+        <td>Assignment details, one-tap calling, equipment reports, lead notes.<br><span class="ref">PRD 8.3, 8.7, 8.9, 8.10</span></td>
+        <td>End Assignment, with Upload Photos as the primary action and Skip upload for now.<br><span class="ref">PRD 8.3, 8.4</span></td>
+        <td class="par">Upload reminder, progress bar on every tab, recent-uploads list.<br><span class="ref">PRD 8.8, 8.14</span></td>
+        <td class="par">Pre-filled timesheet, submitted before, during or after upload.<br><span class="ref">PRD 8.5</span></td>
+        <td>Earnings by category; timesheet status.<br><span class="ref">PRD 8.6</span></td></tr>
       <tr><th scope="row">Who else is involved <span class="chip rec">Reconstructed</span></th>
         <td>Scheduler</td><td>Scheduler (if running late)</td><td>Lead photographer, client, account coordinator, equipment coordinator; Check-in person and school helper on some jobs (see work streams)</td><td>Lead photographer</td>
         <td class="par">App support, if an upload fails</td><td class="par">Payroll</td><td>Payroll</td></tr>
@@ -244,13 +246,13 @@ footer{margin-top:24px;color:var(--muted);font-size:.85rem}
       <tr><td>After the shoot</td><td>C: the client names athletes (C1) or verifies club members (C2) on their portal. This stays outside the app.</td></tr>
     </tbody>
   </table>
-  <div class="callout"><b>Scope.</b> These work streams do not change the lifecycle, timesheet or travel flows. The tablet app, card printing and distribution, and the client portal stay outside this app.</div>
+  <div class="callout"><span class="ref" style="float:right;margin-left:12px">PRD addendum 8.16</span><b>Scope.</b> These work streams do not change the lifecycle, timesheet or travel flows. The tablet app, card printing and distribution, and the client portal stay outside this app.</div>
 </section>
 
 <!-- 2. TIME OFF -->
 <section aria-labelledby="s2">
   <h2 id="s2">A parallel journey: managing time off <span class="chip rec">Phase 2</span></h2>
-  <p class="sec-note">Time off was the last part of "Get paid". It is an availability experience with its own trigger, goal and outcome, so it now runs alongside the assignment journey and meets it at the Schedule.</p>
+  <p class="sec-note">Time off was the last part of "Get paid". It is an availability experience with its own trigger, goal and outcome, so it now runs alongside the assignment journey and meets it at the Schedule. <span class="ref">PRD 8.2, 8.13</span></p>
   <div style="overflow-x:auto">
   <div class="lane">
     <div class="card"><h3><span class="n">A</span>Notice a conflict</h3>
@@ -321,9 +323,9 @@ footer{margin-top:24px;color:var(--muted);font-size:.85rem}
   <h2 id="s5">Empathy map: field photographer</h2>
   <div class="emp">
     <div class="card"><h3>Does</h3>
-      <ul><li>Checks the schedule and confirms details</li><li>Travels and logs start and arrival</li><li>Shoots, often alone</li><li>Uploads photos from a memory card</li><li>Fills in a timesheet with times, miles and tolls</li><li>Calls the scheduler when something goes wrong</li><li>Scans each subject's QR code before the picture, from the tablet or a printed card</li><li>Logs groups by camera frame numbers on paper when there is no QR code</li></ul></div>
+      <ul><li>Checks the schedule and confirms details</li><li>Travels and logs start and arrival</li><li>Shoots, often alone</li><li>Uploads photos from a memory card</li><li>Fills in a timesheet with times, miles and tolls</li><li>Calls the scheduler when something goes wrong</li><li>Scans each subject's QR code before the picture, from the tablet or a printed card</li><li>Logs groups by camera frame numbers on paper when there is no QR code</li></ul><p class="ref">PRD 7, 8.3 to 8.9; addendum 8.16</p></div>
     <div class="card"><h3>Thinks and wants</h3>
-      <ul><li>Where to be and when</li><li>Whether drive time and costs will be counted</li><li>Whether photos uploaded</li><li>Whether pay is right</li><li>Handling a problem without a long call chain</li></ul></div>
+      <ul><li>Where to be and when</li><li>Whether drive time and costs will be counted</li><li>Whether photos uploaded</li><li>Whether pay is right</li><li>Handling a problem without a long call chain</li></ul><p class="ref">Rewritten from the PRD user stories</p></div>
     <div class="card"><h3>Feels <span class="chip hyp">Hypotheses, not recorded data</span></h3>
       <ul><li>Pressure while travelling</li><li>Focus and pride while shooting</li><li>Tiredness and frustration with after-shoot admin</li><li>Uncertainty about pay and dispute risk</li></ul></div>
     <div class="card"><h3>Says <span class="chip hyp">No direct quotes captured yet</span></h3>
@@ -333,9 +335,9 @@ footer{margin-top:24px;color:var(--muted);font-size:.85rem}
     <div class="card"><h3>Hears <span class="new">New</span></h3>
       <ul><li>Instructions and updates from schedulers</li><li>Information from lead photographers</li><li>Client requests and on-site instructions</li><li>Notifications about assignment changes</li><li>From the school helper, who lines people up for the group</li><li>From the Check-in person, where printed cards are used</li></ul></div>
     <div class="card"><h3>Pains</h3>
-      <ul><li>No single mobile source for where to be</li><li>No reliable record of drive time and tolls</li><li>On-site problems are handled by phone</li><li>Slow, manual photo transfer</li><li>Paper and PDF group logs typed in again during upload</li><li>Athletes and students with no QR code need a physical fallback</li></ul></div>
+      <ul><li>No single mobile source for where to be</li><li>No reliable record of drive time and tolls</li><li>On-site problems are handled by phone</li><li>Slow, manual photo transfer</li><li>Paper and PDF group logs typed in again during upload</li><li>Athletes and students with no QR code need a physical fallback</li></ul><p class="ref">PRD 2, problem statement; addendum 8.16</p></div>
     <div class="card" style="grid-column:1/-1"><h3>Gains</h3>
-      <ul><li>One place for the week, the day and the pay</li><li>Time and costs captured as they happen</li><li>A fast route when something goes wrong</li><li>Fewer timesheet disputes and missed assignments</li><li>Group logs entered once, in the app, and reordered as the schedule changes</li></ul></div>
+      <ul><li>One place for the week, the day and the pay</li><li>Time and costs captured as they happen</li><li>A fast route when something goes wrong</li><li>Fewer timesheet disputes and missed assignments</li><li>Group logs entered once, in the app, and reordered as the schedule changes</li></ul><p class="ref">PRD 3 and 10; addendum 8.16</p></div>
   </div>
 </section>
 
@@ -361,6 +363,7 @@ footer{margin-top:24px;color:var(--muted);font-size:.85rem}
     <li><a href="https://vip-eta-six.vercel.app/">Interactive demo</a></li>
   </ul>
 </section>
+<p class="ref" style="margin-top:24px">Sources: PRD sections 2, 3, 5, 7, 8 and 10; the PRD addendum on photo data capture (8.16); the case study's process notes. Feelings and the emotion curve are hypotheses.</p>
 <footer>Version 2, November 17, 2026. <a href="archive/journey-map-v1.html">Previous version (v1, archived)</a>.</footer>
 </div>
 
