@@ -1,178 +1,398 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Photographer's Day: journey and empathy map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Photographer's Day: Journey and Empathy Map (v2)</title>
 <style>
-:root{color-scheme:light dark;--bg:#fff;--fg:#1c1f26;--mut:#5b6270;--line:#d9dce3;--head:#f0f1f4;--link:#0a6b48;--acc:#007e52;--low:#a8480f;--lowbg:#fdf0e6}
-@media (prefers-color-scheme:dark){:root{--bg:#111521;--fg:#e8eaf0;--mut:#a3a9b8;--line:#2e3448;--head:#1b2132;--link:#4cc596;--acc:#278462;--low:#f0a56d;--lowbg:#2b2118}}
+:root{
+  --bg:#f6f7f5; --surface:#ffffff; --ink:#1b2320; --muted:#55615b; --line:#d9dfdb;
+  --accent:#1f6b43; --accent-soft:#e3f1e8; --on-accent:#ffffff;
+  --hyp:#5a3d99; --hyp-bg:#ece6f8;
+  --low:#a3342b; --low-bg:#fbe7e4;
+  --par:#0f5c7a; --par-bg:#dff0f6;
+  --inf:#7a4b00; --inf-bg:#fbefd5;
+}
+@media (prefers-color-scheme:dark){
+:root{
+  --bg:#101512; --surface:#1a211d; --ink:#edf1ee; --muted:#aab5ae; --line:#34403a;
+  --accent:#6fcf97; --accent-soft:#1e3328; --on-accent:#0b1410;
+  --hyp:#c4b0f2; --hyp-bg:#2b2342;
+  --low:#f2a39b; --low-bg:#40201d;
+  --par:#8fd3ea; --par-bg:#16303a;
+  --inf:#f0c777; --inf-bg:#3a2e14;
+}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
-main{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
-a{color:var(--link)}
-h1{font-size:26px;line-height:1.2;margin:0 0 6px}
-h2{font-size:20px;margin:40px 0 8px;padding-top:24px;border-top:1px solid var(--line)}
-h3{font-size:15px;margin:0 0 6px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.15;margin:0 0 6px}
+h2{font-size:1.4rem;margin:48px 0 6px}
+h3{font-size:1.02rem;margin:0 0 6px}
 p{margin:0 0 12px}
-.by{color:var(--mut);margin:0 0 16px}
+.byline{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+.ver{display:inline-block;font-size:.8rem;font-weight:600;background:var(--accent-soft);color:var(--accent);padding:2px 10px;border-radius:99px;margin-bottom:10px}
+.sec-note{color:var(--muted);max-width:78ch;margin-bottom:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.method{border-left:4px solid var(--hyp);background:var(--hyp-bg);padding:10px 14px;border-radius:0 10px 10px 0;font-size:.93rem;max-width:80ch}
+.chip{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;white-space:nowrap}
+.chip.hyp{background:var(--hyp-bg);color:var(--hyp)}
+.chip.rec{background:var(--inf-bg);color:var(--inf)}
+.persona{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:16px}
+.persona p{margin:0;font-size:.93rem;color:var(--muted)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+
+/* journey table */
+table.j{border-collapse:separate;border-spacing:0;min-width:1320px;width:100%;font-size:.86rem}
+table.j th,table.j td{padding:10px 10px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);vertical-align:top;text-align:left}
+table.j th[scope=row]{position:sticky;left:0;background:var(--surface);width:118px;min-width:118px;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);z-index:1}
+table.j thead th{background:var(--surface);font-size:.9rem}
+table.j tr:last-child th,table.j tr:last-child td{border-bottom:0}
+table.j td:last-child,table.j th:last-child{border-right:0}
+.n{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:.8rem;align-items:center;justify-content:center;margin-right:6px}
+td.par,th.par{background:var(--par-bg)}
+th.band{background:var(--par-bg)!important;color:var(--par);font-size:.75rem!important;text-transform:uppercase;letter-spacing:.06em;text-align:center!important;border-top:2px dashed var(--par);border-left:2px dashed var(--par);border-right:2px dashed var(--par)!important}
+td.hypo{color:var(--hyp);font-weight:600}
+td.pain{color:var(--low)}
+.callout{margin-top:14px;border-left:4px solid var(--par);background:var(--par-bg);padding:10px 14px;border-radius:0 10px 10px 0;font-size:.92rem;max-width:90ch}
+
+/* streams */
+.streams{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.stream{border-top:4px solid var(--accent)}
+.stream h3 .k{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:.85rem;align-items:center;justify-content:center;margin-right:8px}
+.stream dl{margin:8px 0 0;font-size:.88rem}
+.stream dt{font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:8px}
+.stream dd{margin:2px 0 0}
+.stream dd.pain{color:var(--low)}
+.stream .sub{border-top:1px dashed var(--line);margin-top:8px;padding-top:6px}
+.stream .sub b{font-size:.86rem}
+table.m{border-collapse:collapse;width:100%;font-size:.88rem;margin-top:14px}
+table.m th,table.m td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;background:var(--surface)}
+table.m th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.later{margin-left:6px}
+/* time off */
+.lane{display:grid;grid-template-columns:repeat(5,minmax(190px,1fr));gap:12px;min-width:1000px}
+.lane .card{border-top:4px solid var(--hyp)}
+.lane .n{background:var(--hyp);color:var(--surface)}
+.lane dl{margin:8px 0 0;font-size:.85rem}
+.lane dt{font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:8px}
+.lane dd{margin:2px 0 0}
+.lane dd.pain{color:var(--low)}
+.intersect{margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.intersect p{margin:0;font-size:.92rem}
+
+/* curve */
+.stamp{display:inline-block;font-size:.8rem;font-weight:700;color:var(--hyp);background:var(--hyp-bg);padding:3px 12px;border-radius:99px;margin-bottom:10px}
+.chart{padding:10px 6px 4px;overflow-x:auto}
+.chart svg{width:100%;height:auto;min-width:760px;display:block}
+.chart text{fill:var(--muted);font-size:12px;font-family:inherit}
+.chart .lbl{fill:var(--ink);font-weight:600;font-size:12.5px}
+.lows{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:14px}
+.low{border-left:4px solid var(--low)}
+.low.high{border-left-color:var(--accent)}
+.low h3 span{color:var(--low)}
+.low.high h3 span{color:var(--accent)}
+.low dl{margin:8px 0 0;font-size:.9rem}
+.low dt{font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:8px}
+.low dd{margin:2px 0 0}
+
+/* takeaways */
+ol.take{padding-left:22px;margin:0;max-width:80ch}
+ol.take li{margin-bottom:8px}
+
+/* empathy */
+.emp{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (max-width:720px){.emp{grid-template-columns:1fr}}
+.emp .card h3{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.emp ul{margin:6px 0 0;padding:0;list-style:none}
+.emp li{padding:6px 0;border-top:1px solid var(--line);font-size:.92rem}
+.emp li:first-child{border-top:0}
+.emp .q li{font-style:italic;color:var(--muted)}
+.empty{font-size:.9rem;padding:8px 10px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);margin-bottom:8px}
+.new{font-size:.7rem;font-weight:700;background:var(--accent);color:var(--on-accent);padding:1px 8px;border-radius:99px}
 .titlerow{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.pdfbtn{flex:none;display:inline-flex;align-items:center;gap:6px;font:600 13px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;color:var(--link);background:var(--head);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
-.pdfbtn:hover{border-color:var(--link)}.pdfbtn:focus-visible{outline:2px solid var(--link);outline-offset:2px}
-.note{background:var(--head);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--mut);font-size:14px;margin:0 0 8px}
-.note b{color:var(--fg)}
-.hyp{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--low);border:1px solid var(--low);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:middle}
-.persona{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0}
-.avatar{flex:none;width:44px;height:44px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:700}
-.persona p{margin:0 0 4px;font-size:15px}
-.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
-.scroll:focus-visible{outline:2px solid var(--link);outline-offset:2px}
-.grid{display:grid;grid-template-columns:132px repeat(6,minmax(158px,1fr));min-width:1080px;font-size:14px}
-.grid>div{padding:10px 12px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
-.grid>div:nth-child(7n){border-right:0}
-.rl{background:var(--head);font-weight:700;font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--mut)}
-.st{background:var(--head);font-weight:700}
-.st small{display:block;font-weight:400;color:var(--mut);font-size:12px}
-.st .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;margin-bottom:4px}
-.low{background:var(--lowbg)}
-.ref{color:var(--mut);font-size:12px}
-.curve{position:relative;grid-column:2 / -1;height:150px;padding:0!important;border-right:0!important}
-.curve svg{position:absolute;inset:0;width:100%;height:100%}
-.dot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--acc);border:2px solid var(--bg)}
-.dot.l{background:var(--low);border:0;width:17px;height:15px;margin:-8px 0 0 -8.5px;border-radius:0;clip-path:polygon(50% 0,100% 100%,0 100%)}
-.dl{position:absolute;transform:translateX(-50%);font-size:12px;font-weight:600;white-space:nowrap}
-.mid{position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}
-.mk{position:absolute;left:8px;font-size:11px;color:var(--mut)}
-.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:12px 0}
-.card{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-.card p{margin:0;font-size:14px}
-.emp{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.emp .card ul{margin:6px 0 0;padding-left:18px;font-size:14px}
-.emp .card li{margin:3px 0}
-.gap{border-style:dashed}
-.src{font-size:14px;color:var(--mut)}
-.links a{margin-right:14px}
-@media print{@page{size:landscape;margin:12mm}.pdfbtn{display:none}.scroll{overflow:visible;border:0}.grid{min-width:0;font-size:11px}h2{break-after:avoid}.card,.persona{break-inside:avoid}.grid>div{padding:6px 8px}}
+.pdfbtn{flex:none;display:inline-flex;align-items:center;gap:6px;font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--accent);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.pdfbtn:hover{border-color:var(--accent)}.pdfbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media print{@page{size:landscape;margin:12mm}.pdfbtn{display:none}.scroll,.chart{overflow:visible}table.j{min-width:0;font-size:10.5px}.lane{min-width:0}.chart svg{min-width:0}.card,.low{break-inside:avoid}h2{break-after:avoid}body{background:#fff}}
+.changes{margin-top:48px}
+.changes ul{margin:8px 0 0 18px;padding:0;color:var(--muted);font-size:.92rem}
+.res ul{margin:8px 0 0;padding-left:18px;font-size:.92rem}
+a{color:var(--accent)}
+footer{margin-top:24px;color:var(--muted);font-size:.85rem}
 </style>
 </head>
 <body>
-<main>
-<div class="titlerow">
-<div>
-<h1>The Photographer's Day: journey and empathy map</h1>
-<p class="by">VIP Photographer App · Work in progress · Alan Porterfield</p>
+<div class="wrap">
+
+<header>
+  <div class="titlerow"><div>
+  <span class="ver">Version 2</span>
+  <h1>The Photographer's Day: Journey and Empathy Map</h1>
+  <p class="byline">VIP Photographer App · work in progress · Alan Porterfield</p>
+  </div>
+  <button type="button" class="pdfbtn" onclick="window.print()" title="Opens the print dialog. Choose Save as PDF.">Save as PDF</button></div>
+  <p class="method"><b>Method note.</b> This map synthesizes the <a href="prd.html">PRD</a> and two months of shadowing described in <a href="case-study.html">The Photographer's Journey</a>. Actions, needs and pain points come from those sources. Feelings are hypotheses: no interviews or emotion ratings were recorded.</p>
+  <div class="persona">
+    <div class="card"><h3>Field photographer <span class="chip hyp" style="background:var(--accent-soft);color:var(--accent)">Primary user</span></h3>
+      <p>Works assignments for schools, sports and events across a metro area, mostly alone and often back to back.</p></div>
+    <div class="card"><h3>Lead photographer</h3>
+      <p>A field photographer who can also add notes for schedulers and account managers.</p></div>
+  </div>
+</header>
+
+<!-- 1. JOURNEY -->
+<section aria-labelledby="s1">
+  <h2 id="s1">The journey of one assignment</h2>
+  <p class="sec-note">Seven stages. After End Assignment the journey splits: photo upload and timesheet submission are independent, and neither waits for the other. Feelings are hypotheses.</p>
+  <div class="scroll">
+  <table class="j">
+    <thead>
+      <tr>
+        <th scope="col"></th><th scope="col"></th><th scope="col"></th><th scope="col"></th><th scope="col"></th>
+        <th class="band" colspan="2" scope="colgroup">In parallel after End Assignment</th>
+        <th scope="col"></th>
+      </tr>
+      <tr>
+        <th scope="col">Stage</th>
+        <th scope="col"><span class="n">1</span>Review schedule</th>
+        <th scope="col"><span class="n">2</span>Travel to assignment</th>
+        <th scope="col"><span class="n">3</span>Prepare and shoot</th>
+        <th scope="col"><span class="n">4</span>End assignment</th>
+        <th scope="col" class="par"><span class="n">5</span>Upload photos</th>
+        <th scope="col" class="par"><span class="n">6</span>Complete timesheet</th>
+        <th scope="col"><span class="n">7</span>Review earnings and payment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Doing</th>
+        <td>Checks the schedule, locations, times and approved days off.</td>
+        <td>Starts travel, logs departure and arrival, logs travel information.</td>
+        <td>Starts the assignment, shows the QR code (Sports), photographs on site, reports problems.</td>
+        <td>Records completion and begins the photo-upload process.</td>
+        <td class="par">Connects the memory card adapter, watches progress, handles failures or skips for now.</td>
+        <td class="par">Travels on to the next assignment or home. Reviews time, miles, tolls and parking receipts, then submits.</td>
+        <td>Checks approved timesheets, the earnings breakdown and payment status.</td></tr>
+      <tr><th scope="row">Needs to know</th>
+        <td>Where do I need to be, and when?</td>
+        <td>Am I on time? Will my drive time and costs be counted?</td>
+        <td>How do I handle a problem without a long call chain?</td>
+        <td>Can I leave now, or do I have to upload first?</td>
+        <td class="par">Did my photos upload?</td>
+        <td class="par">Will my drive time and costs be counted?</td>
+        <td>Is my pay right?</td></tr>
+      <tr><th scope="row">Feeling <span class="chip hyp">Hypothesis</span></th>
+        <td class="hypo">Uncertain</td><td class="hypo">Under time pressure</td><td class="hypo">Focused and confident</td><td class="hypo">Steady</td>
+        <td class="hypo par">Tired and frustrated</td><td class="hypo par">Annoyed, worried about disputes</td><td class="hypo">Relieved if correct, uneasy if not</td></tr>
+      <tr><th scope="row">Pain points today</th>
+        <td class="pain">No single mobile source for where to be.</td>
+        <td class="pain">Travel time, miles and tolls are reconstructed later.</td>
+        <td class="pain">Problems on site are handled by phone.</td>
+        <td class="pain">No time to upload between back-to-back assignments.</td>
+        <td class="pain par">Slow, manual transfers: backup to a computer, then a separate website.</td>
+        <td class="pain par">Slow approval; no reliable record of drive time and tolls.</td>
+        <td class="pain">Separate pay rates make totals hard to check.</td></tr>
+      <tr><th scope="row">How the app responds</th>
+        <td>Weekly schedule with time off.</td>
+        <td>Start Travel and Arrived, each a two-step confirmation.</td>
+        <td>Assignment details, one-tap calling, equipment reports, lead notes.</td>
+        <td>End Assignment, with Upload Photos as the primary action and Skip upload for now.</td>
+        <td class="par">Upload reminder, progress bar on every tab, recent-uploads list.</td>
+        <td class="par">Pre-filled timesheet, submitted before, during or after upload.</td>
+        <td>Earnings by category; timesheet status.</td></tr>
+      <tr><th scope="row">Who else is involved <span class="chip rec">Reconstructed</span></th>
+        <td>Scheduler</td><td>Scheduler (if running late)</td><td>Lead photographer, client, account coordinator, equipment coordinator; Check-in person and school helper on some jobs (see work streams)</td><td>Lead photographer</td>
+        <td class="par">App support, if an upload fails</td><td class="par">Payroll</td><td>Payroll</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout"><b>Why the split matters.</b> A photographer with no time between assignments can leave without uploading, and can submit the timesheet while the upload is still running. The map no longer suggests photos must be delivered before time is entered. The app handles uploading from the memory card; editing and client delivery are outside its scope.</div>
+</section>
+
+<!-- WORK STREAMS -->
+<section aria-labelledby="ws">
+  <h2 id="ws">Work streams: how photo data is captured on the day <span class="chip rec later">Later sprints</span></h2>
+  <p class="sec-note">The journey above is the same for every job. What changes is stage 3, how each subject is tied to their photos. All jobs fall into three categories, which can be built as separate work streams on the existing architecture in later sprints.</p>
+  <div class="streams">
+    <div class="card stream"><h3><span class="k">A</span>Tablet QR</h3>
+      <dl>
+        <dt>How it works</dt><dd>The client supplies a digital name list. The photographer loads it onto the tablet. At the shoot the subject gives a student ID or last name, the tablet generates a QR code, and the photographer scans it before the picture so the subject's data is attached to their photos.</dd>
+        <dt>Jobs</dt><dd>Sports and School portraits. QR codes are becoming more common in School jobs.</dd>
+        <dt>Who is involved</dt><dd>Photographer.</dd>
+        <dt>How the app responds</dt><dd>QR card on Assignment Details, shown beyond Sports wherever a list exists.</dd>
+      </dl></div>
+    <div class="card stream"><h3><span class="k">B</span>Printed QR card</h3>
+      <dl>
+        <dt>How it works</dt>
+        <dd><div><b>B1 · Yearbook portraits.</b> At schools still on the old system, each student gets a small paper card with their QR code while waiting in line. The photographer scans it before the picture. VIP distributes the cards on the day and hires a Check-in person to run it.</div>
+        <div class="sub"><b>B2 · Blank yellow card (School and Sports).</b> When a subject's data never reached the system and there is no QR code, the photographer hands over a blank yellow card with a new, unique QR code. The subject fills in their details. The photographer scans the card's QR code with the camera, then photographs the card, so the lab can process both together.</div></dd>
+        <dt>Who is involved</dt><dd>Photographer, athlete or student. For B1, a VIP-hired Check-in person manages the cards; this person does not use the app and the role is expected to be retired.</dd>
+        <dt>How the app responds</dt><dd>Capture-method card on Details (the Check-in person noted as text only) and a reminder about the yellow-card fallback and its scan-then-photograph order.</dd>
+      </dl></div>
+    <div class="card stream"><h3><span class="k">C</span>Manual group log</h3>
+      <dl>
+        <dt>Today</dt>
+        <dd class="pain"><b>C1 · Sports.</b> Each group's starting and ending camera frame numbers are logged on paper, then typed in with the group name during upload. The client then names each athlete by looking up each group on their portal.</dd>
+        <dd class="pain" style="margin-top:6px"><b>C2 · Service Photos (school clubs).</b> The lead photographer always logs each group in a writeable PDF and uses a cheat sheet showing the arrangement of people for the number of people in each group. A school helper lines people up tallest to shortest as they are called to the stage. Afterwards the client verifies who is in each club on the portal.</dd>
+        <dt>Who is involved</dt><dd>Photographer or lead, school helper (C2), client.</dd>
+        <dt>How the app responds</dt><dd>Enter groups and frame ranges in the app, select and reorder groups as the day's schedule changes (C1). Digital group log and built-in arrangement cheat sheet for the lead (C2).</dd>
+      </dl></div>
+  </div>
+  <table class="m">
+    <thead><tr><th>Journey stage</th><th>What changes by stream</th></tr></thead>
+    <tbody>
+      <tr><td>3 · Prepare and shoot</td><td>A: scan the generated QR before each picture. B: scan the card; hand out a yellow card if there is no QR code (scan it, then photograph it). C: log each group's frame range or club group as it is shot.</td></tr>
+      <tr><td>5 · Upload photos</td><td>C: group names and frame ranges are already in the log, so nothing is typed in again at upload.</td></tr>
+      <tr><td>After the shoot</td><td>C: the client names athletes (C1) or verifies club members (C2) on their portal. This stays outside the app.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><b>Scope.</b> These work streams do not change the lifecycle, timesheet or travel flows. The tablet app, card printing and distribution, and the client portal stay outside this app.</div>
+</section>
+
+<!-- 2. TIME OFF -->
+<section aria-labelledby="s2">
+  <h2 id="s2">A parallel journey: managing time off <span class="chip rec">Phase 2</span></h2>
+  <p class="sec-note">Time off was the last part of "Get paid". It is an availability experience with its own trigger, goal and outcome, so it now runs alongside the assignment journey and meets it at the Schedule.</p>
+  <div style="overflow-x:auto">
+  <div class="lane">
+    <div class="card"><h3><span class="n">A</span>Notice a conflict</h3>
+      <dl><dt>Doing</dt><dd>A personal commitment appears against the coming weeks.</dd>
+      <dt>Pain today</dt><dd class="pain">Time off is handled informally, so conflicts surface late.</dd>
+      <dt>App responds</dt><dd>The Schedule shows assignments in one place.</dd></dl></div>
+    <div class="card"><h3><span class="n">B</span>Request time off</h3>
+      <dl><dt>Doing</dt><dd>Picks dates in the next 14 days; for a single date chooses All Day, Before Noon or Afternoon.</dd>
+      <dt>Pain today</dt><dd class="pain">No formal request or status.</dd>
+      <dt>App responds</dt><dd>Time Off tab with a Request Time Off sheet.</dd></dl></div>
+    <div class="card"><h3><span class="n">C</span>Wait for a decision</h3>
+      <dl><dt>Doing</dt><dd>The request stays Pending; it can be withdrawn.</dd>
+      <dt>Pain today</dt><dd class="pain">No visible status.</dd>
+      <dt>App responds</dt><dd>Requests grouped Pending, Approved, Denied, Cancelled.</dd></dl></div>
+    <div class="card"><h3><span class="n">D</span>Plan around it</h3>
+      <dl><dt>Doing</dt><dd>Sees approved time off where they already look.</dd>
+      <dt>Pain today</dt><dd class="pain">Days off and assignments live in different places.</dd>
+      <dt>App responds</dt><dd>Approved entries appear on the Schedule, with a detail screen.</dd></dl></div>
+    <div class="card"><h3><span class="n">E</span>Change of plans</h3>
+      <dl><dt>Doing</dt><dd>Cancels an approved request (the whole request, at least a day ahead).</dd>
+      <dt>Pain today</dt><dd class="pain">Changes are made by phone or message.</dd>
+      <dt>App responds</dt><dd>Cancel Time Off with a confirmation sheet.</dd></dl></div>
+  </div>
+  </div>
+  <div class="intersect">
+    <div class="card"><h3>Where it meets the assignment journey</h3><p>Stage 1, Review schedule. Approved time off and assignments share one Schedule, and the previous and next chevrons on Details move across both.</p></div>
+    <div class="card"><h3>Conflicts are flagged, not blocked</h3><p>If a request overlaps an assignment, a coordinator resolves it rather than the system enforcing a hard rule.</p></div>
+  </div>
+</section>
+
+<!-- 3. EMOTION CURVE -->
+<section aria-labelledby="s3">
+  <h2 id="s3">Emotion curve</h2>
+  <p class="sec-note">One consistent scale from negative to positive across the seven stages. The two lowest points come after the shoot.</p>
+  <span class="stamp">Illustrative, not validated research data. Potential pattern to validate with photographers.</span>
+  <div class="card chart">
+    <svg id="curve" viewBox="0 0 980 340" role="img" aria-label="Hypothesized emotion curve: uncertain at schedule review, pressured while travelling, confident while shooting, steady at end of assignment, lowest at photo upload and timesheet, partly recovering at earnings review."></svg>
+  </div>
+  <div class="lows">
+    <div class="card low"><h3><span>Low · Stage 5</span> Upload photos</h3>
+      <p style="margin:0"><span class="chip hyp">Hypothesis: tired and frustrated</span></p>
+      <dl><dt>Why it may happen</dt><dd>Backing up to a personal computer on a separate, unintuitive website is extra work, especially at the end of the day when the photographer is tired.</dd>
+      <dt>Design response</dt><dd>One place to upload from the memory card, with clear progress indication at any time after completing the shoot.</dd></dl></div>
+    <div class="card low"><h3><span>Low · Stage 6</span> Complete timesheet</h3>
+      <p style="margin:0"><span class="chip hyp">Hypothesis: annoyed, worried about disputes</span></p>
+      <dl><dt>Why it may happen</dt><dd>Travel time, miles and tolls must be tracked separately and are usually recalled at the end of the day.</dd>
+      <dt>Design response</dt><dd>Time and distance captured as they happen and pre-filled; tolls and receipts added in one sheet; submit without waiting for upload.</dd></dl></div>
+    <div class="card low high"><h3><span>High · Stage 3</span> Prepare and shoot</h3>
+      <p style="margin:0"><span class="chip hyp">Hypothesis: focused and confident</span></p>
+      <dl><dt>Why it may happen</dt><dd>It is the work photographers came to do.</dd>
+      <dt>Design response</dt><dd>Keep one-tap calling and Report issue within reach, with nothing else competing for attention.</dd></dl></div>
+  </div>
+</section>
+
+<!-- 4. TAKEAWAYS -->
+<section aria-labelledby="s4">
+  <h2 id="s4">Takeaways</h2>
+  <ol class="take">
+    <li>The lowest points come after the shoot, which is why upload and timesheet are prioritized, and why they are independent of each other.</li>
+    <li>Problems need a fast path, so the app gives one-tap contact and logs incidents.</li>
+    <li>Trust in pay is the central theme: reliable records, clear rates and a visible breakdown.</li>
+    <li>However subjects are identified (tablet QR, printed card or manual log), the photographer should record it once, in the field, so nothing is re-keyed at upload.</li>
+  </ol>
+</section>
+
+<!-- 5. EMPATHY MAP -->
+<section aria-labelledby="s5">
+  <h2 id="s5">Empathy map: field photographer</h2>
+  <div class="emp">
+    <div class="card"><h3>Does</h3>
+      <ul><li>Checks the schedule and confirms details</li><li>Travels and logs start and arrival</li><li>Shoots, often alone</li><li>Uploads photos from a memory card</li><li>Fills in a timesheet with times, miles and tolls</li><li>Calls the scheduler when something goes wrong</li><li>Scans each subject's QR code before the picture, from the tablet or a printed card</li><li>Logs groups by camera frame numbers on paper when there is no QR code</li></ul></div>
+    <div class="card"><h3>Thinks and wants</h3>
+      <ul><li>Where to be and when</li><li>Whether drive time and costs will be counted</li><li>Whether photos uploaded</li><li>Whether pay is right</li><li>Handling a problem without a long call chain</li></ul></div>
+    <div class="card"><h3>Feels <span class="chip hyp">Hypotheses, not recorded data</span></h3>
+      <ul><li>Pressure while travelling</li><li>Focus and pride while shooting</li><li>Tiredness and frustration with after-shoot admin</li><li>Uncertainty about pay and dispute risk</li></ul></div>
+    <div class="card"><h3>Says <span class="chip hyp">No direct quotes captured yet</span></h3>
+      <div class="empty">Nothing is attributed to photographers until real statements are captured.</div>
+      <p style="font-size:.8rem;font-weight:700;color:var(--muted);margin:6px 0 0;text-transform:uppercase;letter-spacing:.04em">Research questions</p>
+      <ul class="q"><li>Walk me through the end of your last shoot.</li><li>What do you do when you are running late?</li><li>How do you check you were paid right?</li></ul></div>
+    <div class="card"><h3>Hears <span class="new">New</span></h3>
+      <ul><li>Instructions and updates from schedulers</li><li>Information from lead photographers</li><li>Client requests and on-site instructions</li><li>Notifications about assignment changes</li><li>From the school helper, who lines people up for the group</li><li>From the Check-in person, where printed cards are used</li></ul></div>
+    <div class="card"><h3>Pains</h3>
+      <ul><li>No single mobile source for where to be</li><li>No reliable record of drive time and tolls</li><li>On-site problems are handled by phone</li><li>Slow, manual photo transfer</li><li>Paper and PDF group logs typed in again during upload</li><li>Athletes and students with no QR code need a physical fallback</li></ul></div>
+    <div class="card" style="grid-column:1/-1"><h3>Gains</h3>
+      <ul><li>One place for the week, the day and the pay</li><li>Time and costs captured as they happen</li><li>A fast route when something goes wrong</li><li>Fewer timesheet disputes and missed assignments</li><li>Group logs entered once, in the app, and reordered as the schedule changes</li></ul></div>
+  </div>
+</section>
+
+<section class="changes card" aria-labelledby="s6">
+  <h3 id="s6">What changed from version 1</h3>
+  <ul>
+    <li>Six stages became seven; "Deliver photos" is now "Upload photos", and upload and timesheet run in parallel after a new End Assignment stage.</li>
+    <li>Time off moved out of "Get paid" into its own parallel journey.</li>
+    <li>The emotion curve is now plotted on one scale, marked illustrative, with low points explained.</li>
+    <li>Empathy map: Says keeps its "no quotes yet" note, now with a labelled research-questions list, and a Hears section is new.</li>
+    <li>New section: three photo-data capture categories (tablet QR, printed card, manual group log) as separate work streams for later sprints.</li>
+    <li>Everything else (persona, method note, pain points, app responses, takeaways, Pains and Gains) is carried over.</li>
+  </ul>
+</section>
+
+<section class="res card" style="margin-top:16px" aria-labelledby="s7">
+  <h3 id="s7">Related resources</h3>
+  <ul>
+    <li><a href="case-study.html">The Photographer's Journey</a></li>
+    <li><a href="prd.html">Product requirements</a></li>
+    <li><a href="design-decisions.html">Design decisions</a></li>
+    <li><a href="heuristic-evaluation.html">Heuristic evaluation</a></li>
+    <li><a href="https://vip-eta-six.vercel.app/">Interactive demo</a></li>
+  </ul>
+</section>
+<footer>Version 2, November 17, 2026. <a href="archive/journey-map-v1.html">Previous version (v1, archived)</a>.</footer>
 </div>
-<button type="button" class="pdfbtn" onclick="window.print()" title="Opens the print dialog. Choose Save as PDF.">Save as PDF</button>
-</div>
 
-<p class="note"><b>How this was made.</b> It is a synthesis of the project's own documents: the problem statement, personas and user stories in the <a href="prd.html">PRD</a>, and the two months of shadowing described in <a href="case-study.html">The Photographer's Journey</a>. Actions, needs and pain points come from those sources, with the PRD section shown. The feeling at each stage is a <b>hypothesis</b>, marked as such, because no interview quotes or emotion ratings were recorded. The validation study is where to test it.</p>
-
-<div class="persona">
-<div class="avatar" aria-hidden="true">FP</div>
-<div>
-<p><b>Field photographer</b> (primary user). Works assignments for schools, sports and events across a metro area, mostly alone, often back to back. A lead photographer is a field photographer who can also add notes for schedulers and account managers.</p>
-<p class="ref">Source: PRD sections 5 and 7.</p>
-</div>
-</div>
-
-<h2 id="journey">Journey map: one assignment, from schedule to paycheck</h2>
-<p>Six stages follow the assignment lifecycle. The two lowest points come after the shoot, when the work is paperwork.</p>
-
-<div class="scroll" tabindex="0" role="region" aria-label="Journey map table. Scrolls sideways on narrow screens.">
-<div class="grid">
-<div class="rl">Stage</div>
-<div class="st"><span class="n">1</span><br>Plan the week<small>Schedule</small></div>
-<div class="st"><span class="n">2</span><br>Get there<small>Day of, travelling</small></div>
-<div class="st"><span class="n">3</span><br>Shoot<small>On site</small></div>
-<div class="st low"><span class="n">4</span><br>Deliver photos<small>After End Assignment</small></div>
-<div class="st low"><span class="n">5</span><br>Timesheet<small>Time, miles, tolls</small></div>
-<div class="st"><span class="n">6</span><br>Get paid<small>And plan time off</small></div>
-
-<div class="rl">Doing</div>
-<div>Checks the week: where, when, which client. Notes days off.</div>
-<div>Heads out. Logs the start of travel and arrival. Keeps track of tolls and parking.</div>
-<div>Starts the assignment and shoots. On a sports assignment, scans a QR code to load the tablet. A lead adds notes.</div>
-<div class="low">Ends the assignment. Moves photos off the memory card.</div>
-<div class="low">Adds travel home, distance, tolls and parking receipts. Submits.</div>
-<div>Reviews earnings and the approved timesheet. Requests time off for upcoming dates.</div>
-
-<div class="rl">Needs to know</div>
-<div>Where do I need to be, and has anything changed?</div>
-<div>Am I on time? Will my drive be counted?</div>
-<div>Who is the contact? Where do I meet them? What do I do if something goes wrong?</div>
-<div class="low">Did the photos go through? Did I forget anything?</div>
-<div class="low">Is everything recorded so I am paid correctly?</div>
-<div>Are my earnings right? Can I still be scheduled on those dates?</div>
-
-<div class="rl">Feeling <span class="hyp">Hypothesis</span></div>
-<div>Uncertain</div>
-<div>Under time pressure</div>
-<div>Focused and confident</div>
-<div class="low">Tired, frustrated by an extra step</div>
-<div class="low">Annoyed by paperwork, worried about disputes</div>
-<div>Relieved if it is right, uneasy if unclear</div>
-
-<div class="rl">Emotion curve <span class="hyp">Hypothesis</span></div>
-<div class="curve" role="img" aria-label="Emotion curve, a hypothesis. Uncertain at stage 1, under pressure at stage 2, highest at stage 3 while shooting, lowest at stages 4 and 5 during upload and timesheet, recovering at stage 6.">
-<svg viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-<polyline fill="none" stroke="var(--acc)" stroke-width="3" stroke-dasharray="7 5" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round" points="50,82 150,98 250,30 350,108 450,120 550,68"/>
-</svg>
-<div class="mid"></div>
-<span class="mk" style="top:6px">Positive</span><span class="mk" style="bottom:6px">Negative</span>
-<span class="dot" style="left:8.33%;top:54.7%"></span><span class="dl" style="left:8.33%;top:66%">Uncertain</span>
-<span class="dot" style="left:25%;top:65.3%"></span><span class="dl" style="left:25%;top:76%">Pressured</span>
-<span class="dot" style="left:41.67%;top:20%"></span><span class="dl" style="left:41.67%;top:4%">Confident</span>
-<span class="dot l" style="left:58.33%;top:72%"></span><span class="dl" style="left:58.33%;top:83%;color:var(--low)">Frustrated</span>
-<span class="dot l" style="left:75%;top:80%"></span><span class="dl" style="left:75%;top:88%;color:var(--low)">Annoyed</span>
-<span class="dot" style="left:91.67%;top:45.3%"></span><span class="dl" style="left:91.67%;top:56%">Relieved</span>
-</div>
-
-<div class="rl">Pain points today</div>
-<div>No single mobile place that says where to be. The schedule lives on a desktop website.</div>
-<div>Travel time, miles and tolls are reconstructed later. There is no reliable record.</div>
-<div>When equipment fails, a client has an issue or a lead does not show, the only route is a phone call.</div>
-<div class="low">Manual photo transfers are slow and error-prone, and delay delivery to clients.</div>
-<div class="low">Slow approval and disputes, because drive time and costs are not recorded reliably.</div>
-<div>Assignment time and travel time are paid at different rates, so the total is hard to check.</div>
-
-<div class="rl">How the app responds</div>
-<div>Weekly Schedule grouped by date, with approved Time Off shown. Push for changes.<br><span class="ref">PRD 8.2, 8.11, 8.13</span></div>
-<div>Start Travel on the day. A two-step sheet confirms each trip and its distance. Leave-by note is a v2 idea.<br><span class="ref">PRD 8.4</span></div>
-<div>Assignment details with contacts and meeting point. QR for sports. Report issue: one-tap call or an equipment report. Lead notes.<br><span class="ref">PRD 8.3, 8.7, 8.9, 8.10</span></div>
-<div class="low">Upload from the memory card right after End Assignment. A reminder, a progress bar, and the Past 5 days list.<br><span class="ref">PRD 8.8, 8.14, 8.2</span></div>
-<div class="low">One Timesheet, already filled with logged times. Add tolls and receipts. Submit without waiting for upload.<br><span class="ref">PRD 8.5</span></div>
-<div>Earnings by category, the approved timesheet, and Time Off requests with status.<br><span class="ref">PRD 8.6, 8.13</span></div>
-
-<div class="rl">Who else is involved</div>
-<div>Scheduler</div>
-<div>Scheduler (late), maps</div>
-<div>Scheduler, account coordinator, equipment coordinator, tablet app</div>
-<div class="low">Scheduler, delivery to client</div>
-<div class="low">Scheduler approves, payroll admin</div>
-<div>Payroll admin, scheduler</div>
-</div>
-</div>
-
-<h2 id="insights">What the map says</h2>
-<div class="insights">
-<div class="card"><h3>1. The lowest points come after the shoot</h3><p>Uploading photos and filling in the timesheet are where the day turns into paperwork. This is why the app puts Upload photos first after End Assignment and pre-fills the Timesheet.</p></div>
-<div class="card"><h3>2. Trouble needs a fast path</h3><p>Equipment failures, late leads and client issues are handled by phone today. The app puts the right number one tap away and logs the call, and takes equipment reports in the app.</p></div>
-<div class="card"><h3>3. Trust in pay is the thread</h3><p>Reliable time, mileage and toll records, separate rates and a visible earnings breakdown all aim at one outcome: the photographer can check the number and believe it.</p></div>
-</div>
-
-<h2 id="empathy">Empathy map: the field photographer</h2>
-<div class="emp">
-<div class="card"><h3>Does</h3><ul><li>Checks the schedule and confirms details</li><li>Travels and logs start and arrival</li><li>Shoots, often alone</li><li>Uploads photos from a memory card</li><li>Fills in a timesheet with times, miles and tolls</li><li>Calls the scheduler when something goes wrong</li></ul><p class="ref">PRD 7, 8.3 to 8.9</p></div>
-<div class="card"><h3>Thinks and wants</h3><ul><li>Where do I need to be, and when?</li><li>Will my drive time and costs be counted?</li><li>Did my photos upload?</li><li>Can I be sure my pay is right?</li><li>Can I handle a problem without a long call chain?</li></ul><p class="ref">Rewritten from the PRD user stories</p></div>
-<div class="card"><h3>Feels <span class="hyp">Hypothesis</span></h3><ul><li>Pressure while travelling</li><li>Focus and pride while shooting</li><li>Tiredness and frustration with after-shoot admin</li><li>Uncertainty about pay and dispute risk</li></ul></div>
-<div class="card gap"><h3>Says <span class="hyp">Not captured yet</span></h3><p>No direct quotes were recorded in the project documents, so none are invented here. Capture these in the validation study:</p><ul><li>"Walk me through the end of your last shoot."</li><li>"What do you do when you are running late?"</li><li>"How do you check you were paid right?"</li></ul></div>
-<div class="card"><h3>Pains</h3><ul><li>No single mobile source for where to be</li><li>No reliable record of drive time and tolls</li><li>Problems on site go by phone</li><li>Slow, manual photo transfer</li></ul><p class="ref">PRD 2, problem statement</p></div>
-<div class="card"><h3>Gains</h3><ul><li>One place for the week, the day and the pay</li><li>Time and costs captured as they happen</li><li>A fast route when something goes wrong</li><li>Fewer timesheet disputes and missed assignments</li></ul><p class="ref">PRD 3 and 10</p></div>
-</div>
-
-<h2 id="related">Related resources</h2>
-<p class="links"><a href="case-study.html">The Photographer's Journey</a><a href="prd.html">Product requirements</a><a href="design-decisions.html">Design decisions</a><a href="heuristic-evaluation.html">Heuristic evaluation</a><a href="https://vip-eta-six.vercel.app/">Interactive demo</a></p>
-<p class="src">Sources: PRD sections 2, 3, 5, 7, 8 and 10; the case study's process notes. Feelings and the emotion curve are hypotheses.</p>
-</main>
+<script>
+(function(){
+  var svg=document.getElementById('curve'), NS='http://www.w3.org/2000/svg';
+  var stages=['1 Review schedule','2 Travel','3 Prepare & shoot','4 End assignment','5 Upload photos','6 Timesheet','7 Earnings'];
+  var feel=['Uncertain','Under time pressure','Focused, confident','Steady','Tired, frustrated','Annoyed','Relieved or uneasy'];
+  var score=[-0.6,-1.1,1.4,0.6,-1.6,-1.9,0.2];
+  var x0=80,dx=137,y0=150,k=55;
+  function el(n,a,t){var e=document.createElementNS(NS,n);for(var i in a)e.setAttribute(i,a[i]);if(t!=null)e.textContent=t;svg.appendChild(e);return e;}
+  var X=function(i){return x0+i*dx}, Y=function(s){return y0-s*k};
+  el('rect',{x:X(4)-60,y:14,width:dx+120,height:272,rx:12,fill:'var(--par-bg)',opacity:.7});
+  el('text',{x:X(4)+dx/2,y:30,'text-anchor':'middle','font-weight':700},'in parallel');
+  [[2,'Positive'],[0,'Neutral'],[-2,'Negative']].forEach(function(g){
+    el('line',{x1:20,x2:960,y1:Y(g[0]),y2:Y(g[0]),stroke:'var(--line)','stroke-dasharray':g[0]===0?'0':'4 4'});
+    el('text',{x:20,y:Y(g[0])-5},g[1]);
+  });
+  var pts=score.map(function(s,i){return [X(i),Y(s)]}), d='M'+pts[0][0]+','+pts[0][1];
+  for(var i=0;i<pts.length-1;i++){
+    var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+    var c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+    d+=' C'+c1+' '+c2+' '+p2;
+  }
+  el('path',{d:d,fill:'none',stroke:'var(--hyp)','stroke-width':3,'stroke-dasharray':'8 5','stroke-linecap':'round'});
+  pts.forEach(function(p,i){
+    var low=score[i]<=-1.5, hi=score[i]>=1.2;
+    el('circle',{cx:p[0],cy:p[1],r:low||hi?8:6,fill:low?'var(--low)':hi?'var(--accent)':'var(--hyp)',stroke:'var(--surface)','stroke-width':2});
+    el('text',{x:p[0],y:p[1]+(score[i]>0?-16:26),'text-anchor':'middle',class:'lbl'},feel[i]);
+    el('text',{x:p[0],y:318,'text-anchor':'middle'},stages[i]);
+  });
+})();
+</script>
 </body>
 </html>
